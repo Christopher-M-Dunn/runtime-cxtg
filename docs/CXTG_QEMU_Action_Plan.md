@@ -62,19 +62,28 @@ Per-block workflow:
 
 ## 4. Build Configuration Matrix
 
-CONFIG flags gate features at compile time (QEMU Kconfig + runtime `#ifdef`). Each phase adds one or more flags. Earlier phases always remain functional when later flags are off.
+Two ISA extensions are implemented: **Zcx** (base) and **ZcxMulti**. Both follow the standard QEMU RISC-V runtime extension pattern — no compile-time Kconfig flags are required.
+
+**Runtime extension flags** (added to `cpu_cfg_fields.h.inc`, enabled via `-cpu rv64,zcx=on`):
 
 | Flag | First Phase | Controls |
 | --- | --- | --- |
-| `CONFIG_ZCX_UNPRIV` | Phase 1–2 | cxsel, cxsetsel, cxsidx, cxsdata; Direct mode only |
-| `CONFIG_ZCX_PRIV` | Phase 3 | scxstp, scxxs0-3, scxdiscard; mode enforcement |
-| `CONFIG_ZCX_STATE` | Phase 4 | cxsidx/cxsdata wired to real CX state; cxdiscard |
-| `CONFIG_ZCX_RUNTIME` | Phase 5 | New Zcx API (cx_open UUID, cx_select, cx_save/restore) |
-| `CONFIG_ZCX_DT` | Phase 5 | Device tree CX discovery + YAML automation |
-| `CONFIG_ZCXMULTI` | Phase 6 | scxNxs0/1 (N=1–63) + Indirect mode; requires ZCX_PRIV |
-| `CONFIG_SSCSRIND` | Phase 6 | Indirect CSR access to scxNxs; requires ZCXMULTI |
-| `CONFIG_MSTATEEN` | Phase 7 | mstateen0.C gates CX access |
-| `CONFIG_SSTATEEN` | Phase 7 | sstateen0.C / hstateen0.C |
+| `ext_zcx` | Phase 1 | All Zcx CSRs and instructions; enables cxsel, cxsetsel, cxsidx, cxsdata, scxstp, scxxsn, cxdiscard |
+| `ext_zcxmulti` | Phase 6 | ZcxMulti additions: scxNxsn (N=1–63), Indirect mode; predicate enforces `ext_zcx` and `ext_sscsrind` also set |
+
+**Behavior gating at runtime** (no new flags — check existing QEMU extension state):
+
+| Check | Controls |
+| --- | --- |
+| `riscv_has_ext(env, RVS)` | Gates S-mode CSRs (scxstp, scxxsn, scxdiscard) |
+| `riscv_cpu_cfg(env)->ext_zcxmulti` | Enables per-context scxNxsn tracking and Indirect mode |
+| `riscv_cpu_cfg(env)->ext_sscsrind` | Gates Sscsrind indirect access to scxNxsn (Block 6.4) |
+| `riscv_cpu_cfg(env)->ext_smstateen` | Gates mstateen0.C enforcement (Block 7.1) |
+| `riscv_cpu_cfg(env)->ext_ssstateen` | Gates sstateen0.C / hstateen0.C enforcement (Block 7.2) |
+
+**Note on S-mode:** `RVS` is baked into the virt machine CPU model and is always present. The "no S-mode" case applies to M-only embedded targets using a different CPU definition. Test programs control privilege levels explicitly via `mstatus.MPP` + `mret` — no need to disable S-mode at the machine level.
+
+**Block 8.1 test matrix** uses `-cpu` flag combinations against a single binary, not separate recompile variants. The CONFIG_* labels in the original plan are treated as phase milestone identifiers, not `#ifdef` symbols.
 
 ---
 
@@ -764,21 +773,23 @@ Each block is one shippable feature. Format: Objective / Prerequisites / Repos+F
 
 **Prerequisites:** All previous blocks.
 
-**Repos / Files:** `qemu-cxtg`: `Kconfig` (all `CONFIG_ZCX_*` flags with depends-on). `runtime-cxtg`: `Makefile` (`-DCONFIG_*` flags). `scripts/build_matrix.sh` (new).
+**Repos / Files:** `runtime-cxtg`: `scripts/test_matrix.sh` (new), QEMU launch wrapper.
 
 **Implementation notes:**
-- Each CONFIG flag guards its code with `#ifdef` / Kconfig `depends-on`.
-- Dependency chain: ZCXMULTI depends on ZCX_PRIV depends on ZCX_UNPRIV.
-- No-config build: plain QEMU (no CX registers; all custom instrs behave normally).
+- All CX code is always compiled in; features are gated at runtime via `ext_zcx` / `ext_zcxmulti` predicates.
+- Dependency enforced at runtime: ZcxMulti predicate checks `ext_zcx` is also set.
+- `ext_zcx=off` (default): no CX CSRs visible; all custom instrs behave as plain custom instructions.
 
 **Tests:**
-- `build_matrix.sh` iterates all 2^N flag combinations; runs make for each; exits 0 if all pass.
-- CONFIG_ZCX_UNPRIV only: cxsel present; scxstp absent (no compile error).
-- CONFIG_ZCX_PRIV without MULTI: scxstp present; scxNxs absent.
-- No CONFIG flags: no CX registers; plain build.
-- Test: `scripts/build_matrix.sh` exits 0.
+- `test_matrix.sh` iterates `-cpu` flag combinations and runs applicable block tests for each; exits 0 if all pass.
+- `zcx=on` only: cxsel/cxsetsel/cxsidx/cxsdata/scxstp/scxxsn present; scxNxsn absent; Indirect mode traps.
+- `zcx=on,zcxmulti=on,sscsrind=on`: scxNxsn accessible; Indirect mode functional. (ZcxMulti requires Sscsrind per spec.)
+- `zcx=on,smstateen=on`: mstateen0.C enforcement active.
+- `zcx=on,sscsrind=on,zcxmulti=on`: Sscsrind access to scxNxsn functional.
+- `zcx=off` (default): no CX registers; all block tests correctly skipped or report SKIP.
+- Test: `scripts/test_matrix.sh` exits 0.
 
-**Definition of Done:** All build combinations succeed. No dead-code warnings on disabled paths.
+**Definition of Done:** All `-cpu` flag combinations produce correct behavior. No regressions when adding flags.
 
 **Merge action:** Merge `feat/8.1` → `cxtg-dev`.
 
@@ -794,8 +805,8 @@ Each block is one shippable feature. Format: Objective / Prerequisites / Repos+F
 
 **Implementation notes:**
 - Each test program prints PASSED or FAILED on last line; exits 0 or 1.
-- `run_all.sh`: for each config combination, rebuild, run all applicable tests, collect matrix.
-- Tests tagged by minimum config (e.g. block4_3 requires CONFIG_ZCX_STATE).
+- `run_all.sh`: for each `-cpu` flag combination, run all applicable tests, collect matrix.
+- Tests tagged by minimum extension requirement (e.g. block4_3 requires `zcx=on`).
 
 **Tests:**
 - All block tests pass on full config (all flags enabled).

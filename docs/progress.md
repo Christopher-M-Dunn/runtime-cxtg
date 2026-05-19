@@ -7,11 +7,11 @@ See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses
 
 ## Phase 0 — Foundation
 
-- [ ] **0.1** — Integrate Artur's branch, audit, build, and boot
-  - [ ] `feat/cx` cherry-picked onto `feat/0.1` and merged to `cxtg-dev`; `feat/cx` deleted
-  - [ ] `docs/phase0_audit.md` committed (DT schema, CSR inventory, cxsetsel status)
-  - [ ] `docs/flowchart_direct_mode.svg` committed
-  - [ ] Clean build; boots to Ubuntu login
+- [x] **0.1** — Integrate Artur's branch, audit, build, and boot
+  - [x] `feat/cx` cherry-picked into `cxtg-dev`; `feat/cx` deleted
+  - [x] `docs/phase0_audit.md` committed (DT schema, CSR inventory, cxsetsel status)
+  - [x] `docs/flowchart_direct_mode.svg` committed
+  - [x] Clean build (QEMU 10.2.90); Ubuntu boot skipped (not required for bare-metal ELF tests)
 
 ---
 
