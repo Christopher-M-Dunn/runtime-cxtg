@@ -54,9 +54,10 @@ Per-block workflow:
 3. Write or update the block's test programs.
 4. All block tests pass on a clean QEMU boot.
 5. PR `feat/<block-id>` → `cxtg-dev`; review diff; merge.
-6. At phase milestone (all blocks in phase green): merge `cxtg-dev` → `cxtg` and tag (e.g. `v0.phase2`).
+6. At phase milestone (all blocks in phase green): merge `cxtg-dev` → `cxtg` and tag (e.g. `cxtg-v0.phase2`).
+7. After tagging `qemu-cxtg`: in `runtime-cxtg`, commit the updated submodule pointer on `cxtg-dev`, merge `cxtg-dev` → `cxtg`, and apply the same tag.
 
-**Rule:** never commit directly to `cxtg` or `cxtg-dev`. All changes come through a `feat/` branch.
+**Rule:** never commit directly to `cxtg` or `cxtg-dev` in `qemu-cxtg`. All code changes come through a `feat/` branch. Exception: documentation-only changes in `runtime-cxtg` go directly to `cxtg-dev`.
 
 ---
 
@@ -83,7 +84,7 @@ Two ISA extensions are implemented: **Zcx** (base) and **ZcxMulti**. Both follow
 
 **Note on S-mode:** `RVS` is baked into the virt machine CPU model and is always present. The "no S-mode" case applies to M-only embedded targets using a different CPU definition. Test programs control privilege levels explicitly via `mstatus.MPP` + `mret` — no need to disable S-mode at the machine level.
 
-**Block 8.1 test matrix** uses `-cpu` flag combinations against a single binary, not separate recompile variants. The CONFIG_* labels in the original plan are treated as phase milestone identifiers, not `#ifdef` symbols.
+**Block 8.1 test matrix** uses `-cpu` flag combinations against a single binary, not separate recompile variants.
 
 ---
 
@@ -215,7 +216,7 @@ Each block is one shippable feature. Format: Objective / Prerequisites / Repos+F
 
 **Definition of Done:** All wrapper tests pass. cx_select/cx_get_sel/cx_valid behave correctly.
 
-**Merge action:** Merge `feat/1.3` → `cxtg-dev`. Phase 1 milestone → tag `v0.phase1`.
+**Merge action:** Merge `feat/1.3` → `cxtg-dev`. Phase 1 milestone → tag `cxtg-v0.phase1`.
 
 ---
 
@@ -296,7 +297,7 @@ Each block is one shippable feature. Format: Objective / Prerequisites / Repos+F
 
 **Definition of Done:** cxsel=0 no-trap, invalid trap, unregistered trap all verified.
 
-**Merge action:** Merge `feat/2.3` → `cxtg-dev`. Phase 2 milestone → merge `cxtg-dev` → `cxtg`, tag `v0.phase2`.
+**Merge action:** Merge `feat/2.3` → `cxtg-dev`. Phase 2 milestone → merge `cxtg-dev` → `cxtg`, tag `cxtg-v0.phase2`.
 
 ---
 
@@ -380,7 +381,7 @@ Each block is one shippable feature. Format: Objective / Prerequisites / Repos+F
 
 **Definition of Done:** XS transitions Initial→Dirty on cxsdata write. cxdiscard→Initial. Field isolation verified.
 
-**Merge action:** Merge `feat/3.3` → `cxtg-dev`. Phase 3 milestone → merge `cxtg-dev` → `cxtg`, tag `v0.phase3`.
+**Merge action:** Merge `feat/3.3` → `cxtg-dev`. Phase 3 milestone → merge `cxtg-dev` → `cxtg`, tag `cxtg-v0.phase3`.
 
 ---
 
@@ -462,7 +463,7 @@ Each block is one shippable feature. Format: Objective / Prerequisites / Repos+F
 
 **Definition of Done:** Discard sets XS=Initial. Privilege enforcement correct. Invalid selector traps.
 
-**Merge action:** Merge `feat/4.3` → `cxtg-dev`. Phase 4 milestone → merge `cxtg-dev` → `cxtg`, tag `v0.phase4`.
+**Merge action:** Merge `feat/4.3` → `cxtg-dev`. Phase 4 milestone → merge `cxtg-dev` → `cxtg`, tag `cxtg-v0.phase4`.
 
 ---
 
@@ -601,7 +602,7 @@ Each block is one shippable feature. Format: Objective / Prerequisites / Repos+F
 
 **Definition of Done:** YAML pipeline works. New CX needs only a YAML file + `make cx <name>`.
 
-**Merge action:** Merge `feat/5.5` → `cxtg-dev`. Phase 5 milestone → merge `cxtg-dev` → `cxtg`, tag `v0.phase5`.
+**Merge action:** Merge `feat/5.5` → `cxtg-dev`. Phase 5 milestone → merge `cxtg-dev` → `cxtg`, tag `cxtg-v0.phase5`.
 
 ---
 
@@ -671,7 +672,7 @@ Each block is one shippable feature. Format: Objective / Prerequisites / Repos+F
 - Table entry (32-bit): V(1) | reserved(15) | IDX(8) | CXID(8). Table = 1024 entries = 4 KiB.
 - On CX instruction in Indirect mode: physical read at `(scxstp.PPN << 12) + cxsel*4`. Check V bit; extract CXID+IDX; proceed as Direct.
 - V=0 or invalid CXID/IDX → illegal instruction trap.
-- scxstp.mode=2 only legal when CONFIG_ZCXMULTI is set.
+- scxstp.mode=2 when `ext_zcxmulti` is absent: treated as illegal instruction for now. Awaiting TG clarification on intended behavior. See `todo.md`.
 - Draw and commit an Indirect mode table walk flowchart: CX instruction decode → read scxstp.mode=Indirect → compute table address → physical read → V-bit check → CXID/IDX extraction → proceed as Direct or trap. Store as `docs/flowchart_indirect_mode.svg`.
 
 **Tests:**
@@ -709,7 +710,7 @@ Each block is one shippable feature. Format: Objective / Prerequisites / Repos+F
 
 **Definition of Done:** All scxNxs accessible via Sscsrind. Direct aliases consistent.
 
-**Merge action:** Merge `feat/6.4` → `cxtg-dev`. Phase 6 milestone → merge `cxtg-dev` → `cxtg`, tag `v0.phase6`.
+**Merge action:** Merge `feat/6.4` → `cxtg-dev`. Phase 6 milestone → merge `cxtg-dev` → `cxtg`, tag `cxtg-v0.phase6`.
 
 ---
 
@@ -761,15 +762,15 @@ Each block is one shippable feature. Format: Objective / Prerequisites / Repos+F
 
 **Definition of Done:** Three-level stateen gating works. Each level independently blocks CX access.
 
-**Merge action:** Merge `feat/7.2` → `cxtg-dev`. Phase 7 milestone → merge `cxtg-dev` → `cxtg`, tag `v0.phase7`.
+**Merge action:** Merge `feat/7.2` → `cxtg-dev`. Phase 7 milestone → merge `cxtg-dev` → `cxtg`, tag `cxtg-v0.phase7`.
 
 ---
 
 ### Phase 8 — Build Matrix and Full Integration
 
-#### Block 8.1 — Feature flag build matrix
+#### Block 8.1 — Runtime extension matrix
 
-**Objective:** Codebase compiles without errors or warnings for every combination of `CONFIG_ZCX_*` flags.
+**Objective:** Codebase compiles without errors or warnings, and behaves correctly for every combination of runtime `-cpu` extension flags.
 
 **Prerequisites:** All previous blocks.
 
@@ -810,13 +811,13 @@ Each block is one shippable feature. Format: Objective / Prerequisites / Repos+F
 
 **Tests:**
 - All block tests pass on full config (all flags enabled).
-- Block 1.x tests pass on CONFIG_ZCX_UNPRIV alone.
-- No test regresses when a higher CONFIG flag is added.
+- Block 1.x tests pass with only `zcx=on`.
+- No test regresses when additional `-cpu` extensions are enabled.
 - `make test` exits 0 for full config.
 
 **Definition of Done:** `make test` exits 0. No regressions across any tested config combination.
 
-**Merge action:** Merge `feat/8.2` → `cxtg-dev` → `cxtg`. Tag `v1.0`.
+**Merge action:** Merge `feat/8.2` → `cxtg-dev` → `cxtg`. Tag `cxtg-v1.0`.
 
 ---
 

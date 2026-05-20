@@ -29,9 +29,7 @@ static RISCVException scxstp_pred(CPURISCVState *env, int csrno)
 }
 ```
 
-**Block 8.1 build matrix** becomes a test matrix of `-cpu` flag combinations against a single binary — no recompilation needed.
-
-**Action plan CONFIG_* flags** (Section 4) map to phases of implementation work, not compile-time symbols. Treat them as milestone labels, not `#ifdef` guards.
+**Block 8.1 build matrix** is a test matrix of `-cpu` flag combinations against a single binary — no recompilation needed.
 
 ---
 
@@ -42,7 +40,17 @@ static RISCVException scxstp_pred(CPURISCVState *env, int csrno)
 | `CSR_CXSEL` | `qemu-cxtg/target/riscv/cpu_bits.h` | `0x800` | Spec draft says `0xCC0`; confirm with spec owners |
 | `CSR_CXSIDX` | `qemu-cxtg/target/riscv/cpu_bits.h` | `0x801` | Pending spec finalisation |
 | `CSR_CXSDATA` | `qemu-cxtg/target/riscv/cpu_bits.h` | `0x802` | Pending spec finalisation |
-| Extension name | `qemu-cxtg/target/riscv/cpu.c` etc. | `zicx` | Confirm correct ISA name (`zcx` vs `zicx`) with spec owners |
+| Extension name | `qemu-cxtg/target/riscv/cpu.c` etc. | `zicx` | Rename to `zcx` — Phase 1 task |
+
+---
+
+## scxstp.mode=2 (Indirect) when ZcxMulti absent (Block 6.3)
+
+Writing mode=2 to scxstp when `ext_zcxmulti` is not enabled: **behavior TBD**.
+
+Current implementation: treated as illegal instruction (trap on use).
+
+Awaiting TG clarification: should mode=2 be WARL-clamped on write, raise illegal instruction on write, or be silently stored but trap on first CX instruction?
 
 ---
 
