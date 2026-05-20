@@ -1,0 +1,186 @@
+# CXTG QEMU Implementation — Progress
+
+See [`CXTG_QEMU_Action_Plan.md`](CXTG_QEMU_Action_Plan.md) for full block specs.
+See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses and open questions.
+
+---
+
+## Phase 0 — Foundation
+
+- [x] implementation plan written — `docs/superpowers/plans/2026-05-19-phase0-block0.1-integrate-audit-build.md`
+
+- [x] **0.1** — Integrate Artur's branch, audit, build, and boot
+  - [x] `feat/cx` cherry-picked into `cxtg-dev`; `feat/cx` deleted
+  - [x] `docs/phase0_audit.md` committed (DT schema, CSR inventory, cxsetsel status)
+  - [x] `docs/flowchart_direct_mode.svg` committed
+  - [x] Clean build (QEMU 10.2.90); Ubuntu boot skipped (not required for bare-metal ELF tests)
+
+---
+
+## Phase 1 — Unpriv CSR and Instruction Scaffolding
+
+- [ ] implementation plan written
+
+- [ ] **1.1** — CSR stubs: cxsel, cxsidx, cxsdata
+- [ ] **1.2** — cxsetsel instruction stub *(scope may change based on 0.1 audit)*
+- [ ] **1.3** — Runtime wrappers (cx_select, cx_get_sel, cx_valid)
+
+**Phase 1 milestone:** tag `v0.phase1`
+
+---
+
+## Phase 2 — Direct Mode Semantics
+
+- [ ] implementation plan written
+
+- [ ] **2.1** — scxstp CSR stub
+- [ ] **2.2** — scxstp.mode=0 (Disabled) enforcement
+- [ ] **2.3** — Direct mode: cxsel=0 builtin / invalid trap / unregistered trap
+
+**Phase 2 milestone:** merge `cxtg-dev` → `cxtg`, tag `v0.phase2`
+
+---
+
+## Phase 3 — Context Status (scxxs0-3)
+
+- [ ] implementation plan written
+
+- [ ] **3.1** — scxxs0-3 CSR stubs
+  - [ ] `docs/flowchart_xs_states.svg` committed
+- [ ] **3.2** — scxxs Off-state enforcement
+  - [ ] `docs/flowchart_os_context_switch.svg` committed
+- [ ] **3.3** — scxxs dirty tracking
+
+**Phase 3 milestone:** merge `cxtg-dev` → `cxtg`, tag `v0.phase3`
+
+---
+
+## Phase 4 — CX State Access: First CX and cxsidx/cxsdata
+
+- [ ] implementation plan written
+
+- [ ] **4.1** — Hardcode first CX (mulacc) in QEMU
+- [ ] **4.2** — cxsidx + cxsdata wired to CX state
+- [ ] **4.3** — cxdiscard and scxdiscard
+
+**Phase 4 milestone:** merge `cxtg-dev` → `cxtg`, tag `v0.phase4`
+
+---
+
+## Phase 5 — Runtime, API, and Device Tree
+
+- [ ] implementation plan written
+
+- [ ] **5.1** — New Zcx runtime API stubs
+- [ ] **5.2** — End-to-end smoke test program
+- [ ] **5.3** — Device tree CX registration
+- [ ] **5.4** — Runtime cx_open DT query (UUID → CXID)
+  - [ ] `docs/flowchart_cx_open.svg` committed
+- [ ] **5.5** — YAML-driven DT and CX auto-registration *(LOW PRIORITY / NICE-TO-HAVE)*
+
+**Phase 5 milestone:** merge `cxtg-dev` → `cxtg`, tag `v0.phase5`
+
+---
+
+## Phase 6 — ZcxMulti: Per-context Status and Indirect Mode
+
+- [ ] implementation plan written
+
+- [ ] **6.1** — scxNxs0/1 CSR stubs (N=1–63)
+- [ ] **6.2** — Per-context dirty tracking via scxNxs
+- [ ] **6.3** — Indirect mode (scxstp.mode=2)
+  - [ ] `docs/flowchart_indirect_mode.svg` committed
+- [ ] **6.4** — Sscsrind for scxNxs
+
+**Phase 6 milestone:** merge `cxtg-dev` → `cxtg`, tag `v0.phase6`
+
+---
+
+## Phase 7 — Stateen Integration
+
+- [ ] implementation plan written
+
+- [ ] **7.1** — mstateen0.C bit
+- [ ] **7.2** — sstateen0.C and hstateen0.C
+
+**Phase 7 milestone:** merge `cxtg-dev` → `cxtg`, tag `v0.phase7`
+
+---
+
+## Phase 8 — Build Matrix and Full Integration
+
+- [ ] implementation plan written
+
+- [ ] **8.1** — Feature flag build matrix
+- [ ] **8.2** — Full integration test suite
+
+**Phase 8 milestone:** merge `cxtg-dev` → `cxtg`, tag `v1.0`
+
+---
+
+## Release Notes
+
+### v1.0 — *(pending)*
+
+### v0.phase7 — *(pending)*
+
+### v0.phase6 — *(pending)*
+
+### v0.phase5 — *(pending)*
+
+### v0.phase4 — *(pending)*
+
+### v0.phase3 — *(pending)*
+
+### v0.phase2 — *(pending)*
+
+### v0.phase1 — *(pending)*
+
+### v0.phase0 — Baseline (Artur's CX branch integrated)
+
+**Root repo — files created:**
+- created: `.gitignore`
+- created: `.gitmodules` — added `qemu-cxtg` and `linux-cxtg` as submodules
+- created: `docs/CXTG_QEMU_Action_Plan.md`
+- created: `docs/bugs.md`
+- created: `docs/flowchart_direct_mode.svg`
+- created: `docs/phase0_audit.md`
+- created: `docs/progress.md`
+- created: `docs/superpowers/plans/2026-05-19-phase0-block0.1-integrate-audit-build.md`
+- created: `docs/todo.md`
+  - deferred: build flag architecture — only `ext_zcx` and `ext_zcxmulti` runtime flags needed; no `CONFIG_*` compile-time symbols required
+  - deferred: `CSR_CXSEL` address set to `0x800` (stub); spec draft says `0xCC0` — confirm with spec owners
+  - deferred: `CSR_CXSIDX` (`0x801`) and `CSR_CXSDATA` (`0x802`) addresses pending spec finalisation
+  - deferred: extension name `zicx` change to `zcx`
+  - deferred: `cxsetsel` instruction encoding TBD — SYSTEM opcode (`0x73`), funct3 slot unassigned
+
+**qemu-cxtg — `cxtg-dev` vs `cxtg` (+1075 lines, 19 files):**
+- created: `CLAUDE.md` — added QEMU build system instructions, RISC-V target overview, and CX extension development guidance for Claude Code
+- created: `Composable-Extensions.md` — documented CX extension requirements: cxsel (URO), cxsetsel instruction, cxsidx/cxsdata CSRs, and atomics semantics
+- created: `spec.md` — added full Zicx implementation spec: CSR layout, instruction encoding, privilege model, and QEMU integration notes (author: Artur Lojewski)
+- modified: `disas/riscv.c` — added disassembler name entries for cxsel (0x800), cxidx (0x801), cxdata (0x802)
+- modified: `hw/core/cpu-common.c` — added debug printf in `cpu_common_parse_features` logging feature string at parse time
+- modified: `hw/core/qdev-properties.c` — added debug printf in `qdev_prop_check_globals` logging driver/property/value for each global prop
+- modified: `linux-headers/asm-riscv/kvm.h` — added `KVM_RISCV_ISA_EXT_ZICX` to the KVM ISA extension enum
+- modified: `system/vl.c` — added debug printf in `QEMU_OPTION_cpu` case logging `-cpu` option value at parse time
+- modified: `target/riscv/cpu.c` — registered `zicx` as ISA extension (`ISA_EXT_DATA_ENTRY`, `MULTI_EXT_CFG_BOOL`, default off); zeroed `cxsel`/`cxidx`/`cxdata` on CPU reset when `ext_zicx` set
+- modified: `target/riscv/cpu.h` — included `cx.h`; added `cxsel`, `cxidx`, `cxdata` fields to `CPUArchState`
+- modified: `target/riscv/cpu_bits.h` — defined `CSR_CXSEL` (0x800), `CSR_CXSIDX` (0x801), `CSR_CXSDATA` (0x802); defined `CXSEL_INV`, `CXSEL_TYPE`, `CXSEL_SEL` field masks
+- modified: `target/riscv/cpu_cfg_fields.h.inc` — added `ext_zicx` `BOOL_FIELD` to CPU config fields
+- modified: `target/riscv/cpu_helper.c` — added `#include "cx.h"`
+- modified: `target/riscv/csr.c` — implemented read/write handlers and `ext_zicx`-gated predicates for `CSR_CXSEL`, `CSR_CXSIDX`, `CSR_CXSDATA`; registered in `csr_ops`; `write_cxsel` returns `ILLEGAL_INST` (cxsel is read-only per spec)
+- created: `target/riscv/cx.c` — implemented `cxsel_csr_read/write`, `cxsidx_csr_read/write`, `cxsdata_csr_read/write` with trace events; `cxsel` write is a no-op stub (read-only)
+- created: `target/riscv/cx.h` — declared read/write prototypes for cxsel, cxsidx, cxsdata CSR handlers
+- modified: `target/riscv/kvm/kvm-cpu.c` — added `zicx` entry to `kvm_multi_ext_cfgs` (`KVM_RISCV_ISA_EXT_ZICX`); added debug printf in `kvm_riscv_update_cpu_cfg_isa_ext` and `kvm_riscv_add_cpu_user_properties`
+- modified: `target/riscv/meson.build` — added `cx.c` to the RISC-V system source set
+- modified: `target/riscv/trace-events` — added trace event definitions for `cxsel`, `cxsidx`, `cxsdata` CSR read and write operations
+
+**qemu-cxtg — workflow documentation:**
+- modified: `CLAUDE.md` — replaced "Current Branch: feature/cx" with stable "CX Extension Workflow" section (branch model, per-block workflow, parent repo tagging step)
+- modified: `spec.md` — updated `## Commit History` and `## Contact` (maintainer, branch, version)
+
+**Root repo — workflow documentation:**
+- created: `CLAUDE.md`, `docs/spec.md` (symlink), `docs/Composable-Extensions.md` (symlink)
+- modified: `docs/CXTG_QEMU_Action_Plan.md` — added step 7 (parent repo milestone sync); docs-only exception to workflow rule
+- modified: `docs/progress.md` — added `implementation plan written` to all phases
+- modified: `docs/todo.md` — `zicx` → `zcx` rename deferred to Phase 1

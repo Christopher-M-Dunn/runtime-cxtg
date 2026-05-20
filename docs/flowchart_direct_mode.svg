@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="860" height="760" xmlns="http://www.w3.org/2000/svg" font-family="monospace" font-size="12">
+  <title>Zcx Direct Mode — cxsetsel and CX instruction flows</title>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#555"/>
+    </marker>
+    <marker id="arr-blu" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1976d2"/>
+    </marker>
+  </defs>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- LEFT COLUMN — cxsetsel  (centered at x=155)       -->
+  <!-- ══════════════════════════════════════════════════ -->
+
+  <text x="155" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#444">① cxsetsel rd, rs1</text>
+  <text x="155" y="36" text-anchor="middle" font-size="10" fill="#888">call once to select a CX context</text>
+
+  <rect x="30" y="48" width="250" height="36" rx="4" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+  <text x="155" y="64" text-anchor="middle">cxsetsel rd, rs1</text>
+  <text x="155" y="78" text-anchor="middle" font-size="10" fill="#888">Block 1.2  —  SYSTEM opcode</text>
+
+  <line x1="155" y1="84" x2="155" y2="116" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="30" y="116" width="250" height="42" rx="4" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+  <text x="155" y="134" text-anchor="middle">rd  ←  old cxsel</text>
+  <text x="155" y="150" text-anchor="middle">cxsel  ←  rs1  (WARL)</text>
+
+  <line x1="155" y1="158" x2="155" y2="190" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="30" y="190" width="250" height="36" rx="4" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+  <text x="155" y="207" text-anchor="middle" font-weight="bold">cxsel  (hart register)</text>
+  <text x="155" y="220" text-anchor="middle" font-size="10" fill="#555">persists until next cxsetsel</text>
+
+  <line x1="280" y1="208" x2="398" y2="208" stroke="#1976d2" stroke-width="1.4" stroke-dasharray="5,3" marker-end="url(#arr-blu)"/>
+  <text x="339" y="202" text-anchor="middle" font-size="10" fill="#1976d2">read on every CX insn</text>
+
+  <!-- LEGEND -->
+  <rect x="30" y="270" width="230" height="114" rx="4" fill="#fafafa" stroke="#ccc" stroke-width="1"/>
+  <text x="42" y="290" font-size="11" font-weight="bold">Legend</text>
+  <rect x="42" y="298" width="14" height="12" fill="#c8e6c9" stroke="#388e3c" stroke-width="1"/>
+  <text x="62" y="309" font-size="10">Implemented (Phase 0)</text>
+  <rect x="42" y="316" width="14" height="12" fill="#fff9c4" stroke="#f9a825" stroke-width="1"/>
+  <text x="62" y="327" font-size="10">Planned (Phase 1–4)</text>
+  <rect x="42" y="334" width="14" height="12" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="62" y="345" font-size="10">Planned (ZcxMulti, Phase 6)</text>
+  <rect x="42" y="352" width="14" height="12" fill="#ffcdd2" stroke="#c62828" stroke-width="1"/>
+  <text x="62" y="363" font-size="10">Trap</text>
+  <rect x="42" y="370" width="14" height="12" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
+  <text x="62" y="381" font-size="10">Decision</text>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- RIGHT COLUMN — CX insn  (centered at x=580)       -->
+  <!-- ══════════════════════════════════════════════════ -->
+
+  <text x="580" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#444">② CX instruction</text>
+  <text x="580" y="36" text-anchor="middle" font-size="10" fill="#888">repeat without reselecting — cxsel persists</text>
+
+  <ellipse cx="580" cy="66" rx="155" ry="18" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/>
+  <text x="580" y="71" text-anchor="middle">custom-0..3 instruction issued</text>
+
+  <line x1="580" y1="84" x2="580" y2="114" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- scxstp.mode? -->
+  <polygon points="580,114 720,146 580,178 440,146" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="580" y="150" text-anchor="middle">scxstp.mode ?</text>
+  <text x="580" y="164" text-anchor="middle" font-size="10" fill="#888">Block 2.1</text>
+
+  <line x1="720" y1="146" x2="762" y2="146" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="741" y="139" text-anchor="middle" font-size="10">Disabled</text>
+  <rect x="762" y="134" width="52" height="24" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5"/>
+  <text x="788" y="150" text-anchor="middle" font-size="11">Trap</text>
+
+  <line x1="580" y1="178" x2="580" y2="206" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="596" y="195" font-size="10">Direct</text>
+
+  <!-- cxsel == ~0UL? -->
+  <polygon points="580,206 726,236 580,266 434,236" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="580" y="240" text-anchor="middle">cxsel == ~0UL ?</text>
+  <text x="580" y="254" text-anchor="middle" font-size="10" fill="#888">Block 2.3</text>
+
+  <line x1="726" y1="236" x2="762" y2="236" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="744" y="229" text-anchor="middle" font-size="10">Yes</text>
+  <rect x="762" y="224" width="52" height="24" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5"/>
+  <text x="788" y="240" text-anchor="middle" font-size="11">Trap</text>
+
+  <line x1="580" y1="266" x2="580" y2="292" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="596" y="282" font-size="10">No</text>
+
+  <!-- cxsel == 0? -->
+  <polygon points="580,292 706,316 580,340 454,316" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="580" y="320" text-anchor="middle">cxsel == 0 ?</text>
+
+  <line x1="706" y1="316" x2="762" y2="316" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="734" y="309" text-anchor="middle" font-size="10">Yes</text>
+  <rect x="762" y="304" width="52" height="24" rx="4" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/>
+  <text x="788" y="320" text-anchor="middle" font-size="10">Builtin</text>
+
+  <line x1="580" y1="340" x2="580" y2="366" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="596" y="356" font-size="10">No</text>
+
+  <!-- Extract CXID + IDX -->
+  <rect x="420" y="366" width="320" height="26" rx="4" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+  <text x="580" y="383" text-anchor="middle">CXID = cxsel[15:8],  IDX = cxsel[7:0]</text>
+
+  <line x1="580" y1="392" x2="580" y2="418" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- cx[CXID]xs == Off? (coarse, scxxsn) -->
+  <polygon points="580,418 720,448 580,478 440,448" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="580" y="443" text-anchor="middle">cx[CXID]xs == Off ?</text>
+  <text x="580" y="457" text-anchor="middle" font-size="10" fill="#888">scxxsn  —  Block 3.2</text>
+
+  <line x1="720" y1="448" x2="762" y2="448" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="741" y="441" text-anchor="middle" font-size="10">Yes</text>
+  <rect x="762" y="436" width="52" height="24" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5"/>
+  <text x="788" y="452" text-anchor="middle" font-size="11">Trap</text>
+
+  <line x1="580" y1="478" x2="580" y2="504" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="596" y="494" font-size="10">No</text>
+
+  <!-- ZcxMulti: cx[CXID]xs[IDX] == Off? (per-context, scx[CXID]xsn) -->
+  <polygon points="580,504 736,536 580,568 424,536" fill="#e8f5e9" stroke="#66bb6a" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="580" y="530" text-anchor="middle">cx[CXID]xs[IDX] == Off ?</text>
+  <text x="580" y="546" text-anchor="middle" font-size="10" fill="#555">scx[CXID]xsn  —  Block 6.2  (ZcxMulti only)</text>
+
+  <line x1="736" y1="536" x2="762" y2="536" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="749" y="529" text-anchor="middle" font-size="10">Yes</text>
+  <rect x="762" y="524" width="52" height="24" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5"/>
+  <text x="788" y="540" text-anchor="middle" font-size="11">Trap</text>
+
+  <line x1="580" y1="568" x2="580" y2="594" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="596" y="584" font-size="10">No</text>
+
+  <!-- CXID registered? -->
+  <polygon points="580,594 716,620 580,646 444,620" fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5"/>
+  <text x="580" y="624" text-anchor="middle">CXID registered ?</text>
+  <text x="580" y="638" text-anchor="middle" font-size="10" fill="#888">Block 2.3 / 4.1</text>
+
+  <line x1="716" y1="620" x2="762" y2="620" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="739" y="613" text-anchor="middle" font-size="10">No</text>
+  <rect x="762" y="608" width="52" height="24" rx="4" fill="#ffcdd2" stroke="#c62828" stroke-width="1.5"/>
+  <text x="788" y="624" text-anchor="middle" font-size="11">Trap</text>
+
+  <line x1="580" y1="646" x2="580" y2="672" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="596" y="662" font-size="10">Yes</text>
+
+  <!-- Dispatch -->
+  <rect x="420" y="672" width="320" height="26" rx="4" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+  <text x="580" y="689" text-anchor="middle">CX[CXID].execute(env, insn, IDX)  —  Block 4.1</text>
+
+  <line x1="580" y1="698" x2="580" y2="724" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <ellipse cx="580" cy="742" rx="155" ry="18" fill="#c8e6c9" stroke="#388e3c" stroke-width="1.5"/>
+  <text x="580" y="747" text-anchor="middle">return result to rd</text>
+
+</svg>
