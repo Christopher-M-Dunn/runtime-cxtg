@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code when working in this repository.
 
+## Methodology
+
+Every word of code and every programatic structure must be 100% understood by the user before implementing. This includes not only how something is being done, but why it is being done that way. Always explore multiple ways of doing things. Draw inspiration from and comparisons to existing outside systems and known best practices for similar work.
+
 ## Repository Structure
 
 `runtime-cxtg` is the umbrella project for the RISC-V Composable Extensions (Zcx/ZcxMulti) implementation.
@@ -112,6 +116,20 @@ Artur's original Zicx implementation specification. CSR layout, behavior semanti
 
 ---
 
+### `wiki/`
+
+A navigable reference wiki for every file touched by the project. Three levels:
+
+1. **`wiki/index.md`** — master file list
+2. **`wiki/<path-to-file>.md`** — file page: one-line description + itemized list of every function, struct field, constant, and macro the project adds or modifies, each linking to a subpage
+3. **`wiki/<path-to-file>/<symbol>.md`** — symbol subpage: one-line description + minimal code excerpt showing the enclosing function/context
+
+File structure mirrors the source tree (e.g. `qemu-cxtg/target/riscv/csr.c` → `wiki/qemu-cxtg/target/riscv/csr.c.md`; symbol pages live under a directory of the same name without the `.md`).
+
+**Before committing any change to a tracked file:** update the corresponding wiki page(s). If the file is not yet in the wiki, add it to `wiki/index.md` and create its file page (and any symbol subpages) following the pattern above.
+
+---
+
 ### `docs/Composable-Extensions.md` *(symlink → `qemu-cxtg/Composable-Extensions.md`)*
 
 CX extension requirements: per-CSR behavior rules, cxsetsel semantics, open questions, and test cases.
@@ -121,3 +139,7 @@ CX extension requirements: per-CSR behavior rules, cxsetsel semantics, open ques
   - `## Open Questions` — remove items as resolved, add new ones as they surface
   - `## Tests` — add test cases as blocks are implemented
   - CSR requirement sections — update only if the spec changes a behavior rule
+
+### `../composable-custom-extensions/src`
+
+Task group's full spec documentation deliverable, early draft
