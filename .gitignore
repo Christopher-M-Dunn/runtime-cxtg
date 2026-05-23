@@ -40,6 +40,9 @@
 !tests/output/
 !tests/output/*.out
 
+# Obsidian IDE state
+wiki/.obsidian/
+
 utils/busybox
 utils/initramfs
 utils/riscv
