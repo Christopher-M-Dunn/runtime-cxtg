@@ -19,8 +19,9 @@ See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses
 
 ## Phase 1 — Unpriv CSR and Instruction Scaffolding
 
-- [ ] implementation plan written
+- [x] implementation plan written — `docs/superpowers/specs/2026-05-22-phase1-csr-instruction-scaffolding-design.md`
 
+- [x] **test-infra** — Bare-metal test harness: Makefile, tests/common/, README.md
 - [ ] **1.1** — CSR stubs: cxsel, cxsidx, cxsdata
 - [ ] **1.2** — cxsetsel instruction stub *(scope may change based on 0.1 audit)*
 - [ ] **1.3** — Runtime wrappers (cx_select, cx_get_sel, cx_valid)
@@ -134,7 +135,22 @@ See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses
 
 ### v0.phase2 — *(pending)*
 
-### v0.phase1 — *(pending)*
+### v0.phase1 — *(in progress)*
+
+**runtime-cxtg — feat/test-infra:**
+- created: `README.md` — project overview, dependencies (`riscv64-unknown-elf-gcc`, `qemu-cxtg` build), `make` targets, test infrastructure table, repository layout
+- created: `Makefile` — `CROSS_COMPILE`/`CC`/`QEMU` variables; pattern rules `tests/%.elf: tests/%.S` and `tests/%.elf: tests/%.c` (both link `crt0.S`, pass `-T link.ld`); `run-%` target (`-bios`); `all-tests` wildcard; `clean`
+- created: `tests/common/crt0.S` — `_start` (sets sp, installs mtvec, zeros .bss, calls main); `_trap_handler` (records `mcause` to `_trap_mcause`, advances mepc+4, mrets); `_puts` (internal UART write); `test_pass`/`test_fail` (global, print PASSED/FAILED, spin); `_trap_mcause` (.bss dword)
+- created: `tests/common/uart.h` — `UART_BASE` (0x10000000); `uart_putchar`, `uart_puts`, `uart_print_hex`
+- created: `tests/common/test.h` — `CHECK(cond)` macro; `MCAUSE_ILLEGAL_INST` (2UL); `extern volatile unsigned long _trap_mcause`; `test_pass`/`test_fail` declarations
+- created: `tests/common/link.ld` — DRAM origin 0x80000000/128 MiB; `.text.start` first; `_bss_start`/`_bss_end` (8-byte aligned); 16 KiB stack (`_stack_bottom`/`_stack_top`)
+- modified: `CLAUDE.md` — wiki section: 4 formats with examples, read-examples-first rule, `wiki/runtime-cxtg/` path; release notes: incremental write-on-merge policy, milestone --stat verification
+- modified: `docs/progress.md` — checked test-infra block; Phase 1 impl plan marked written
+- modified: `docs/superpowers/specs/2026-05-22-phase1-csr-instruction-scaffolding-design.md` — wiki section 4: read-examples-first, `wiki/runtime-cxtg/` paths
+- modified: `docs/superpowers/plans/2026-05-22-phase1-csr-instruction-scaffolding.md` — Task 5: format-first wiki instruction, corrected paths throughout
+- modified: `wiki/index.md` — 4-format examples section; all links updated to `runtime-cxtg/` prefix
+- created: `wiki/runtime-cxtg/README.md.md`, `Makefile.md`, `tests/common/crt0.S.md`, `tests/common/uart.h.md`, `tests/common/test.h.md`, `tests/common/link.ld.md`
+- reorganized: wiki pages moved from `wiki/` flat into `wiki/runtime-cxtg/` subtree; orphaned subpage stubs deleted
 
 ### v0.phase0 — Baseline (Artur's CX branch integrated)
 

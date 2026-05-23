@@ -27,22 +27,19 @@ This project follows a phased implementation plan defined in `docs/CXTG_QEMU_Act
 
 ## Branch Workflow
 
-### `runtime-cxtg` (this repo)
-
-All current work is documentation. Changes go directly to `cxtg-dev` — no feature branches needed yet. When the runtime (`src/`, `include/`, `zoo/`) is under active development it will follow the same `feat/<block>` pattern as `qemu-cxtg`.
+Both repos follow the same pattern. Feature branches are cut in both repos together at the start of each block and merged together when the block is done.
 
 ```
 cxtg          ← stable; updated only at phase milestones, always tagged
-cxtg-dev      ← all current work lands here
+cxtg-dev      ← integration branch; feat/* merges here
+feat/<block>  ← all work for a block; cut from cxtg-dev in both repos simultaneously
 ```
 
-### `qemu-cxtg` submodule
-
-Feature work follows `feat/<block>` → `cxtg-dev` → `cxtg`. See `qemu-cxtg/CLAUDE.md` for the full per-block workflow.
+For the per-block workflow inside `qemu-cxtg`, see `qemu-cxtg/CLAUDE.md`.
 
 ### Phase milestone (both repos together)
 
-When `qemu-cxtg` completes a phase milestone:
+When a phase is complete:
 1. `qemu-cxtg`: merge `cxtg-dev` → `cxtg`; tag (e.g. `cxtg-v0.phase1`).
 2. In `runtime-cxtg/cxtg-dev`: commit the updated `qemu-cxtg` submodule pointer and any documentation updates.
 3. `runtime-cxtg`: merge `cxtg-dev` → `cxtg`; apply the same tag.
@@ -78,14 +75,14 @@ Live block-by-block checklist and release notes. The primary status document.
 - Check off block items as they complete
 - Mark `implementation plan written` at the top of a phase when the plan is done
 
-**Release notes — when to write:** fill in `### v0.phaseN` when the phase milestone is tagged. The `### v0.phase0` entry is the format model — refer to it when writing any subsequent entry.
+**Release notes — when to write:** incrementally, as each block merges to `cxtg-dev`. Write the entries for a block immediately after its merge, while the diff is fresh. At phase milestone time, run `git diff --stat <prev-tag>..<new-tag>` in each repo and compare the file list against the notes and wiki entries to catch anything missed — do a full diff only for files that appear in the stat but not in the notes.
 
 **Release notes — what to include, and how:**
 
 Each `### v0.phaseN` entry must contain enough information to answer "what exactly changed and where?" via a text search alone. The format is:
 
-1. **`qemu-cxtg` changes** — get the file list from `git diff --stat <prev-tag>..<new-tag>` run inside `qemu-cxtg/`. For each file, write one bullet per discrete action in past tense. Each bullet must name the function, symbol, struct field, or constant that was touched — not just a description of intent. Examples of good vs. bad:
-   - Good: `modified: target/riscv/cpu.c — registered zicx as ISA extension (ISA_EXT_DATA_ENTRY, MULTI_EXT_CFG_BOOL, default off)`
+1. **`qemu-cxtg` changes** — for each file touched by the block, write one bullet per discrete action in past tense. Each bullet must name the function, symbol, struct field, or constant that was touched — not just a description of intent. Examples of good vs. bad:
+   - Good: `modified: target/riscv/cpu.c — registered zcx as ISA extension (ISA_EXT_DATA_ENTRY, MULTI_EXT_CFG_BOOL, default off)`
    - Bad: `modified: target/riscv/cpu.c — added extension support`
    New files use `created:`; modified files use `modified:`. Combine bullets that touch the same function for the same purpose.
 
@@ -118,15 +115,11 @@ Artur's original Zicx implementation specification. CSR layout, behavior semanti
 
 ### `wiki/`
 
-A navigable reference wiki for every file touched by the project. Three levels:
+A navigable reference wiki for every file touched by the project. All pages live under `wiki/runtime-cxtg/`, mirroring the source tree. `wiki/index.md` is the master file list.
 
-1. **`wiki/index.md`** — master file list
-2. **`wiki/<path-to-file>.md`** — file page: one-line description + itemized list of every function, struct field, constant, and macro the project adds or modifies, each linking to a subpage
-3. **`wiki/<path-to-file>/<symbol>.md`** — symbol subpage: one-line description + minimal code excerpt showing the enclosing function/context
+**Before writing any wiki page:** read the four format examples at the top of `wiki/index.md`. Each example links to a live page — open it and read it before writing anything. The format chosen depends on the nature of the file (small de novo, pre-existing with discrete changes, large de novo, or self-explanatory).
 
-File structure mirrors the source tree (e.g. `qemu-cxtg/target/riscv/csr.c` → `wiki/qemu-cxtg/target/riscv/csr.c.md`; symbol pages live under a directory of the same name without the `.md`).
-
-**Before committing any change to a tracked file:** update the corresponding wiki page(s). If the file is not yet in the wiki, add it to `wiki/index.md` and create its file page (and any symbol subpages) following the pattern above.
+**Before committing any change to a tracked file:** update the corresponding wiki page(s). If the file is not yet in the wiki, add it to `wiki/index.md` and create its page at `wiki/runtime-cxtg/<path-to-file>.md`.
 
 ---
 
