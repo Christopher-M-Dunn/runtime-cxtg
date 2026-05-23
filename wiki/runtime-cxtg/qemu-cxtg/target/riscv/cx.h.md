@@ -8,9 +8,6 @@ CX extension CSR interface declarations. Header guard: `RISCV_CX_H`.
 
 All implementations are in [cx.c](cx.c.md).
 
-- [cxsel_csr_read](cx.c/cxsel_csr_read.md)
-- [cxsel_csr_write](cx.c/cxsel_csr_write.md)
-- [cxsidx_csr_read](cx.c/cxsidx_csr_read.md)
-- [cxsidx_csr_write](cx.c/cxsidx_csr_write.md)
-- [cxsdata_csr_read](cx.c/cxsdata_csr_read.md)
-- [cxsdata_csr_write](cx.c/cxsdata_csr_write.md)
+- `cxsel_csr_read` / `cxsel_csr_write`
+- `cxsidx_csr_read` / `cxsidx_csr_write`
+- `cxsdata_csr_op` — combined `.op` handler; replaces separate read/write to ensure single cxsidx increment per instruction

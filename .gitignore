@@ -36,6 +36,10 @@
 *.x86_64
 *.hex
 
+# Test outputs (captured trace runs)
+!tests/output/
+!tests/output/*.out
+
 utils/busybox
 utils/initramfs
 utils/riscv

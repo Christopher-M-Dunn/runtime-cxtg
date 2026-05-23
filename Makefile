@@ -2,12 +2,13 @@ CROSS_COMPILE ?= riscv64-unknown-elf-
 CC            := $(CROSS_COMPILE)gcc
 
 QEMU          ?= qemu-cxtg/build/qemu-system-riscv64
-QEMU_FLAGS    := -M virt -nographic -no-reboot
+QEMU_CPU      ?= rv64,zcx=on
+QEMU_FLAGS    := -M virt -nographic -no-reboot -cpu $(QEMU_CPU)
 
 COMMON        := tests/common
 LDSCRIPT      := $(COMMON)/link.ld
 
-CFLAGS := -march=rv64imac_zicsr -mabi=lp64
+CFLAGS := -march=rv64imac_zicsr -mabi=lp64 -mcmodel=medany
 CFLAGS += -nostdlib -nostartfiles -ffreestanding -fno-builtin
 CFLAGS += -g -O0
 

@@ -22,7 +22,7 @@ See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses
 - [x] implementation plan written — `docs/superpowers/specs/2026-05-22-phase1-csr-instruction-scaffolding-design.md`
 
 - [x] **test-infra** — Bare-metal test harness: Makefile, tests/common/, README.md
-- [ ] **1.1** — CSR stubs: cxsel, cxsidx, cxsdata
+- [x] **1.1** — CSR stubs: cxsel, cxsidx, cxsdata
 - [ ] **1.2** — cxsetsel instruction stub *(scope may change based on 0.1 audit)*
 - [ ] **1.3** — Runtime wrappers (cx_select, cx_get_sel, cx_valid)
 
@@ -136,6 +136,23 @@ See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses
 ### v0.phase2 — *(pending)*
 
 ### v0.phase1 — *(in progress)*
+
+**qemu-cxtg — feat/1.1:**
+- modified: `target/riscv/cpu.c` — renamed `ext_zicx` → `ext_zcx` in `ISA_EXT_DATA_ENTRY`, `MULTI_EXT_CFG_BOOL`, and reset handler (`env->cxidx`/`cxdata` → `env->cxsidx`/`cxsdata`)
+- modified: `target/riscv/cpu_cfg_fields.h.inc` — renamed `BOOL_FIELD(ext_zicx)` → `BOOL_FIELD(ext_zcx)`
+- modified: `target/riscv/cpu.h` — renamed `CPURISCVState` fields `cxidx`/`cxdata` → `cxsidx`/`cxsdata`
+- modified: `target/riscv/cpu_bits.h` — updated `CSR_CXSEL` 0x800→0xCA0 (standard URO user range; custom ranges 0x800–0x8FF and 0xCC0–0xCFF are mux space for CX extension registers), `CSR_CXSIDX` 0x801→0x018, `CSR_CXSDATA` 0x802→0x019; removed `CXSEL_INV`/`CXSEL_TYPE`/`CXSEL_SEL`; added `CXSEL_CXID_POSITION`/`BITS`, `CXSEL_SID_POSITION`/`BITS`, `CXSEL_CXID_MASK`, `CXSEL_SID_MASK`
+- modified: `target/riscv/csr.c` — predicates `cxsel`/`cxsidx`/`cxsdata`: removed dead PMP copy-paste; condition flipped to `!ext_zcx`; cxsel read-only trap comes from `riscv_csrrw_check` line 5567 (`get_field(csrno, 0xC00) == 3` — CSR address bits [11:10]=11 for 0xCA0), not from the write handler; replaced `read_cxsdata`/`write_cxsdata` wrappers with `op_cxsdata` registered as `.op`
+- modified: `target/riscv/cx.c` — renamed `env->cxidx`→`env->cxsidx`, `env->cxdata`→`env->cxsdata`; replaced separate `cxsdata_csr_read`/`cxsdata_csr_write` with single `cxsdata_csr_op` registered as `.op`; `op` uses `write_mask` to handle all CSR variants (`write_mask=0` read-only, `write_mask=-1` full replace, partial mask for csrrs/csrrc); `env->cxsidx++` fires exactly once per instruction regardless of variant
+- modified: `target/riscv/cx.h` — removed `cxsdata_csr_read`/`cxsdata_csr_write` prototypes; added `cxsdata_csr_op` with `.op` signature `(env, csrno, *ret_value, new_value, write_mask)`
+- modified: `target/riscv/kvm/kvm-cpu.c` — renamed `KVM_EXT_CFG("zicx"→"zcx")`, `KVM_RISCV_ISA_EXT_ZICX`→`ZCX`
+- modified: `linux-headers/asm-riscv/kvm.h` — renamed `KVM_RISCV_ISA_EXT_ZICX`→`KVM_RISCV_ISA_EXT_ZCX`
+- modified: `disas/riscv.c` — updated CSR addresses 0x800→0xCA0, 0x801→0x018, 0x802→0x019; names `cxidx`→`cxsidx`, `cxdata`→`cxsdata`; `//` comments → `/* */`
+
+**runtime-cxtg — feat/1.1:**
+- modified: `Makefile` — added `QEMU_CPU ?= rv64,zcx=on` variable; added `-cpu $(QEMU_CPU)` to `QEMU_FLAGS`; added `-mcmodel=medany` to `CFLAGS` (required for RV64 bare-metal at 0x80000000 — medlow can't address bit-31-set addresses via `lui`)
+- created: `tests/block1_1_csr_stubs.c` — Block 1.1 test: cxsel reads 0 at reset; write to cxsel traps (mcause=2, URO); cxsidx round-trip; cxsdata all four CSR variants (csrr/csrw/csrrw/csrrs/csrrc) with auto-increment verification; CSR access via `_XSTR` stringification macros (avoids GCC `"i"` constraint mismatch for RISC-V CSR inline asm)
+- created: `tests/output/block1_1_csr_stubs.out` — captured trace output showing all six CX trace events; cxsel at reg 3232 (0xCA0); cxsidx incrementing 1→9 across ten cxsdata accesses; PASSED
 
 **runtime-cxtg — feat/test-infra:**
 - created: `README.md` — project overview, dependencies (`riscv64-unknown-elf-gcc`, `qemu-cxtg` build), `make` targets, test infrastructure table, repository layout

@@ -1,0 +1,32 @@
+cmd@Ubuntu-22-04-1:~/Github/runtime-cxtg (cxtg-dev *)$ make run-block1_1_csr_stubs QEMU_FLAGS="-M virt -nographic -no-reboot -cpu rv64,zcx=on --trace cxsel_csr_read --trace cxsel_csr_write --trace cxsidx_csr_read --trace cxsidx_csr_write --trace cxsdata_csr_read --trace cxsdata_csr_write" 2>&1
+qemu-cxtg/build/qemu-system-riscv64 -M virt -nographic -no-reboot -cpu rv64,zcx=on --trace cxsel_csr_read --trace cxsel_csr_write --trace cxsidx_csr_read --trace cxsidx_csr_write --trace cxsdata_csr_read --trace cxsdata_csr_write -bios tests/block1_1_csr_stubs.elf
+# cpu option: rv64,zcx=on
+# feature string: zcx=on
+# prop->driver: rv64-riscv-cpu
+# prop->property: rv64-riscv-cpu
+# prop->value: on
+
+cxsel_csr_read hart 0: read reg 3232, val: 0x0
+cxsidx_csr_write hart 0: write reg 24, val: 0x55
+cxsidx_csr_read hart 0: read reg 24, val: 0x55
+cxsidx_csr_write hart 0: write reg 24, val: 0x0
+cxsdata_csr_write hart 0: write reg 25, val: 0x0
+cxsidx_csr_read hart 0: read reg 24, val: 0x1
+cxsdata_csr_read hart 0: read reg 25, val: 0x0
+cxsidx_csr_read hart 0: read reg 24, val: 0x2
+cxsdata_csr_write hart 0: write reg 25, val: 0xab
+cxsidx_csr_read hart 0: read reg 24, val: 0x3
+cxsdata_csr_read hart 0: read reg 25, val: 0xab
+cxsdata_csr_read hart 0: read reg 25, val: 0xab
+cxsdata_csr_write hart 0: write reg 25, val: 0xcd
+cxsidx_csr_read hart 0: read reg 24, val: 0x5
+cxsdata_csr_read hart 0: read reg 25, val: 0xcd
+cxsdata_csr_read hart 0: read reg 25, val: 0xcd
+cxsdata_csr_write hart 0: write reg 25, val: 0xdd
+cxsidx_csr_read hart 0: read reg 24, val: 0x7
+cxsdata_csr_read hart 0: read reg 25, val: 0xdd
+cxsdata_csr_read hart 0: read reg 25, val: 0xdd
+cxsdata_csr_write hart 0: write reg 25, val: 0xd0
+cxsidx_csr_read hart 0: read reg 24, val: 0x9
+cxsdata_csr_read hart 0: read reg 25, val: 0xd0
+PASSED

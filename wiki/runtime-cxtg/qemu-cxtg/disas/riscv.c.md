@@ -2,10 +2,8 @@
 
 QEMU RISC-V disassembler. Translates instruction encodings and CSR numbers to human-readable names.
 
-**Phase 0:** modified — added CSR name entries for the three CX CSRs.
+## CX CSR disassembler names
 
-## CSR disassembler names
-
-- [cxsel 0x800](riscv.c/cxsel.md)
-- [cxidx 0x801](riscv.c/cxidx.md)
-- [cxdata 0x802](riscv.c/cxdata.md)
+- `0xCC0` → `"cxsel"` — CX selector (custom URO user range)
+- `0x018` → `"cxsidx"` — CX state index
+- `0x019` → `"cxsdata"` — CX state data

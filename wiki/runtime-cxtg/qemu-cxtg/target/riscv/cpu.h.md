@@ -11,5 +11,5 @@ RISC-V CPU state definition. Defines `CPURISCVState` (a.k.a. `CPUArchState`) and
 ## CPUArchState fields added
 
 - [cxsel](cpu.h/cxsel.md) — current CX selector value; 0 = built-in extension
-- [cxidx](cpu.h/cxidx.md) — CX state index register
-- [cxdata](cpu.h/cxdata.md) — CX state data register
+- [cxsidx](cpu.h/cxidx.md) — CX state index register
+- [cxsdata](cpu.h/cxdata.md) — CX state data register
