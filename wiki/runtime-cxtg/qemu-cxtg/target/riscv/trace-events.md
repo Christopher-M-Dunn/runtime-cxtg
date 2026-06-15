@@ -2,7 +2,6 @@
 
 QEMU trace event definitions for the RISC-V target. Each entry generates a `trace_*()` function callable from C code.
 
-**Phase 0:** modified — added six trace events for CX CSR read/write operations.
 
 ## Trace events added
 

@@ -2,7 +2,6 @@
 
 QEMU main system emulation entry point. Parses command-line options and initializes the machine.
 
-**Phase 0:** modified — added debug printf logging the `-cpu` option value at parse time.
 
 ## Functions modified
 

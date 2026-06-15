@@ -2,7 +2,6 @@
 
 Common CPU utilities shared across all QEMU CPU targets.
 
-**Phase 0:** modified — added debug printf logging feature string at parse time.
 
 ## Functions modified
 

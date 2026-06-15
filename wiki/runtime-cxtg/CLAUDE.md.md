@@ -2,8 +2,6 @@
 
 Claude Code project guidance for the `runtime-cxtg` umbrella repository.
 
-**Phase 0:** created
-
 ## Contents
 
 - Repository structure (submodules, docs layout)
@@ -11,3 +9,4 @@ Claude Code project guidance for the `runtime-cxtg` umbrella repository.
 - Phase milestone merge procedure
 - Starting a new phase (reading order, brainstorming, planning)
 - Documentation file registry (when to read/update each doc)
+- Wiki update obligation — update trigger, format schema reference, new-file procedure

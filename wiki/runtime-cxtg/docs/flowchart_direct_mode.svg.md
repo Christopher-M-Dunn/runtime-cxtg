@@ -2,7 +2,6 @@
 
 Direct mode state machine diagram.
 
-**Phase 0:** created
 
 ## Description
 

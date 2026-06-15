@@ -2,7 +2,6 @@
 
 QEMU device property system. Manages global property validation and application.
 
-**Phase 0:** modified — added debug printf logging each global property's driver/property/value.
 
 ## Functions modified
 

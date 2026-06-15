@@ -2,8 +2,6 @@
 
 Master phased implementation plan for the Zcx/ZcxMulti QEMU implementation.
 
-**Phase 0:** created; modified to add step 7 (parent repo milestone sync) and a docs-only workflow exception.
-
 ## Structure
 
 Each phase section contains blocks with: objective, prerequisites, repos/files touched, implementation notes, tests, definition of done, and merge action.

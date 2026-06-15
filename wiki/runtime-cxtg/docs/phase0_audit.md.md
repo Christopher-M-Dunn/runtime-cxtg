@@ -1,8 +1,6 @@
 # docs/phase0_audit.md
 
-Phase 0 audit notes: DT schema, CSR inventory, cxsetsel status.
-
-**Phase 0:** created
+Audit notes from the initial integration of Artur's CX branch: DT schema, CSR inventory, cxsetsel status.
 
 ## Contents
 

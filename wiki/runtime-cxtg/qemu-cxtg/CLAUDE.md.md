@@ -2,8 +2,6 @@
 
 Claude Code guidance for the `qemu-cxtg` QEMU submodule.
 
-**Phase 0:** created; modified to replace "Current Branch: feature/cx" with the stable "CX Extension Workflow" section.
-
 ## Contents
 
 - QEMU build system (configure + Meson, standard and debug builds)
@@ -13,3 +11,4 @@ Claude Code guidance for the `qemu-cxtg` QEMU submodule.
 - Code style guidelines (whitespace, naming, control flow, comments, includes)
 - Build system internals (Meson sourcesets)
 - CX extension workflow (branches, per-block workflow, implementation status)
+- Wiki — wiki update obligation, format schema reference, new-file procedure

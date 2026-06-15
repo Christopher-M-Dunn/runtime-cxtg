@@ -105,11 +105,10 @@ Known bugs and their status.
 
 ### `docs/spec.md` *(symlink → `qemu-cxtg/spec.md`)*
 
-Artur's original Zicx implementation specification. CSR layout, behavior semantics, and QEMU integration patterns.
+Zcx implementation specification. CSR layout, behavior semantics, and QEMU integration patterns.
 
 - **Read:** when implementing or reviewing CSR behavior for cxsel, cxsidx, cxsdata; when verifying privilege and reset semantics
-- **Update:** `## Architecture` section only — when CSR addresses or semantics are confirmed by spec owners; all other sections are stable reference
-- **Note:** extension name is `zcx` (not `zicx` as written); CSR addresses are stubs pending spec finalisation — see `docs/todo.md`
+- **Update:** review and update the full document at the end of each development phase — correct stale names, addresses, field names, and code examples to match current implementation
 
 ---
 

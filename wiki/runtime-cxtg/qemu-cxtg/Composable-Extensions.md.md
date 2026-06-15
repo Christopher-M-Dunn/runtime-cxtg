@@ -2,8 +2,6 @@
 
 CX extension requirements document.
 
-**Phase 0:** created
-
 ## Contents
 
 - Per-CSR behavior rules for cxsel (URO), cxsidx, cxsdata

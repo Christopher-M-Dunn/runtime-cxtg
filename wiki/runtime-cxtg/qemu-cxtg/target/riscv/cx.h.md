@@ -2,7 +2,6 @@
 
 CX extension CSR interface declarations. Header guard: `RISCV_CX_H`.
 
-**Phase 0:** created
 
 ## Function prototypes
 
