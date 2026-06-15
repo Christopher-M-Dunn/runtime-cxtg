@@ -4,25 +4,15 @@ Files added or modified in the Composable Custom Extensions RISC-V Task Group Ru
 
 ---
 
-## Format examples
+## Format rules
 
-Wiki pages use one of four formats depending on the nature of the file:
+See **[wiki/schema.md](schema.md)** for the authoritative format schema: when to update the wiki, how to choose a format type, file page structure, sub-page structure, and content prohibitions.
 
-**Small de novo file — full text walkthrough**
-Every section of the file is documented in order: code block followed by explanatory notes.
-Example: [tests/common/crt0.S](runtime-cxtg/tests/common/crt0.S.md)
-
-**Pre-existing file with discrete changes or additions — index to contextual subpages**
-File page lists only the symbols/lines the project touched, each linking to a subpage with a code excerpt and context.
-Example: [qemu-cxtg/target/riscv/cpu.c](runtime-cxtg/qemu-cxtg/target/riscv/cpu.c.md)
-
-**Large de novo file — anchor-linked index + full text walkthrough on one page**
-File page opens with a symbol/section index whose links jump to anchors in the walkthrough below. First index entry is "Jump to full text walkthrough."
-Example: [Makefile](runtime-cxtg/Makefile.md)
-
-**Mostly self-explanatory file — customized summary and additional context**
-File page provides a high-level description, highlights non-obvious decisions, and adds context not visible from the file itself.
-Example: [docs/CXTG_QEMU_Action_Plan.md](runtime-cxtg/docs/CXTG_QEMU_Action_Plan.md)
+Live format examples (read schema.md first, use these as references):
+- Format A (small de novo): [tests/common/crt0.S](runtime-cxtg/tests/common/crt0.S.md)
+- Format B (pre-existing file, sub-pages): [qemu-cxtg/target/riscv/cpu.c](runtime-cxtg/qemu-cxtg/target/riscv/cpu.c.md)
+- Format C (large de novo, anchor index): [Makefile](runtime-cxtg/Makefile.md)
+- Format D (self-explanatory): [docs/CXTG_QEMU_Action_Plan.md](runtime-cxtg/docs/CXTG_QEMU_Action_Plan.md)
 
 ---
 

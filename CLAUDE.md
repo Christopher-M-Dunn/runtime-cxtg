@@ -117,9 +117,13 @@ Artur's original Zicx implementation specification. CSR layout, behavior semanti
 
 A navigable reference wiki for every file touched by the project. All pages live under `wiki/runtime-cxtg/`, mirroring the source tree. `wiki/index.md` is the master file list.
 
-**Before writing any wiki page:** read the four format examples at the top of `wiki/index.md`. Each example links to a live page — open it and read it before writing anything. The format chosen depends on the nature of the file (small de novo, pre-existing with discrete changes, large de novo, or self-explanatory).
+**Format rules:** read `wiki/schema.md` before writing or editing any wiki page. It defines format types, sub-page structure, and content prohibitions. `wiki/index.md` links to live format examples.
 
-**Before committing any change to a tracked file:** update the corresponding wiki page(s). If the file is not yet in the wiki, add it to `wiki/index.md` and create its page at `wiki/runtime-cxtg/<path-to-file>.md`.
+**Update trigger — after every file write:** update the wiki immediately after writing or editing any source file, before writing the next file. The wiki update is part of the write action, not a post-step. Do not batch wiki updates to commit time.
+
+**New files:** if the file has no wiki page yet, add it to `wiki/index.md` and create its page at `wiki/runtime-cxtg/<path-to-file>.md` before moving on.
+
+This rule applies to all files in both `runtime-cxtg/` and `qemu-cxtg/`.
 
 ---
 
