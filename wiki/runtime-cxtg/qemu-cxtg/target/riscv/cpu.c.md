@@ -4,8 +4,8 @@ RISC-V CPU initialization and ISA extension registration. Manages CPU config, re
 
 ## Extension registration
 
-- [ISA_EXT_DATA_ENTRY(zcx)](cpu.c/ISA_EXT_DATA_ENTRY_zicx.md) — registers zcx in the ISA extension table with `PRIV_VERSION_1_10_0` and `ext_zcx` config field
-- [MULTI_EXT_CFG_BOOL(zcx)](cpu.c/MULTI_EXT_CFG_BOOL_zicx.md) — declares zcx as a multi-extension boolean config property (default off)
+- [ISA_EXT_DATA_ENTRY(zcx)](cpu.c/ISA_EXT_DATA_ENTRY_zcx.md) — registers zcx in the ISA extension table with `PRIV_VERSION_1_10_0` and `ext_zcx` config field
+- [MULTI_EXT_CFG_BOOL(zcx)](cpu.c/MULTI_EXT_CFG_BOOL_zcx.md) — declares zcx as a multi-extension boolean config property (default off)
 
 ## CPU reset
 

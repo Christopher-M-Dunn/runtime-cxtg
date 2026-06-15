@@ -1,11 +1,14 @@
 # target/riscv/cpu.c — riscv_cpu_reset (CX zeroing)
 
-function: CPU reset handler; zeroes all three CX CSR state fields when `ext_zicx` is enabled, implementing the spec requirement that cxsel is 0 at reset
+CPU reset handler; zeroes all three CX CSR state fields when `ext_zcx` is enabled, implementing the spec requirement that cxsel is 0 at reset.
 
 ```c
-    if (riscv_cpu_cfg(env)->ext_zicx) {
+static void riscv_cpu_reset(CPUState *cs)
+{
+    ...
+    if (riscv_cpu_cfg(env)->ext_zcx) {
         env->cxsel = 0;
-        env->cxidx = 0;
-        env->cxdata = 0;
+        env->cxsidx = 0;
+        env->cxsdata = 0;
     }
 ```

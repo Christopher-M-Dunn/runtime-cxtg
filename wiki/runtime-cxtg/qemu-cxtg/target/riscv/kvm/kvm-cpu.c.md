@@ -4,7 +4,7 @@ KVM RISC-V CPU support. Manages KVM ISA extension negotiation and CPU property e
 
 ## Config entries added
 
-- [kvm_multi_ext_cfgs zcx](kvm-cpu.c/kvm_multi_ext_cfgs_zicx.md) — registers zcx with KVM using `KVM_RISCV_ISA_EXT_ZCX`
+- [kvm_multi_ext_cfgs zcx](kvm-cpu.c/kvm_multi_ext_cfgs_zcx.md) — registers zcx with KVM using `KVM_RISCV_ISA_EXT_ZCX`
 
 ## Functions modified (debug printfs)
 

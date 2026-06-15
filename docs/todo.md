@@ -58,3 +58,24 @@ Awaiting TG clarification: should mode=2 be WARL-clamped on write, raise illegal
 
 - Encoding: SYSTEM major opcode (0x73), funct3 = available slot — **TBD**
 - Define `MATCH_CXSETSEL` / `MASK_CXSETSEL` in `cpu_bits.h` once encoding confirmed
+
+---
+
+## fix trace-events warnings
+
+- qemu-system-riscv64:trace-events.txt:3: warning: trace event 'cxsetsel_csr_read' does not exist
+- qemu-system-riscv64:trace-events.txt:4: warning: trace event 'cxsetsel_csr_write' does not exist
+- qemu-system-riscv64:trace-events.txt:5: warning: trace event 'cxidx_csr_read' does not exist
+- qemu-system-riscv64:trace-events.txt:6: warning: trace event 'cxidx_csr_write' does not exist
+- qemu-system-riscv64:trace-events.txt:7: warning: trace event 'cxdata_csr_read' does not exist
+- qemu-system-riscv64:trace-events.txt:8: warning: trace event 'cxdata_csr_write' does not exist
+
+---
+
+## fix disassembly names and addresses (disas/riscv.c)
+
+---
+
+## fix trace-events warnings
+
+- 

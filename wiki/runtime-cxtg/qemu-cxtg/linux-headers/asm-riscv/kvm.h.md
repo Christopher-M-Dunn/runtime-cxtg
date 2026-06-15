@@ -4,4 +4,4 @@ KVM RISC-V ABI header. Defines the ISA extension enum exposed to userspace via t
 
 ## Enum values added
 
-- [KVM_RISCV_ISA_EXT_ZCX](kvm.h/KVM_RISCV_ISA_EXT_ZICX.md) — Zcx ISA extension identifier for KVM
+- [KVM_RISCV_ISA_EXT_ZCX](kvm.h/KVM_RISCV_ISA_EXT_ZCX.md) — Zcx ISA extension identifier for KVM
