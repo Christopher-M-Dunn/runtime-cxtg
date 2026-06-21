@@ -25,6 +25,10 @@ This project follows a phased implementation plan defined in `docs/CXTG_QEMU_Act
 
 **At the start of any session:** read `docs/progress.md` to see which phase is active, which blocks are complete, history of every major acttion committed, and what is deferred in `docs/todo.md`.
 
+## Git Commits
+
+Always ask the user "Ready to commit?" and wait for confirmation before staging any files or running `git add` / `git commit`.
+
 ## Branch Workflow
 
 Both repos follow the same pattern. Feature branches are cut in both repos together at the start of each block and merged together when the block is done.
