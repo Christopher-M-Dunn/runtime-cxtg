@@ -78,4 +78,51 @@ Awaiting TG clarification: should mode=2 be WARL-clamped on write, raise illegal
 
 ## fix trace-events warnings
 
-- 
+---
+## decide on how we are dealing with ~0 in this implementation
+- spec identifies ~0 as an invalid selector, but states ~0 need not be a legal value.
+- spec requires cxsel be able to hold all valid selectors and it seems to imply it must hold at least one invalid selector with "Prior to writing cxsel, implementations may convert an invalid
+value into some other invalid value that cxsel is capable of holding." May implementations clamp invalid values valid values? That would seem to defeat this line in the spec: "The all 1s value may be used by software to aid in debugging uninitialized variables."
+- review the TG message chain on this topic, and add an open question to the bottom of Composable-Extensions.md
+- logical implementation may be one of the following:
+  - all invalid selectors are illegal except ~0, and all illegal values get clamped to ~0. easy debugging (bne ~0). technically maximizes the number of available selector values, but i'm not sure if that would be useful. 
+  - [TENATIVELY USING THIS MODEL] all valid selectors have MSB = 0. invalid selectors are clamped to ~0. easiest debugging (blt x0).
+  - same as above, but invalid selectors are ORed with MSB, flipping the sign bit.
+  - all invalid selectors are clamped to some negative value from a list of sentinels that could each convey some sort of metadata (e.g. offline, absent, busy, etc.). more granular debugging, more complicated logic
+  - some sort of customized clamping of certain values to certain other values, either valid or not. unclear if this is even allowed in the spec, but if so, it is probably out of scope for this project.
+  - all invalid selectors are legal, no clamping. limits debugging: you can only know a selector is invalid by attempting to execute a custom instruction 
+
+---
+
+## revisit Composable-Extensions.md (literal requirements) and its source, the current draft spec
+
+- read all this todo before starting
+- compare Composable-Extensions.md to the spec doc  ../composable-custom-extensions/build/composable-custom-extensions.html (if it is easier to read, look at the source files in  ../composable-custom-extensions/src/ but referencing the built doc is probably necessary for ordering, section numbers, and other meta info)
+- going through the spec in order, ensure the Composable-Extenstions.md concisely states *all* the spec requirements *without omitting any detail relevant to implementation*.
+- ensure that there are no assumptions. this doc must derive *all* info *directly* from the spec source.
+- when that is complete, using context from current work, go through each of the open questions at the bottom to see if they are still open, citing any resolution or tenative working assumptions. don't remove anything -- if anything ever was an open question, it likely needs to be clarified in the spec, so even if it is resolved it needs to stay on record. Using superpowers/brainstorming, add as many open questions as can be identified.
+
+---
+
+## fix wiki
+
+- we are still running into issues of inconsistent formatting.
+- change criteria for de novo formats (when to choose A vs C)
+  - currently it says use format A if viewable within one page -- too vague and also too short. If the source file < 100 lines (not including comments-- use terminal command cloc [e.g. `cloc file.S` or `cloc file.c`]), use format A. Otherwise - use format C.
+  - add to instructions: when updating a format A, assess whether it should be converted to a format C (check source length), and vice versa (although the latter would be unlikely)
+- update schema for all formats: Title should be a link to the source document
+- update schema for format C: add "back to top" anchor at the end of each section.
+- go through every file and
+  - add front matter indicating which format it is. (for formats A and C, check the length of the source file to see if the format needs to change)
+  - add new elements added to the schema in the previous steps (link to source and format C "back to top" anchors)
+  - make corrections if anything does not conform the schema (log the ways it did not conform to a running temp file)
+- look for patterns in the log from previous step and update instructions / schema to reduce that type of error, then delete the log
+
+---
+
+## add automation flowchart to claude.md
+
+- QEMU is a large, complicated repo with several layers of automation. it is important to never confuse generated code for entry points and to always modify the topmost layer appropriate to the task
+- docs/flowchart_QEMU_automation.svg contains info about these systems
+- claude needs to be aware of the flowchart and when to consult it
+  
