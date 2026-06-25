@@ -11,3 +11,4 @@ QEMU trace event definitions for the RISC-V target. Each entry generates a `trac
 - [cxsidx_csr_write](trace-events/cxsidx_csr_write.md) — fires on every write to CSR_CXSIDX; logs hartid, reg index, value
 - [cxsdata_csr_read](trace-events/cxsdata_csr_read.md) — fires on every read of CSR_CXSDATA; logs hartid, reg index, value
 - [cxsdata_csr_write](trace-events/cxsdata_csr_write.md) — fires on every write to CSR_CXSDATA; logs hartid, reg index, value
+- [cxsetsel](trace-events/cxsetsel.md) — fires on every cxsetsel instruction execution; logs hartid, new cxsel value, old cxsel value

@@ -1,0 +1,9 @@
+qemu-cxtg/build/qemu-system-riscv64 -M virt -nographic -no-reboot -cpu rv64,zcx=on -bios tests/block1_2_cxsetsel.elf
+# cpu option: rv64,zcx=on
+# feature string: zcx=on
+# prop->driver: rv64-riscv-cpu
+# prop->property: rv64-riscv-cpu
+# prop->value: on
+
+PASSED
+qemu-system-riscv64: terminating on signal 15 from pid 35389 (make)

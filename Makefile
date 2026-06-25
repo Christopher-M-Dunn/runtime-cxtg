@@ -3,7 +3,8 @@ CC            := $(CROSS_COMPILE)gcc
 
 QEMU          ?= qemu-cxtg/build/qemu-system-riscv64
 QEMU_CPU      ?= rv64,zcx=on
-QEMU_FLAGS    := -M virt -nographic -no-reboot -cpu $(QEMU_CPU)
+QEMU_BASE     := -M virt -nographic -no-reboot -cpu $(QEMU_CPU)
+QEMU_FLAGS    ?=
 
 COMMON        := tests/common
 LDSCRIPT      := $(COMMON)/link.ld
@@ -25,7 +26,7 @@ tests/%.elf: tests/%.c $(CRT0) $(LDSCRIPT)
 	$(CC) $(CFLAGS) -I$(COMMON) -Iinclude -T$(LDSCRIPT) -o $@ $(CRT0) $<
 
 run-%: tests/%.elf
-	$(QEMU) $(QEMU_FLAGS) -bios $<
+	$(QEMU) $(QEMU_BASE) $(QEMU_FLAGS) -bios $<
 
 all-tests: $(TEST_ELFS)
 

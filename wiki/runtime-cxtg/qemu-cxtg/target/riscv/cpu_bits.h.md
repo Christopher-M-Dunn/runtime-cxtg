@@ -8,9 +8,10 @@ CSR addresses and bit field definitions for the RISC-V target. The single source
 - [CSR_CXSIDX](cpu_bits.h/CSR_CXSIDX.md) — CX state index CSR address (0x018)
 - [CSR_CXSDATA](cpu_bits.h/CSR_CXSDATA.md) — CX state data CSR address (0x019)
 
-## cxsel field layout (Direct Mode, Figure 3)
+## cxsel field layout
 
-`[XLEN-1:16]` reserved | `[15:8]` SID | `[7:0]` CXID
+- [CXSEL_CXID_POSITION / CXSEL_CXID_BITS / CXSEL_CXID_MASK / CXSEL_SID_POSITION / CXSEL_SID_BITS / CXSEL_SID_MASK](cpu_bits.h/CXSEL_field_masks.md) — CXID and SID field positions, widths, and masks
 
-- `CXSEL_CXID_POSITION` / `CXSEL_CXID_BITS` / `CXSEL_CXID_MASK` — CXID field (bits [7:0])
-- `CXSEL_SID_POSITION` / `CXSEL_SID_BITS` / `CXSEL_SID_MASK` — SID field (bits [15:8])
+## cxsetsel instruction encoding
+
+- [MATCH_CXSETSEL / MASK_CXSETSEL](cpu_bits.h/MATCH_CXSETSEL.md) — binary encoding and mask for the cxsetsel instruction

@@ -23,7 +23,7 @@ See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses
 
 - [x] **test-infra** — Bare-metal test harness: Makefile, tests/common/, README.md
 - [x] **1.1** — CSR stubs: cxsel, cxsidx, cxsdata
-- [ ] **1.2** — cxsetsel instruction stub *(scope may change based on 0.1 audit)*
+- [x] **1.2** — cxsetsel instruction stub *(scope may change based on 0.1 audit)*
 - [ ] **1.3** — Runtime wrappers (cx_select, cx_get_sel, cx_valid)
 
 **Phase 1 milestone:** tag `v0.phase1`
@@ -168,6 +168,25 @@ See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses
 - modified: `wiki/index.md` — 4-format examples section; all links updated to `runtime-cxtg/` prefix
 - created: `wiki/runtime-cxtg/README.md.md`, `Makefile.md`, `tests/common/crt0.S.md`, `tests/common/uart.h.md`, `tests/common/test.h.md`, `tests/common/link.ld.md`
 - reorganized: wiki pages moved from `wiki/` flat into `wiki/runtime-cxtg/` subtree; orphaned subpage stubs deleted
+
+**qemu-cxtg — feat/1.2:**
+- modified: `target/riscv/cpu_bits.h` — added `MATCH_CXSETSEL` (0x00004073U) and `MASK_CXSETSEL` (0xFFF0707FU)
+- modified: `target/riscv/trace-events` — added `cxsetsel` trace event with fields `mhartid`, `new_val`, `old_val`
+- modified: `target/riscv/insn32.decode` — added `cxsetsel` decode pattern under `@r2` format in the SYSTEM opcode group
+- modified: `target/riscv/helper.h` — added `DEF_HELPER_2(cxsetsel, tl, env, tl)`
+- modified: `target/riscv/cx.h` — removed `helper_cxsetsel` prototype (redundant with `DEF_HELPER_2` auto-generation; caused `-Werror=redundant-decls`)
+- modified: `target/riscv/cx.c` — added `#include "exec/helper-proto.h"`; added `helper_cxsetsel` body: reads `env->cxsel`, writes `new_val`, emits `trace_cxsetsel`, returns old value
+- created: `target/riscv/insn_trans/trans_rvzcx.c.inc` — `trans_cxsetsel`: guards on `ctx->cfg_ptr->ext_zcx`; calls `gen_helper_cxsetsel`; returns `do_csr_post(ctx)`
+- modified: `target/riscv/translate.c` — added `#include "insn_trans/trans_rvzcx.c.inc"` after `trans_rvzimop.c.inc`
+- modified: `disas/riscv.c` — added `rv_op_cxsetsel = 956` to enum; added `{ "cxsetsel", rv_codec_r, rv_fmt_rd_rs1, NULL, 0, 0, 0 }` to `rvi_opcode_data[]`; added decode guard in `case 4` of SYSTEM opcode block (`ext_zcx && (inst >> 20) == 0`)
+
+**runtime-cxtg — feat/1.2:**
+- modified: `Makefile` — split `QEMU_FLAGS` into `QEMU_BASE` (always-on) and `QEMU_FLAGS` (user-overridable) to allow `QEMU_FLAGS="..."` appending
+- created: `include/utils.h` — `CXSETSEL(rd, rs1)` inline-asm macro using `.insn r 0x73, 4, 0, %0, %1, x0`
+- created: `tests/block1_2_cxsetsel.S` — assembly test: 5 behavioral cases for `cxsetsel` (swap from 0, swap non-zero, swap ~0, rd=x0 discard, round-trip)
+- created: `tests/block1_2_cxsetsel_macro.c` — C test: same 5 cases via `CXSETSEL` macro from `utils.h`
+- created: `tests/output/block1_2_cxsetsel.out` — captured PASSED output for assembly test
+- created: `tests/output/block1_2_cxsetsel_macro.out` — captured PASSED output for C macro test
 
 ### v0.phase0 — Baseline (Artur's CX branch integrated)
 
