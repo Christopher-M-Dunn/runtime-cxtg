@@ -114,7 +114,7 @@ Verify a sample file looks correct before moving on.
 For each main page (not sub-pages):
 1. Identify the source file
 2. Determine format (D for non-code; B via `git show v10.2.90`; A/C via `cloc`)
-3. Prepend `---\nformat: X\n---\n\n` before the "up" link
+3. Prepend `---\nformat: X\n---\n\n` before the "up" link. This is the format the page will be, but may not reflect the format it currently is, until after the format passes. If the format is **not B**, check for a same-named subfolder (e.g., `cpu.c/` next to `cpu.c.md`). If one exists, log it: `[wiki/path/file.md] — non-B page has stale sub-page folder (likely currently is a B page and needs to be converted); review sub-page content before deleting`. The subfolder is handled during the format-specific pass for that page, after its content has been reviewed for anything worth incorporating into the main page.
 
 Do not read the wiki page body — only prepend. Sub-pages are skipped entirely.
 
