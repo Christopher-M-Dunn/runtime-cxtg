@@ -24,10 +24,7 @@ The wiki has accumulated inconsistencies:
 |---|---|
 | All non-code files (docs, config, SVGs, symlinks, markdown) | **D** |
 | Pre-existing upstream file modified by this project | **B** |
-| New file written by this project, source < 100 cloc lines | **A** |
-| New file written by this project, source ≥ 100 cloc lines | **C** |
-
-**Checking cloc:** `cloc <source-file>` — use the "code" column only (excluding comments and blank lines).
+| New file written by this project | **A** to start — convert to **C** if wiki output > 125 raw lines |
 
 **Checking Format B eligibility (qemu-cxtg submodule only):**
 ```bash
@@ -38,7 +35,7 @@ Tag `v10.2.90` is the QEMU base from the phase 0 audit. Verify with `git -C qemu
 
 All files in `runtime-cxtg/` are de-novo; none are Format B.
 
-**Format A/C reassessment rule:** When updating a Format A page, re-run `cloc` on the source. If it has grown to ≥ 100 lines, convert the page to Format C. Conversion in the other direction (C → A) is unlikely but follows the same check.
+**Format A/C reassessment rule:** When updating a Format A page, count the raw lines of the wiki file after edits (`wc -l <file>`). If > 125, convert to Format C by adding the `## Index` section with URL-encoded heading links, and back-to-top links at the end of each section. Format C pages never convert back to A.
 
 ---
 
@@ -87,9 +84,11 @@ Sub-pages get no source link.
 
 Each `###` section in the full text walkthrough ends with a blank line then a right-aligned back-to-top link, placed just above the `---` divider that opens the next section (or at end of file if last section):
 
-```html
-<p align="right"><a href="#index">↑ back to top</a></p>
+```markdown
+<p align="right">[↑ back to top](#Index)</p>
 ```
+
+Obsidian resolves heading anchors by URL-encoded heading text, not slugs. `#Index` works as-is (single word). For headings with spaces use `%20`: e.g. `#Full%20text%20walkthrough`. Do not use `{#anchor}` tags — Obsidian does not support them and they corrupt the heading text.
 
 ---
 
@@ -113,7 +112,7 @@ Verify a sample file looks correct before moving on.
 
 For each main page (not sub-pages):
 1. Identify the source file
-2. Determine format (D for non-code; B via `git show v10.2.90`; A/C via `cloc`)
+2. Determine format: D for non-code; B via `git show v10.2.90`; otherwise A (de-novo code files start as A — conversion to C happens after writing, based on output line count)
 3. Prepend `---\nformat: X\n---\n\n` before the "up" link. This is the format the page will be, but may not reflect the format it currently is, until after the format passes. If the format is **not B**, check for a same-named subfolder (e.g., `cpu.c/` next to `cpu.c.md`). If one exists, log it: `[wiki/path/file.md] — non-B page has stale sub-page folder (likely currently is a B page and needs to be converted); review sub-page content before deleting`. The subfolder is handled during the format-specific pass for that page, after its content has been reviewed for anything worth incorporating into the main page.
 
 Do not read the wiki page body — only prepend. Sub-pages are skipped entirely.
