@@ -10,7 +10,7 @@
 The wiki has accumulated inconsistencies:
 - No front matter indicating format type
 - Titles are bare headings with no link to the source file
-- No in-page navigation (no "up" link, no back-to-top for Format C)
+- No in-page navigation (no "Main Index" link, no back-to-top for Format C, no "Parent: x" link for subpages)
 - Format A/C split criterion ("fits in one screen") is too vague
 - Format D criterion ("self-evident") is ambiguous
 
@@ -53,13 +53,32 @@ Sub-pages (Format B only) get no front matter.
 
 ---
 
-### "up" navigation link
+### Navigation links
 
-Every page — including sub-pages — gets this as the first visible element, right after any front matter and before the H1 title:
+Every **main page** gets this as the first visible element, right after any front matter and before the H1 title:
 ```html
-<p align="right"><a href="../">up</a></p>
+<p align="right">[Main Index](relative/path/to/index.md)</p>
 ```
-`wiki/index.md` is the only file that does not get an "up" link.
+
+Every **sub-page** (Format B only) gets:
+```html
+<p align="right">[Main Index](relative/path/to/index.md) | Parent: [parent-basename](../parent-file.md)</p>
+```
+`parent-file.md` is the main page filename (e.g., `cpu.c.md`); `parent-basename` is the display label (e.g., `cpu.c`).
+
+`wiki/index.md` is the only file that does not get a navigation link.
+
+The relative path to `wiki/index.md` depends on directory depth from `wiki/`:
+
+| Depth from `wiki/` | Example | Path |
+|---|---|---|
+| 1 | `wiki/runtime-cxtg/Makefile.md` | `../index.md` |
+| 2 | `wiki/runtime-cxtg/docs/bugs.md.md` | `../../index.md` |
+| 3 | `wiki/runtime-cxtg/qemu-cxtg/disas/riscv.c.md` | `../../../index.md` |
+| 4 | `wiki/runtime-cxtg/qemu-cxtg/target/riscv/cpu.c.md` | `../../../../index.md` |
+| 5 | `wiki/runtime-cxtg/qemu-cxtg/target/riscv/insn_trans/…` | `../../../../../index.md` |
+
+Sub-pages are one level deeper than their parent main page.
 
 ---
 
@@ -100,12 +119,10 @@ Execute in this order. Each pass is independent — complete one before starting
 
 Update `wiki/schema.md` with all changes described above.
 
-### Pass 2 — "up" link (bulk)
+### Pass 2 — Navigation links (main pages, bulk)
 
-Prepend the "up" link to every `.md` file under `wiki/runtime-cxtg/`, excluding `wiki/index.md`. This can be done in one command:
-```bash
-find wiki/runtime-cxtg -name "*.md" | xargs sed -i '1s/^/<p align="right"><a href="..\/">up<\/a><\/p>\n\n/'
-```
+Prepend the `Main Index` navigation link to every main-page `.md` file under `wiki/runtime-cxtg/`. Sub-pages are handled in Pass 5 (they need a parent-specific link). Group by depth — see the depth table above for the correct relative path to `wiki/index.md` per depth level.
+
 Verify a sample file looks correct before moving on.
 
 ### Pass 3 — Front matter
@@ -113,7 +130,7 @@ Verify a sample file looks correct before moving on.
 For each main page (not sub-pages):
 1. Identify the source file
 2. Determine format: D for non-code; B via `git show v10.2.90`; otherwise A (de-novo code files start as A — conversion to C happens after writing, based on output line count)
-3. Prepend `---\nformat: X\n---\n\n` before the "up" link. This is the format the page will be, but may not reflect the format it currently is, until after the format passes. If the format is **not B**, check for a same-named subfolder (e.g., `cpu.c/` next to `cpu.c.md`). If one exists, log it: `[wiki/path/file.md] — non-B page has stale sub-page folder (likely currently is a B page and needs to be converted); review sub-page content before deleting`. The subfolder is handled during the format-specific pass for that page, after its content has been reviewed for anything worth incorporating into the main page.
+3. Prepend `---\nformat: X\n---\n\n` before the navigation link. If the format is **not B**, check for a same-named subfolder (e.g., `cpu.c/` next to `cpu.c.md`). If one exists, log it: `[wiki/path/file.md] — non-B page has stale sub-page folder; review sub-page content before deleting`. The subfolder is handled during the format-specific pass, after its content has been reviewed for anything worth incorporating into the main page.
 
 Do not read the wiki page body — only prepend. Sub-pages are skipped entirely.
 
@@ -129,8 +146,8 @@ For each Format A page:
 For each Format B main page:
 - Add the `[source](...)` link below the title
 - Fix any non-conformances on the main page
-- For each sub-page: verify "up" link is present (added in pass 2); fix any non-conformances
-- Log issues
+
+For each sub-page: prepend the `Main Index | Parent: x` navigation link (depth = parent depth + 1; parent link = `../parent-file.md`); fix any non-conformances; log issues.
 
 ### Pass 6 — Format C pages
 
