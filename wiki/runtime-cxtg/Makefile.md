@@ -11,25 +11,25 @@ Top-level build system for bare-metal test ELFs and QEMU test runs.
 
 ## Index
 
-- [Jump to full text walkthrough](#full-text-walkthrough)
+- [Jump to full text walkthrough](#Full%20text%20walkthrough)
 
 **Variables**
-- [`CROSS_COMPILE`, `CC`](#toolchain-variables) — toolchain prefix, default `riscv64-unknown-elf-`
-- [`QEMU`, `QEMU_FLAGS`](#qemu-variables) — QEMU binary path and invocation flags
-- [`COMMON`, `LDSCRIPT`, `CRT0`](#path-variables) — convenience paths used in pattern rules
-- [`CFLAGS`](#cflags) — march, ABI, bare-metal flags, debug
+- [`CROSS_COMPILE`, `CC`](#Toolchain%20variables) — toolchain prefix, default `riscv64-unknown-elf-`
+- [`QEMU`, `QEMU_FLAGS`](#QEMU%20variables) — QEMU binary path and invocation flags
+- [`COMMON`, `LDSCRIPT`, `CRT0`](#Path%20variables) — convenience paths used in pattern rules
+- [`CFLAGS`](#CFLAGS) — march, ABI, bare-metal flags, debug
 
 **Source discovery**
-- [`TEST_SRCS_S`, `TEST_SRCS_C`, `TEST_ELFS`](#test-discovery) — wildcard discovery of test sources
+- [`TEST_SRCS_S`, `TEST_SRCS_C`, `TEST_ELFS`](#Test%20discovery) — wildcard discovery of test sources
 
 **Pattern rules**
-- [`tests/%.elf: tests/%.S`](#assembly-test-pattern-rule) — compile assembly test against crt0.S
-- [`tests/%.elf: tests/%.c`](#c-test-pattern-rule) — compile C test against crt0.S
+- [`tests/%.elf: tests/%.S`](#Assembly%20test%20pattern%20rule) — compile assembly test against crt0.S
+- [`tests/%.elf: tests/%.c`](#C%20test%20pattern%20rule) — compile C test against crt0.S
 
 **Targets**
-- [`run-%`](#run-target) — compile named test ELF then run under QEMU
-- [`all-tests`](#all-tests-and-clean) — build all discovered test ELFs
-- [`clean`](#all-tests-and-clean) — remove compiled ELFs
+- [`run-%`](#run-%25%20target) — compile named test ELF then run under QEMU
+- [`all-tests`](#all-tests%20and%20clean) — build all discovered test ELFs
+- [`clean`](#all-tests%20and%20clean) — remove compiled ELFs
 
 ---
 
