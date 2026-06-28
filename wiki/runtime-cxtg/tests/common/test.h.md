@@ -2,7 +2,7 @@
 format: A
 ---
 
-*← [Main Index](../../../index.md)*
+*← [Main Index](../../../index.md)* | *↗ [view source](../../../../tests/common/test.h)*
 
 # tests/common/test.h
 

@@ -2,6 +2,8 @@
 format: A
 ---
 
+*← [Main Index](../../../../index.md)* | *↗ [view source](../../../../../qemu-cxtg/target/riscv/cx.c)*
+
 # qemu-cxtg/target/riscv/cx.c
 
 CX extension implementation. Provides the CSR read/write handlers for cxsel, cxsidx, and cxsdata, the TCG helper for the cxsetsel instruction, and QEMU trace events on every access.

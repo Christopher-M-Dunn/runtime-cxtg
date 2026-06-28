@@ -2,7 +2,7 @@
 format: A
 ---
 
-*← [Main Index](../../index.md)*
+*← [Main Index](../../index.md)* | *↗ [view source](../../../tests/block1_2_cxsetsel_macro.c)*
 
 # tests/block1_2_cxsetsel_macro.c
 
