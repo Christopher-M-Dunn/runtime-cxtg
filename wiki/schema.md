@@ -1,3 +1,5 @@
+*← [Main Index](index.md)*
+
 # Wiki Format Schema
 
 Authoritative format rules for all pages under `wiki/runtime-cxtg/`. Read this before writing or editing any wiki page.
@@ -16,19 +18,70 @@ If the file has no wiki page yet: add it to `wiki/index.md` and create its page 
 
 | File is… | Format |
 |---|---|
-| New file written entirely by this project | **A** (small) or **C** (large) — split on whether the full walkthrough fits in one screen |
-| Pre-existing file we added symbols/lines to | **B** — index to sub-pages |
-| A config/docs file where the content is self-evident | **D** — summary + non-obvious context |
+| All non-code files (docs, config, SVGs, symlinks, markdown) | **D** |
+| Pre-existing upstream file modified by this project | **B** — index to sub-pages |
+| New file written by this project | **A** to start — convert to **C** if wiki output > 125 raw lines |
 
-When in doubt, prefer **B** for any pre-existing upstream file.
+**A → C conversion:** After writing a new Format A page (or after updating one), run `wc -l <wiki-page.md>`. If > 125, convert to Format C: add a `## Index` section with URL-encoded heading links, and add `*↑ [back to top](#Index)*` at the end of each `###` section. Format C pages never convert back to A.
+
+**Checking Format B eligibility (submodules only):** All files in `runtime-cxtg/` are de-novo; none are Format B. For submodule files (e.g., `qemu-cxtg/`), check against the upstream release tag — NOT the project's own `cxtg` branch, which will accumulate project files over time:
+```bash
+git -C qemu-cxtg show v10.2.90:<path-relative-to-submodule-root> 2>/dev/null \
+  && echo "upstream" || echo "new"
+```
+Verify the tag with `git -C qemu-cxtg tag` if uncertain.
+
+---
+
+## Front matter
+
+Every **main page** (not sub-pages) starts with:
+```yaml
+---
+format: A
+---
+```
+Replace `A` with the correct format letter. Obsidian parses this silently — visible in the Properties panel, not in the rendered body. Sub-pages (Format B only) get no front matter.
+
+---
+
+## Navigation line
+
+Every page except `wiki/index.md` and `wiki/schema.md` gets a navigation line as the **first line** of the visible body (after front matter on main pages), followed by a blank line, before the H1 title. The line combines italic links separated by `|`:
+
+```
+*← [Main Index](path/to/index.md)* | *↑ [parent-basename](../parent-file.md)* | *↗ [view source](path/to/source)*
+```
+
+- **`← Main Index`** — always present
+- **`↑ parent-basename`** — sub-pages only; omit on main pages
+- **`↗ view source`** — always present (all pages except `wiki/index.md` and `wiki/schema.md`)
+
+`wiki/schema.md` is special: it gets only `*← [Main Index](index.md)*` (no source link — it is a meta-file, not a source wiki page).
+
+All paths are relative to the wiki file's location. The vault root is the repo root.
+
+The relative path to `wiki/index.md` depends on directory depth from `wiki/`:
+
+| Depth from `wiki/` | Example | index.md path |
+|---|---|---|
+| 1 | `wiki/runtime-cxtg/Makefile.md` | `../index.md` |
+| 2 | `wiki/runtime-cxtg/docs/bugs.md.md` | `../../index.md` |
+| 3 | `wiki/runtime-cxtg/qemu-cxtg/disas/riscv.c.md` | `../../../index.md` |
+| 4 | `wiki/runtime-cxtg/qemu-cxtg/target/riscv/cpu.c.md` | `../../../../index.md` |
+| 5 | `wiki/runtime-cxtg/qemu-cxtg/target/riscv/insn_trans/…` | `../../../../../index.md` |
+
+Sub-pages are one level deeper than their parent main page.
 
 ---
 
 ## Format A — small de novo file (full text walkthrough)
 
-Used for new files short enough to document in one page.
+Used for new files whose wiki page is 125 raw lines or fewer (checked with `wc -l`).
 
 ```
+*← [Main Index](../../index.md)* | *↗ [view source](../../../source/file)*
+
 # <path/to/file>
 
 <One or two sentences: purpose and context. What does this file do and when is it used?>
@@ -59,13 +112,15 @@ Used for new files short enough to document in one page.
 Used for any upstream file that this project modified. The file page is an index; each added/changed symbol gets its own sub-page.
 
 ```
+*← [Main Index](../../index.md)* | *↗ [view source](../../../source/file)*
+
 # <path/to/file>
 
 <One sentence: what this file is in QEMU/Linux, not what we changed.>
 
 ## <Category heading>
 
-- [symbol_name (brief label)](filename.ext/symbol_name.md) — one-line description of what this entry does
+- [symbol_name](filename.ext/symbol_name.md) — one-line description of what this entry does
 - [another_symbol](filename.ext/another_symbol.md) — ...
 ```
 
@@ -74,6 +129,8 @@ Sections group related symbols (`## Extension registration`, `## CPU reset`, `##
 ### Sub-page format (Format B only)
 
 ```
+*← [Main Index](../../../index.md)* | *↑ [parent-basename](../parent-file.md)* | *↗ [view source](../../../../source/file)*
+
 # <path/to/file> — <symbol name or label>
 
 <One sentence: what this function/entry does.>
@@ -99,9 +156,11 @@ Sections group related symbols (`## Extension registration`, `## CPU reset`, `##
 
 ## Format C — large de novo file (anchor-linked index + walkthrough)
 
-Used for new files too long to scan without navigation.
+Used for new files whose wiki page exceeds 125 raw lines (checked with `wc -l`).
 
 ```
+*← [Main Index](../../index.md)* | *↗ [view source](../../../source/file)*
+
 # <path/to/file>
 
 <Description. Works with: block.>
@@ -110,7 +169,7 @@ Used for new files too long to scan without navigation.
 
 ## Index
 
-- [Jump to full text walkthrough](#full-text-walkthrough)
+- [Jump to full text walkthrough](#Full%20text%20walkthrough)
 
 **<Group>**
 - [`SYMBOL`](#anchor) — brief label
@@ -119,14 +178,24 @@ Used for new files too long to scan without navigation.
 
 ## Full text walkthrough
 
-### <Section> {#anchor}
+### <Section>
 
 ```code
 ...
 ```
 
 <Explanation>
+
+*↑ [back to top](#Index)*
 ```
+
+Each `###` section ends with a blank line then a back-to-top link, just above the `---` divider of the next section (or at end of file for the last section):
+
+```
+*↑ [back to top](#Index)*
+```
+
+Same italic link style as the navigation line. Obsidian resolves heading anchors by URL-encoded heading text, not slugs. `#Index` works as-is (single word). For multi-word headings use `%20` for spaces (e.g. `#Full%20text%20walkthrough`). Do not use `{#anchor}` tags on headings — Obsidian does not support them.
 
 ---
 
@@ -135,6 +204,8 @@ Used for new files too long to scan without navigation.
 Used for configuration files, documentation files, or anything whose content is largely self-evident.
 
 ```
+*← [Main Index](../../index.md)* | *↗ [view source](../../../source/file)*
+
 # <path/to/file>
 
 <Summary: what this file is and what it controls.>
