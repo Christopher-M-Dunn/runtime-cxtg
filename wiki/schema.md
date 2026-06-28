@@ -151,6 +151,8 @@ Sections group related symbols (`## Extension registration`, `## CPU reset`, `##
 - Show only enough surrounding code to establish context; do not paste the whole function.
 - One sub-page per discrete symbol or action. Combine only when two changes are inseparable.
 - If a symbol lives inside a conditional block (`#if`, `CONFIG_USER_ONLY`, etc.), document the condition in the explanation — the guard is part of the behavior.
+- **Exception — trivial inline changes:** A one-or-two line change with no behavioral logic (debug `printf`, log statement, comment) may be described as a plain bullet in the main page instead of a sub-page, provided the bullet names the function and describes the change.
+- **When renaming a symbol:** update the sub-page filename and the bullet link text in the main page. 
 
 ---
 
@@ -229,7 +231,7 @@ Used for configuration files, documentation files, or anything whose content is 
 - Line number references (`(line 183)`, `line 5567`). Line numbers break as upstream evolves. Use function names.
 - History prose ("this was changed from X to Y", "previously called zicx"). Show current state only.
 - Comments as code context (`/* in CPURISCVState */`). Show the actual struct or function signature.
-- Stale symbol names from earlier in the project (e.g. `ext_zicx`, `cxidx`, `cxdata` after the rename pass).
+- Stale symbol names from earlier in the project (e.g. `ext_zicx`, `cxidx`, `cxdata` after the rename pass) — in text, sub-page filenames, and bullet link paths.
 
 ---
 
