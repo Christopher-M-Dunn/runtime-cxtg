@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [csr.c](../csr.c.md)* | *↗ [view source](../../../../../../qemu-cxtg/target/riscv/csr.c)*
+
 # target/riscv/csr.c — write_cxsel
 
 function: CSR write handler for CSR_CXSEL; delegates to `cxsel_csr_write()` (which is a no-op) then returns `RISCV_EXCP_ILLEGAL_INST` because cxsel is read-only per spec

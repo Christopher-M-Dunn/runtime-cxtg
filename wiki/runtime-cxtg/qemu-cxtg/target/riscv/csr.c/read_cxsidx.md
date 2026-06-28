@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [csr.c](../csr.c.md)* | *↗ [view source](../../../../../../qemu-cxtg/target/riscv/csr.c)*
+
 # target/riscv/csr.c — read_cxsidx
 
 function: CSR read handler for CSR_CXSIDX; delegates to `cxsidx_csr_read()` in `cx.c`

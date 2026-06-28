@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [translate.c](../translate.c.md)* | *↗ [view source](../../../../../../qemu-cxtg/target/riscv/translate.c)*
+
 # qemu-cxtg/target/riscv/translate.c — trans_rvzcx.c.inc include
 
 Pulls the Zcx translation routines into the `translate.c` translation unit so that `trans_cxsetsel` and the helper call it emits share the same static scope as `do_csr_post`, `get_gpr`, `dest_gpr`, and `gen_set_gpr`.

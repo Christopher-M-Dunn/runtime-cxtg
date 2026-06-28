@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../../index.md)* | *↑ [kvm-cpu.c](../kvm-cpu.c.md)* | *↗ [view source](../../../../../../../qemu-cxtg/target/riscv/kvm/kvm-cpu.c)*
+
 # target/riscv/kvm/kvm-cpu.c — kvm_multi_ext_cfgs zcx
 
 Registers `zcx` in `kvm_multi_ext_cfgs[]` linking the QEMU config field `ext_zcx` to the KVM ABI constant `KVM_RISCV_ISA_EXT_ZCX`; allows KVM to negotiate Zcx support with the host kernel.

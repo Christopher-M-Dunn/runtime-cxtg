@@ -2,7 +2,7 @@
 format: B
 ---
 
-*← [Main Index](../../../../index.md)*
+*← [Main Index](../../../../index.md)* | *↗ [view source](../../../../../qemu-cxtg/hw/core/qdev-properties.c)*
 
 # qemu-cxtg/hw/core/qdev-properties.c
 

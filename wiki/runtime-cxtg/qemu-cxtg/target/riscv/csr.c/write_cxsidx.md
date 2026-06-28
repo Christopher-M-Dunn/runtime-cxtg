@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [csr.c](../csr.c.md)* | *↗ [view source](../../../../../../qemu-cxtg/target/riscv/csr.c)*
+
 # target/riscv/csr.c — write_cxsidx
 
 function: CSR write handler for CSR_CXSIDX; delegates to `cxsidx_csr_write()` in `cx.c`

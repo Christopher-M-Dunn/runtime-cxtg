@@ -1,3 +1,5 @@
+*← [Main Index](../../../../index.md)* | *↑ [riscv.c](../riscv.c.md)* | *↗ [view source](../../../../../qemu-cxtg/disas/riscv.c)*
+
 # disas/riscv.c — rv_op_cxsetsel
 
 Opcode enum entry for the cxsetsel instruction in the disassembler's operation code table.

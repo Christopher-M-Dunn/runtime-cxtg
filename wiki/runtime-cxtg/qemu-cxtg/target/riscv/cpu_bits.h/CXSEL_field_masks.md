@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [cpu_bits.h](../cpu_bits.h.md)* | *↗ [view source](../../../../../../qemu-cxtg/target/riscv/cpu_bits.h)*
+
 # target/riscv/cpu_bits.h — CXSEL field masks
 
 Position, width, and mask constants for the two fields of the cxsel CSR in Direct Mode (Figure 3): `[XLEN-1:16]` reserved | `[15:8]` SID | `[7:0]` CXID.

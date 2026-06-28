@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [trace-events](../trace-events.md)* | *↗ [view source](../../../../../../qemu-cxtg/target/riscv/trace-events)*
+
 # target/riscv/trace-events — cxsetsel
 
 Trace event: fires on every cxsetsel instruction execution; logs hart ID, new cxsel value written, and old cxsel value replaced; generates `trace_cxsetsel()` callable from `cx.c`.

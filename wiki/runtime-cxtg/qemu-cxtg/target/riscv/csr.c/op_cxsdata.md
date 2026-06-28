@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [csr.c](../csr.c.md)* | *↗ [view source](../../../../../../qemu-cxtg/target/riscv/csr.c)*
+
 # target/riscv/csr.c — op_cxsdata
 
 Thin wrapper registered as `.op` in `csr_ops[CSR_CXSDATA]`; delegates to `cxsdata_csr_op()` in `cx.c`.

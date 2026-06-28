@@ -1,3 +1,5 @@
+*← [Main Index](../../../../index.md)* | *↑ [riscv.c](../riscv.c.md)* | *↗ [view source](../../../../../qemu-cxtg/disas/riscv.c)*
+
 # disas/riscv.c — cxsdata
 
 Disassembler name entry for CSR_CXSDATA.

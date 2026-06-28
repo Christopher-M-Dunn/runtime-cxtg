@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [cpu_bits.h](../cpu_bits.h.md)* | *↗ [view source](../../../../../../qemu-cxtg/target/riscv/cpu_bits.h)*
+
 # target/riscv/cpu_bits.h — MATCH_CXSETSEL / MASK_CXSETSEL
 
 Binary encoding and match/mask constants for the cxsetsel instruction. Used by the decodetree pattern in `insn32.decode` and by any disassembler or decoder that needs to identify a cxsetsel word.

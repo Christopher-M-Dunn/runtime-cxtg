@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [cpu.c](../cpu.c.md)* | *↗ [view source](../../../../../../qemu-cxtg/target/riscv/cpu.c)*
+
 # target/riscv/cpu.c — MULTI_EXT_CFG_BOOL("zcx")
 
 Declares `zcx` as a multi-extension boolean CPU property, default off; exposes it as a QEMU CPU property (e.g. `-cpu rv64,zcx=on`).

@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [csr.c](../csr.c.md)* | *↗ [view source](../../../../../../qemu-cxtg/target/riscv/csr.c)*
+
 # target/riscv/csr.c — cxsidx (predicate)
 
 Access predicate for CSR_CXSIDX; returns `RISCV_EXCP_ILLEGAL_INST` when `ext_zcx` is not set.

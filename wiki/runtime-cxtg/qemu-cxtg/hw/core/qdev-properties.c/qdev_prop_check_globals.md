@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [qdev-properties.c](../qdev-properties.c.md)* | *↗ [view source](../../../../../../qemu-cxtg/hw/core/qdev-properties.c)*
+
 # hw/core/qdev-properties.c — qdev_prop_check_globals
 
 function: validates all global device properties; debug printfs added to log each property's driver, name, and value

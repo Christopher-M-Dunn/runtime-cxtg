@@ -1,3 +1,5 @@
+*← [Main Index](../../../../index.md)* | *↑ [riscv.c](../riscv.c.md)* | *↗ [view source](../../../../../qemu-cxtg/disas/riscv.c)*
+
 # disas/riscv.c — cxsetsel rvi_opcode_data entry
 
 Instruction format and codec definition for cxsetsel in the disassembler's opcode table.

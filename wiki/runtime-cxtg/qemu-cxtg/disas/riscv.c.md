@@ -2,7 +2,7 @@
 format: B
 ---
 
-*← [Main Index](../../../index.md)*
+*← [Main Index](../../../index.md)* | *↗ [view source](../../../../qemu-cxtg/disas/riscv.c)*
 
 # qemu-cxtg/disas/riscv.c
 

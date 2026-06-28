@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [helper.h](../helper.h.md)* | *↗ [view source](../../../../../../qemu-cxtg/target/riscv/helper.h)*
+
 # qemu-cxtg/target/riscv/helper.h — DEF_HELPER_2(cxsetsel, tl, env, tl)
 
 Declares the `cxsetsel` TCG helper. The macro system generates a C prototype and the `gen_helper_cxsetsel` TCG wrapper used in translation code.

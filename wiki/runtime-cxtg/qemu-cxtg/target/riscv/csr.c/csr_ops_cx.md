@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [csr.c](../csr.c.md)* | *↗ [view source](../../../../../../qemu-cxtg/target/riscv/csr.c)*
+
 # target/riscv/csr.c — csr_ops[] CX entries
 
 Registers CSR_CXSEL, CSR_CXSIDX, CSR_CXSDATA in the `csr_ops[]` dispatch table.

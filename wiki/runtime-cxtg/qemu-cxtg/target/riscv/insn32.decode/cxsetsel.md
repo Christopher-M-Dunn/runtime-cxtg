@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [insn32.decode](../insn32.decode.md)* | *↗ [view source](../../../../../../qemu-cxtg/target/riscv/insn32.decode)*
+
 # target/riscv/insn32.decode — cxsetsel
 
 Decodetree pattern for the cxsetsel instruction. Decodetree generates an `arg_r2` struct (fields: `rs1`, `rd`) and a `trans_cxsetsel(ctx, &arg)` dispatch call from this pattern.

@@ -1,3 +1,5 @@
+*← [Main Index](../../../../index.md)* | *↑ [riscv.c](../riscv.c.md)* | *↗ [view source](../../../../../qemu-cxtg/disas/riscv.c)*
+
 # disas/riscv.c — SYSTEM opcode case 4 cxsetsel decode
 
 Decode logic guard for cxsetsel within the SYSTEM (funct3=4) opcode block.

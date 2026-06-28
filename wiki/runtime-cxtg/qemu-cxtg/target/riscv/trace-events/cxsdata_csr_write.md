@@ -1,3 +1,5 @@
+*← [Main Index](../../../../../index.md)* | *↑ [trace-events](../trace-events.md)* | *↗ [view source](../../../../../../qemu-cxtg/target/riscv/trace-events)*
+
 # target/riscv/trace-events — cxsdata_csr_write
 
 trace event: fires on every write to CSR_CXSDATA; logs hart ID, register index, and value written; generates `trace_cxsdata_csr_write()` callable from `cx.c`
