@@ -1,3 +1,7 @@
+---
+format: A
+---
+
 *← [Main Index](../../index.md)*
 
 # tests/block1_2_cxsetsel_macro.c

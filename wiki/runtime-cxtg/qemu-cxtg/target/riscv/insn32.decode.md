@@ -1,3 +1,7 @@
+---
+format: B
+---
+
 *← [Main Index](../../../../index.md)*
 
 # qemu-cxtg/target/riscv/insn32.decode

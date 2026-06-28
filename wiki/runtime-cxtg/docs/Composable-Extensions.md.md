@@ -1,3 +1,7 @@
+---
+format: D
+---
+
 *← [Main Index](../../index.md)*
 
 # docs/Composable-Extensions.md

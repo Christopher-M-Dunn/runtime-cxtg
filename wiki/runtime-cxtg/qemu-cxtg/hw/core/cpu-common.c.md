@@ -1,3 +1,7 @@
+---
+format: B
+---
+
 *← [Main Index](../../../../index.md)*
 
 # qemu-cxtg/hw/core/cpu-common.c

@@ -1,3 +1,7 @@
+---
+format: A
+---
+
 *← [Main Index](../../../index.md)*
 
 # tests/common/uart.h

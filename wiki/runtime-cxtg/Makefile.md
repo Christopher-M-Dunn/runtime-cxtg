@@ -1,3 +1,7 @@
+---
+format: C
+---
+
 *← [Main Index](../index.md)*
 
 # Makefile

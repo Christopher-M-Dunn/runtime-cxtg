@@ -1,3 +1,7 @@
+---
+format: A
+---
+
 *← [Main Index](../../../../../index.md)*
 
 # qemu-cxtg/target/riscv/insn_trans/trans_rvzcx.c.inc

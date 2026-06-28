@@ -1,3 +1,7 @@
+---
+format: D
+---
+
 *← [Main Index](../../index.md)*
 
 # docs/CXTG_QEMU_Action_Plan.md
