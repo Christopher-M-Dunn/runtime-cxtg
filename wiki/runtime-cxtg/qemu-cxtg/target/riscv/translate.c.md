@@ -1,3 +1,5 @@
+*← [Main Index](../../../../index.md)*
+
 # qemu-cxtg/target/riscv/translate.c
 
 RISC-V TCG frontend: decodes guest instructions and emits TCG ops. The main entry point is `riscv_tr_translate_insn`; all per-extension translation files are `#include`d here and share a single translation unit.

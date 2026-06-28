@@ -1,3 +1,5 @@
+*← [Main Index](../../../index.md)*
+
 # qemu-cxtg/system/vl.c
 
 QEMU main system emulation entry point. Parses command-line options and initializes the machine.

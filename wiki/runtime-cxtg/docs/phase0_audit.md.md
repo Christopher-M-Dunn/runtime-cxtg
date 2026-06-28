@@ -1,3 +1,5 @@
+*← [Main Index](../../index.md)*
+
 # docs/phase0_audit.md
 
 Audit notes from the initial integration of Artur's CX branch: DT schema, CSR inventory, cxsetsel status.

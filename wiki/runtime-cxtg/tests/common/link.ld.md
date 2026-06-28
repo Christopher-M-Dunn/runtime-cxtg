@@ -1,3 +1,5 @@
+*← [Main Index](../../../index.md)*
+
 # tests/common/link.ld
 
 Bare-metal linker script. Places the image at DRAM base `0x80000000` (QEMU virt). Defines the symbols `_bss_start`, `_bss_end`, `_stack_bottom`, and `_stack_top` consumed by `crt0.S`.

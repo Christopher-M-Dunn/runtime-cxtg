@@ -1,3 +1,5 @@
+*← [Main Index](../index.md)*
+
 # CLAUDE.md — runtime-cxtg
 
 Claude Code project guidance for the `runtime-cxtg` umbrella repository.

@@ -1,3 +1,5 @@
+*← [Main Index](../../index.md)*
+
 # docs/flowchart_direct_mode.svg
 
 Direct mode state machine diagram.

@@ -1,3 +1,5 @@
+*← [Main Index](../../index.md)*
+
 # tests/block1_2_cxsetsel.S
 
 Bare-metal assembly test for the `cxsetsel` instruction (SYSTEM opcode, funct3=4, funct7=0, rs2=x0). Exercises five behavioral cases for the atomic swap semantics of `cxsetsel` against CSR `cxsel` (0xCA0). Written before the instruction is implemented in QEMU — the test is expected to fail (illegal instruction trap) until QEMU decodes and executes `cxsetsel`.

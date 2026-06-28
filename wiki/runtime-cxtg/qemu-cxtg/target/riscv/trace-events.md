@@ -1,3 +1,5 @@
+*← [Main Index](../../../../index.md)*
+
 # qemu-cxtg/target/riscv/trace-events
 
 QEMU trace event definitions for the RISC-V target. Each entry generates a `trace_*()` function callable from C code.

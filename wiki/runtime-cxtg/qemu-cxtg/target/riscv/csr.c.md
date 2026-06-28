@@ -1,3 +1,5 @@
+*← [Main Index](../../../../index.md)*
+
 # qemu-cxtg/target/riscv/csr.c
 
 CSR read/write handlers, access predicates, and the `csr_ops[]` dispatch table. The central file for all RISC-V CSR behavior (~8000 lines).

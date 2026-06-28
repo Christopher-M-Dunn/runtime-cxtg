@@ -1,3 +1,5 @@
+*← [Main Index](../../index.md)*
+
 # tests/block1_2_cxsetsel_macro.c
 
 C test for the `CXSETSEL` inline-assembly macro in `include/utils.h`. Verifies five behavioral cases: reset state, write, all-ones write, discard-rd pattern, and round-trip swap. Runs on the bare-metal harness under QEMU with `zcx=on`.

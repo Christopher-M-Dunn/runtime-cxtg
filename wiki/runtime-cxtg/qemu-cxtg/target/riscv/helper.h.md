@@ -1,3 +1,5 @@
+*← [Main Index](../../../../index.md)*
+
 # qemu-cxtg/target/riscv/helper.h
 
 X-macro file declaring all TCG helper functions for the RISC-V target. Each `DEF_HELPER_*` entry is processed by the QEMU helper macro system to auto-generate both the C prototype and the `gen_helper_*` TCG wrapper used in translation code.

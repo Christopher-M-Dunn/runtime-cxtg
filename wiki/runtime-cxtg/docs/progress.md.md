@@ -1,3 +1,5 @@
+*← [Main Index](../../index.md)*
+
 # docs/progress.md
 
 Live block-by-block checklist and release notes. Primary status document.

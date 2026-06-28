@@ -1,3 +1,5 @@
+*← [Main Index](../../index.md)*
+
 # qemu-cxtg/CLAUDE.md
 
 Claude Code guidance for the `qemu-cxtg` QEMU submodule.

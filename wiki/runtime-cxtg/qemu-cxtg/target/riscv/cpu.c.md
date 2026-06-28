@@ -1,3 +1,5 @@
+*← [Main Index](../../../../index.md)*
+
 # qemu-cxtg/target/riscv/cpu.c
 
 RISC-V CPU initialization and ISA extension registration. Manages CPU config, reset, and extension properties.

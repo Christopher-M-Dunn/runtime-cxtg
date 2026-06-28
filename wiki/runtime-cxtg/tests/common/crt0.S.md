@@ -1,3 +1,5 @@
+*← [Main Index](../../../index.md)*
+
 # tests/common/crt0.S
 
 M-mode bare-metal startup for QEMU virt (RV64). Entry at `_start` (0x80000000). Provides `test_pass`, `test_fail`, and the `_trap_mcause` variable used by tests to assert expected exception causes.
