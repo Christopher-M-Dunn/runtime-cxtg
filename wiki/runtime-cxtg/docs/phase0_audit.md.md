@@ -2,7 +2,7 @@
 format: D
 ---
 
-*← [Main Index](../../index.md)*
+*← [Main Index](../../index.md)* | *↗ [view source](../../../docs/phase0_audit.md)*
 
 # docs/phase0_audit.md
 

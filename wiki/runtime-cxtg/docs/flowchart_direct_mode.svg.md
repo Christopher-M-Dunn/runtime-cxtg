@@ -2,7 +2,7 @@
 format: D
 ---
 
-*← [Main Index](../../index.md)*
+*← [Main Index](../../index.md)* | *↗ [view source](../../../docs/flowchart_direct_mode.svg)*
 
 # docs/flowchart_direct_mode.svg
 

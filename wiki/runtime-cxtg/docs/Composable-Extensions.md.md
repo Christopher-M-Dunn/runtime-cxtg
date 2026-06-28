@@ -2,7 +2,7 @@
 format: D
 ---
 
-*← [Main Index](../../index.md)*
+*← [Main Index](../../index.md)* | *↗ [view source](../../../docs/Composable-Extensions.md)*
 
 # docs/Composable-Extensions.md
 

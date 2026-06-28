@@ -2,7 +2,7 @@
 format: D
 ---
 
-*← [Main Index](../../index.md)*
+*← [Main Index](../../index.md)* | *↗ [view source](../../../qemu-cxtg/spec.md)*
 
 # qemu-cxtg/spec.md
 
