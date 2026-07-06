@@ -33,7 +33,15 @@ static RISCVException scxstp_pred(CPURISCVState *env, int csrno)
 
 ---
 
-## CSR Address Stubs (Phase 0)
+## CSR Addresses, instruction encodings, and extension names
+
+- This item, and therefore this TODO, is permanent and not to be removed until end of project: Final addresses and extension name or names will need to be assigned by RISCV org
+
+- CXSETSEL insn current encoding: SYSTEM major opcode (0x73), funct3 = 100, funct7=0
+
+- CXDISCARD - TBD, likely SYSTEM 100,1 in this implementation
+
+- the below table is stale. update it.
 
 | Symbol | File | Current Value | Pending |
 |--------|------|---------------|---------|
@@ -54,15 +62,9 @@ Awaiting TG clarification: should mode=2 be WARL-clamped on write, raise illegal
 
 ---
 
-## cxsetsel Instruction Encoding (Block 1.2 prerequisite)
-
-- Encoding: SYSTEM major opcode (0x73), funct3 = available slot — **TBD**
-- Define `MATCH_CXSETSEL` / `MASK_CXSETSEL` in `cpu_bits.h` once encoding confirmed
-
----
-
 ## fix trace-events warnings
 
+- if this TODO is done, remove it.
 - qemu-system-riscv64:trace-events.txt:3: warning: trace event 'cxsetsel_csr_read' does not exist
 - qemu-system-riscv64:trace-events.txt:4: warning: trace event 'cxsetsel_csr_write' does not exist
 - qemu-system-riscv64:trace-events.txt:5: warning: trace event 'cxidx_csr_read' does not exist
@@ -72,17 +74,10 @@ Awaiting TG clarification: should mode=2 be WARL-clamped on write, raise illegal
 
 ---
 
-## fix disassembly names and addresses (disas/riscv.c)
-
----
-
-## fix trace-events warnings
-
----
 ## decide on how we are dealing with ~0 in this implementation
 - spec identifies ~0 as an invalid selector, but states ~0 need not be a legal value.
 - spec requires cxsel be able to hold all valid selectors and it seems to imply it must hold at least one invalid selector with "Prior to writing cxsel, implementations may convert an invalid
-value into some other invalid value that cxsel is capable of holding." May implementations clamp invalid values valid values? That would seem to defeat this line in the spec: "The all 1s value may be used by software to aid in debugging uninitialized variables."
+value into some other invalid value that cxsel is capable of holding." May implementations clamp invalid values to valid values? Does that defeat this line in the spec?: "The all 1s value may be used by software to aid in debugging uninitialized variables." No. uninitialized values can be detected but spec gives no guaranteed way of checking if a selector is valid just given its value. I guess this is okay-- I believe runtime will have mechanisms for doing this.
 - review the TG message chain on this topic, and add an open question to the bottom of Composable-Extensions.md
 - logical implementation may be one of the following:
   - all invalid selectors are illegal except ~0, and all illegal values get clamped to ~0. easy debugging (bne ~0). technically maximizes the number of available selector values, but i'm not sure if that would be useful. 
@@ -98,6 +93,6 @@ value into some other invalid value that cxsel is capable of holding." May imple
 
 - read all this todo before starting
 - compare Composable-Extensions.md to the spec doc  ../composable-custom-extensions/build/composable-custom-extensions.html (if it is easier to read, look at the source files in  ../composable-custom-extensions/src/ but referencing the built doc is probably necessary for ordering, section numbers, and other meta info)
-- going through the spec in order, ensure the Composable-Extenstions.md concisely states *all* the spec requirements *without omitting any detail relevant to implementation*.
+- going through the spec in order, ensure the Composable-Extenstions.md concisely states *all* the spec requirements *without omitting ANY detail needed for implementation*.
 - ensure that there are no assumptions. this doc must derive *all* info *directly* from the spec source.
 - when that is complete, using context from current work, go through each of the open questions at the bottom to see if they are still open, citing any resolution or tenative working assumptions. don't remove anything -- if anything ever was an open question, it likely needs to be clarified in the spec, so even if it is resolved it needs to stay on record. Using superpowers/brainstorming, add as many open questions as can be identified.
