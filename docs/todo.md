@@ -41,14 +41,12 @@ static RISCVException scxstp_pred(CPURISCVState *env, int csrno)
 
 - CXDISCARD - TBD, likely SYSTEM 100,1 in this implementation
 
-- the below table is stale. update it.
-
 | Symbol | File | Current Value | Pending |
 |--------|------|---------------|---------|
-| `CSR_CXSEL` | `qemu-cxtg/target/riscv/cpu_bits.h` | `0x800` | Spec draft says `0xCC0`; confirm with spec owners |
-| `CSR_CXSIDX` | `qemu-cxtg/target/riscv/cpu_bits.h` | `0x801` | Pending spec finalisation |
-| `CSR_CXSDATA` | `qemu-cxtg/target/riscv/cpu_bits.h` | `0x802` | Pending spec finalisation |
-| Extension name | `qemu-cxtg/target/riscv/cpu.c` etc. | `zicx` | Rename to `zcx` — Phase 1 task |
+| `CSR_CXSEL` | `qemu-cxtg/target/riscv/cpu_bits.h` | `0xCA0` | Final address pending RISC-V org assignment |
+| `CSR_CXSIDX` | `qemu-cxtg/target/riscv/cpu_bits.h` | `0x018` | Final address pending RISC-V org assignment |
+| `CSR_CXSDATA` | `qemu-cxtg/target/riscv/cpu_bits.h` | `0x019` | Final address pending RISC-V org assignment |
+| `MATCH_CXSETSEL` | `qemu-cxtg/target/riscv/cpu_bits.h` | `0x00004073` (SYSTEM, funct3=4, funct7=0) | Final encoding pending RISC-V org assignment |
 
 ---
 
@@ -59,18 +57,6 @@ Writing mode=2 to scxstp when `ext_zcxmulti` is not enabled: **behavior TBD**.
 Current implementation: treated as illegal instruction (trap on use).
 
 Awaiting TG clarification: should mode=2 be WARL-clamped on write, raise illegal instruction on write, or be silently stored but trap on first CX instruction?
-
----
-
-## fix trace-events warnings
-
-- if this TODO is done, remove it.
-- qemu-system-riscv64:trace-events.txt:3: warning: trace event 'cxsetsel_csr_read' does not exist
-- qemu-system-riscv64:trace-events.txt:4: warning: trace event 'cxsetsel_csr_write' does not exist
-- qemu-system-riscv64:trace-events.txt:5: warning: trace event 'cxidx_csr_read' does not exist
-- qemu-system-riscv64:trace-events.txt:6: warning: trace event 'cxidx_csr_write' does not exist
-- qemu-system-riscv64:trace-events.txt:7: warning: trace event 'cxdata_csr_read' does not exist
-- qemu-system-riscv64:trace-events.txt:8: warning: trace event 'cxdata_csr_write' does not exist
 
 ---
 
