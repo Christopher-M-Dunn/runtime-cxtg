@@ -77,6 +77,8 @@ value into some other invalid value that cxsel is capable of holding." May imple
 
 ## revisit Composable-Extensions.md (literal requirements) and its source, the current draft spec
 
+**DONE (2026-07-13)** — full spec-to-doc comparison completed; missing sections added (composability criteria, external specifications/discovery, architecture models, verbatim library and context-switch examples); open questions reviewed, softened, and expanded; project-irrelevant spec content trimmed.
+
 - read all this todo before starting
 - compare Composable-Extensions.md to the spec doc  ../composable-custom-extensions/build/composable-custom-extensions.html (if it is easier to read, look at the source files in  ../composable-custom-extensions/src/ but referencing the built doc is probably necessary for ordering, section numbers, and other meta info)
 - going through the spec in order, ensure the Composable-Extenstions.md concisely states *all* the spec requirements *without omitting ANY detail needed for implementation*.
