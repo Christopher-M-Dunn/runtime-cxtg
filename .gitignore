@@ -41,7 +41,7 @@
 !tests/output/*.out
 
 # Obsidian IDE state
-wiki/.obsidian/
+.obsidian/*
 
 utils/busybox
 utils/initramfs
