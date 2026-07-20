@@ -136,7 +136,7 @@ CX extension requirements: per-CSR behavior rules, cxsetsel semantics, open ques
 
 - **Read:** when verifying an implementation matches spec requirements; when reviewing what open questions remain
 - **Update:**
-  - `## Open Questions` — remove items as resolved, add new ones as they surface
+  - `## Open Questions` — mark items as resolved, add new ones as they surface
   - `## Tests` — add test cases as blocks are implemented
   - CSR requirement sections — update only if the spec changes a behavior rule
 
