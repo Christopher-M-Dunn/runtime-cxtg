@@ -63,7 +63,7 @@
 - [ ] **Step 1: Cut feat/1.2 in qemu-cxtg**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg/qemu-cxtg
+cd runtime-cxtg/qemu-cxtg
 git checkout cxtg-dev
 git pull
 git checkout -b feat/1.2
@@ -72,7 +72,7 @@ git checkout -b feat/1.2
 - [ ] **Step 2: Cut feat/1.2 in runtime-cxtg**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 git checkout cxtg-dev
 git pull
 git checkout -b feat/1.2
@@ -81,8 +81,8 @@ git checkout -b feat/1.2
 - [ ] **Step 3: Verify both are on feat/1.2**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg/qemu-cxtg && git branch --show-current
-cd /home/cmd/Github/runtime-cxtg && git branch --show-current
+cd runtime-cxtg/qemu-cxtg && git branch --show-current
+cd runtime-cxtg && git branch --show-current
 ```
 
 Expected: `feat/1.2` for both.
@@ -98,7 +98,7 @@ Write the `.S` test before touching QEMU. Running it now should produce an illeg
 
 - [ ] **Step 1: Create `tests/block1_2_cxsetsel.S`**
 
-Create `/home/cmd/Github/runtime-cxtg/tests/block1_2_cxsetsel.S`:
+Create `runtime-cxtg/tests/block1_2_cxsetsel.S`:
 
 ```asm
 /* Block 1.2 test -- cxsetsel raw instruction encoding
@@ -174,7 +174,7 @@ pass:
 - [ ] **Step 2: Build the test ELF**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 make tests/block1_2_cxsetsel.elf
 ```
 
@@ -323,7 +323,7 @@ Update `wiki/runtime-cxtg/qemu-cxtg/target/riscv/cx.c.md`.
 
 - [ ] **Step 1: Create `insn_trans/trans_rvzcx.c.inc`**
 
-Create `/home/cmd/Github/runtime-cxtg/qemu-cxtg/target/riscv/insn_trans/trans_rvzcx.c.inc`:
+Create `runtime-cxtg/qemu-cxtg/target/riscv/insn_trans/trans_rvzcx.c.inc`:
 
 ```c
 /*
@@ -429,7 +429,7 @@ Create `wiki/runtime-cxtg/qemu-cxtg/disas/riscv.c.md`. Update `wiki/index.md`.
 - [ ] **Step 1: Build QEMU**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg/qemu-cxtg/build
+cd runtime-cxtg/qemu-cxtg/build
 make -j$(nproc) qemu-system-riscv64
 ```
 
@@ -444,7 +444,7 @@ Verify cxsetsel disassembles correctly. The encoding of `cxsetsel a0, a0` is:
 ```bash
 cd /tmp
 printf '\x73\x40\x05\x00' > cxsetsel_test.bin
-/home/cmd/Github/runtime-cxtg/qemu-cxtg/build/qemu-system-riscv64 \
+runtime-cxtg/qemu-cxtg/build/qemu-system-riscv64 \
     -cpu rv64,zcx=on -M virt -bios cxsetsel_test.bin -d in_asm -nographic 2>&1 | head -10
 ```
 
@@ -453,7 +453,7 @@ Expected output contains: `cxsetsel a0,a0`
 - [ ] **Step 3: Run assembly test — expect PASSED**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 make run-block1_2_cxsetsel
 ```
 
@@ -484,7 +484,7 @@ Expected: one line per `cxsetsel` execution showing `hart=0 new=0x... old=0x...`
 
 - [ ] **Step 1: Create `include/utils.h` with the CXSETSEL macro**
 
-Create `/home/cmd/Github/runtime-cxtg/include/utils.h`:
+Create `runtime-cxtg/include/utils.h`:
 
 ```c
 #ifndef UTILS_H
@@ -511,7 +511,7 @@ Create `wiki/runtime-cxtg/include/utils.h.md`. Update `wiki/index.md`.
 
 - [ ] **Step 3: Create `tests/block1_2_cxsetsel_macro.c`**
 
-Create `/home/cmd/Github/runtime-cxtg/tests/block1_2_cxsetsel_macro.c`:
+Create `runtime-cxtg/tests/block1_2_cxsetsel_macro.c`:
 
 ```c
 #include "common/uart.h"
@@ -568,7 +568,7 @@ int main(void)
 - [ ] **Step 4: Build and run**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 make tests/block1_2_cxsetsel_macro.elf
 make run-block1_2_cxsetsel_macro
 ```
@@ -608,7 +608,7 @@ Do not proceed until the user confirms.
 - [ ] **Step 3: Commit qemu-cxtg**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg/qemu-cxtg
+cd runtime-cxtg/qemu-cxtg
 git add target/riscv/cpu_bits.h \
         target/riscv/trace-events \
         target/riscv/insn32.decode \
@@ -624,7 +624,7 @@ git commit -m "zcx: add cxsetsel instruction stub (Block 1.2)"
 - [ ] **Step 4: Commit runtime-cxtg**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 git add include/utils.h \
         tests/block1_2_cxsetsel.S \
         tests/block1_2_cxsetsel_macro.c \
@@ -638,7 +638,7 @@ git commit -m "block1.2: cxsetsel tests, CXSETSEL macro, wiki updates"
 - [ ] **Step 5: Merge feat/1.2 → cxtg-dev in qemu-cxtg**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg/qemu-cxtg
+cd runtime-cxtg/qemu-cxtg
 git checkout cxtg-dev
 git merge feat/1.2
 ```
@@ -646,7 +646,7 @@ git merge feat/1.2
 - [ ] **Step 6: Merge feat/1.2 → cxtg-dev in runtime-cxtg**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 git checkout cxtg-dev
 git merge feat/1.2
 ```

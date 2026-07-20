@@ -91,7 +91,7 @@ Work in: `runtime-cxtg`
 - [ ] **Step 1: Create directories**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 mkdir -p tests/common examples src include
 ```
 
@@ -565,7 +565,7 @@ git checkout cxtg-dev && git pull
 
 ## Branch: feat/1.1
 
-Work in: `qemu-cxtg` repo (`/home/cmd/Github/runtime-cxtg/qemu-cxtg`)
+Work in: `qemu-cxtg` repo (`runtime-cxtg/qemu-cxtg`)
 
 **Prerequisite:** feat/test-infra merged to `cxtg-dev`.
 
@@ -574,7 +574,7 @@ Work in: `qemu-cxtg` repo (`/home/cmd/Github/runtime-cxtg/qemu-cxtg`)
 - [ ] **Step 1: Cut branch**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg/qemu-cxtg
+cd runtime-cxtg/qemu-cxtg
 git checkout cxtg-dev && git pull
 git checkout -b feat/1.1
 ```
@@ -602,7 +602,7 @@ Expected: `[100%]` line, no errors, no CX-related warnings.
 - [ ] **Step 1: Run sed across all files**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg/qemu-cxtg
+cd runtime-cxtg/qemu-cxtg
 
 # Rename the ISA extension string and C symbol
 sed -i \
@@ -942,7 +942,7 @@ git commit -m "target/riscv: fix CX CSR predicate functions — remove dead PMP 
 - [ ] **Step 1: Rebuild QEMU**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg/qemu-cxtg/build
+cd runtime-cxtg/qemu-cxtg/build
 make -j$(nproc) 2>&1 | tail -10
 ```
 
@@ -1085,7 +1085,7 @@ main:
 - [ ] **Step 4: Build and run test**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 make tests/block1_1_csr_stubs.elf
 make run-block1_1
 ```
@@ -1137,7 +1137,7 @@ Add a row to `wiki/index.md` for `tests/block1_1_csr_stubs.S`.
 - [ ] **Step 7: Commit wiki and test**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 git add tests/block1_1_csr_stubs.S docs/todo.md wiki/
 git commit -m "feat(1.1): add CSR stub test and wiki updates"
 ```
@@ -1145,7 +1145,7 @@ git commit -m "feat(1.1): add CSR stub test and wiki updates"
 - [ ] **Step 8: Commit qemu-cxtg and merge**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg/qemu-cxtg
+cd runtime-cxtg/qemu-cxtg
 git add -p   # review all changes
 git commit -m "target/riscv: Zcx Block 1.1 — rename, addresses, field names, predicates, auto-increment"
 git push origin feat/1.1
@@ -1156,7 +1156,7 @@ git checkout cxtg-dev && git pull
 After merging qemu-cxtg, update the submodule pointer in runtime-cxtg:
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 git add qemu-cxtg
 git commit -m "chore: update qemu-cxtg submodule to feat/1.1 merge"
 git push origin cxtg-dev
@@ -1178,7 +1178,7 @@ Work in: `qemu-cxtg` (instruction) + `runtime-cxtg` (utils.h + test).
 - [ ] **Step 1: Cut branch in qemu-cxtg**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg/qemu-cxtg
+cd runtime-cxtg/qemu-cxtg
 git checkout cxtg-dev && git pull
 git checkout -b feat/1.2
 ```
@@ -1325,7 +1325,7 @@ git commit -m "target/riscv: add cxsetsel instruction translation (Zcx Block 1.2
 - [ ] **Step 1: Rebuild**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg/qemu-cxtg/build
+cd runtime-cxtg/qemu-cxtg/build
 make -j$(nproc) 2>&1 | tail -10
 ```
 
@@ -1342,7 +1342,7 @@ Expected: clean build. If decodetree fails, check that the `cxsetsel` line in in
 - [ ] **Step 1: Cut branch in runtime-cxtg**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 git checkout cxtg-dev && git pull
 git checkout -b feat/1.2
 ```
@@ -1494,7 +1494,7 @@ main:
 - [ ] **Step 4: Build and run test**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 make tests/block1_2_cxsetsel.elf
 make run-block1_2
 ```
@@ -1527,7 +1527,7 @@ git push origin feat/1.2
 # PR feat/1.2 → cxtg-dev; review; merge
 
 # qemu-cxtg changes (on feat/1.2 branch there):
-cd /home/cmd/Github/runtime-cxtg/qemu-cxtg
+cd runtime-cxtg/qemu-cxtg
 git push origin feat/1.2
 # PR feat/1.2 → cxtg-dev; review; merge
 cd ..
@@ -1554,7 +1554,7 @@ Work in: `runtime-cxtg`
 - [ ] **Step 1: Cut branch**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 git checkout cxtg-dev && git pull
 git checkout -b feat/1.3
 ```
@@ -1806,7 +1806,7 @@ git checkout cxtg-dev && git pull
 - [ ] **Step 1: Final full test run**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 make all-tests
 make run-smoke && make run-block1_1 && make run-block1_2 && make run-test_wrappers
 ```
@@ -1816,7 +1816,7 @@ Expected: all print `PASSED`.
 - [ ] **Step 2: Merge qemu-cxtg cxtg-dev → cxtg and tag**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg/qemu-cxtg
+cd runtime-cxtg/qemu-cxtg
 git checkout cxtg && git merge --no-ff cxtg-dev
 git tag cxtg-v0.phase1
 git push origin cxtg cxtg-v0.phase1
@@ -1825,7 +1825,7 @@ git push origin cxtg cxtg-v0.phase1
 - [ ] **Step 3: Update submodule pointer and tag runtime-cxtg**
 
 ```bash
-cd /home/cmd/Github/runtime-cxtg
+cd runtime-cxtg
 git checkout cxtg-dev
 git add qemu-cxtg
 git commit -m "chore: update qemu-cxtg submodule to cxtg-v0.phase1"
