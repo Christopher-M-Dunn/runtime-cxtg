@@ -1,7 +1,7 @@
 # CXTG QEMU Implementation — Progress
 
 See [`CXTG_QEMU_Action_Plan.md`](CXTG_QEMU_Action_Plan.md) for full block specs.
-See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses and open questions.
+See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses and deferred implementation decisions.
 
 ---
 

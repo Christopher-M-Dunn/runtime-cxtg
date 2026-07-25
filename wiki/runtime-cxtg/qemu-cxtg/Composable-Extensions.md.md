@@ -19,5 +19,5 @@ CX extension requirements document.
 - External specifications (spec Appendix A): devicetree `cxs.yaml` binding, psABI (`EF_RISCV_RVCX`, calling conventions), Linux hwprobe keys and prctl interface
 - Unprivileged architecture models (spec Appendix C, non-normative)
 - Empty/placeholder spec sections, including the orphaned `cxsel-format.adoc`
-- Open questions
 - Test cases
+- Discussion: open questions and working assumptions

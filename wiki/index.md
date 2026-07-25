@@ -33,7 +33,7 @@ Live format examples (read schema.md first, use these as references):
 | [docs/progress.md](runtime-cxtg/docs/progress.md.md) | Live block checklist and release notes |
 | [docs/spec.md](runtime-cxtg/docs/spec.md.md) | Zicx implementation spec (symlink → qemu-cxtg) |
 | [docs/superpowers/plans/2026-05-19-phase0-block0.1-integrate-audit-build.md](runtime-cxtg/docs/superpowers/plans/2026-05-19-phase0-block0.1-integrate-audit-build.md.md) | Phase 0 Block 0.1 implementation plan |
-| [docs/todo.md](runtime-cxtg/docs/todo.md.md) | Deferred decisions and open questions |
+| [docs/todo.md](runtime-cxtg/docs/todo.md.md) | Deferred implementation decisions |
 | [include/utils.h](runtime-cxtg/include/utils.h.md) | Inline assembly macros for CX instructions not supported by the standard toolchain assembler |
 | [tests/block1_2_cxsetsel.S](runtime-cxtg/tests/block1_2_cxsetsel.S.md) | Assembly test for cxsetsel instruction: five swap behavioral cases |
 | [tests/block1_2_cxsetsel_macro.c](runtime-cxtg/tests/block1_2_cxsetsel_macro.c.md) | C test for the CXSETSEL inline-assembly macro: five swap behavioral cases via utils.h |

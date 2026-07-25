@@ -1,4 +1,6 @@
-# CXTG TODO — Deferred Decisions and Open Questions
+# CXTG TODO — Deferred Implementation Decisions
+
+**Note:** This document is for QEMU and runtime implementation TODOs regarding *how* we are implementing the requirements. If the question is *what* the spec requires — including non-normative sections, which this project treats as requirements — check `Composable-Extensions.md`. If still unclear there, add an item to `Composable-Extensions.md`'s Discussion section, listing any decisions as project assumptions.
 
 ---
 
@@ -52,11 +54,9 @@ static RISCVException scxstp_pred(CPURISCVState *env, int csrno)
 
 ## scxstp.mode=2 (Indirect) when ZcxMulti absent (Block 6.3)
 
-Writing mode=2 to scxstp when `ext_zcxmulti` is not enabled: **behavior TBD**.
+**RESOLVED (2026-07-20)** — see `Composable-Extensions.md` Discussion, "`scxstp.mode = 2` when `Zcxmulti` is absent": `scxstp` is WARL, so writing mode=2 with `ext_zcxmulti` disabled is legalized on write, not deferred to a trap on use.
 
-Current implementation: treated as illegal instruction (trap on use).
-
-Awaiting TG clarification: should mode=2 be WARL-clamped on write, raise illegal instruction on write, or be silently stored but trap on first CX instruction?
+**Project implementation:** clamp mode 2 to 1 (Direct), with all other bits = 0. Any write with a reserved mode (3–15) is ignored.
 
 ---
 
@@ -84,3 +84,17 @@ value into some other invalid value that cxsel is capable of holding." May imple
 - going through the spec in order, ensure the Composable-Extenstions.md concisely states *all* the spec requirements *without omitting ANY detail needed for implementation*.
 - ensure that there are no assumptions. this doc must derive *all* info *directly* from the spec source.
 - when that is complete, using context from current work, go through each of the open questions at the bottom to see if they are still open, citing any resolution or tenative working assumptions. don't remove anything -- if anything ever was an open question, it likely needs to be clarified in the spec, so even if it is resolved it needs to stay on record. Using superpowers/brainstorming, add as many open questions as can be identified.
+
+---
+
+## sync CXTG_QEMU_Action_Plan.md with recent todo.md / Composable-Extensions.md edits
+
+`todo.md` and `Composable-Extensions.md` picked up a number of edits: `Composable-Extensions.md` has been rewritten after reanalyzing the spec source. It now includes more non-normative info that this project will consider as requirements when possible. `Composable-Extensions.md`'s `## Open Questions` heading was renamed to `## Discussion`, several Discussion items were resolved, reworded, and added. `todo.md`'s own title and scope note were tightened to explicitly separate *how* (todo.md) from *what* (Composable-Extensions.md).
+
+The stale `scxstp.mode=2` line in `CXTG_QEMU_Action_Plan.md`'s Block 6.3 notes was already caught and fixed as a one-off (2026-07-25), but the rest of the Action Plan has not been reviewed end-to-end against these changes.
+
+- read through `Composable-Extensions.md`. The whole document was updated. Keep it in context for things that may need to be changed or added in the Action Plan.
+- read through `CXTG_QEMU_Action_Plan.md` block by block against the current `todo.md` and `Composable-Extensions.md`
+- look for any other block notes, implementation notes, or definitions of done that cite behavior, wording, or section names that have since changed (the renamed `## Discussion` heading and any other resolved Discussion items are the likely culprits)
+- update the `Supporting Documents` table and any other doc-scope description in the Action Plan if it still blurs the how/what split
+- use superpowers brainstorming to ask clarifying questions
