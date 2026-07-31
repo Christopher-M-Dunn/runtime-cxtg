@@ -18,7 +18,7 @@ End-state: one repo that builds correctly with any reasonable combination of Zcx
 | --- | --- |
 | [`progress.md`](progress.md) | Block-by-block checklist and release notes |
 | [`bugs.md`](bugs.md) | Known bugs and their status |
-| [`todo.md`](todo.md) | Deferred decisions: hardcoded addresses, TBD values, open questions |
+| [`todo.md`](todo.md) | Deferred implementation decisions: hardcoded addresses, TBD values |
 
 **Hardcoded address rule:** Any CSR address, encoding constant, or other value that is hardcoded pending spec finalisation must be accompanied by a `// TODO: address TBD` comment at the point of use, and an entry added to `todo.md` with the symbol name, current placeholder value, and what spec section will resolve it.
 
@@ -672,7 +672,7 @@ Each block is one shippable feature. Format: Objective / Prerequisites / Repos+F
 - Table entry (32-bit): V(1) | reserved(15) | IDX(8) | CXID(8). Table = 1024 entries = 4 KiB.
 - On CX instruction in Indirect mode: physical read at `(scxstp.PPN << 12) + cxsel*4`. Check V bit; extract CXID+IDX; proceed as Direct.
 - V=0 or invalid CXID/IDX → illegal instruction trap.
-- scxstp.mode=2 when `ext_zcxmulti` is absent: treated as illegal instruction for now. Awaiting TG clarification on intended behavior. See `todo.md`.
+- scxstp.mode=2 when `ext_zcxmulti` is absent: resolved by WARL — clamp to mode=1 (Direct) on write, with all other bits = 0; any write with a reserved mode (3–15) is ignored. Implementation choice. Spec just indicates it is illegal. See `Composable-Extensions.md` Discussion.
 - Draw and commit an Indirect mode table walk flowchart: CX instruction decode → read scxstp.mode=Indirect → compute table address → physical read → V-bit check → CXID/IDX extraction → proceed as Direct or trap. Store as `docs/flowchart_indirect_mode.svg`.
 
 **Tests:**
