@@ -26,6 +26,7 @@ Live format examples (read schema.md first, use these as references):
 | [README.md](runtime-cxtg/README.md.md) | Project overview, dependencies, build/run instructions |
 | [Makefile](runtime-cxtg/Makefile.md) | Build system: compile test ELFs, run under QEMU |
 | [docs/CXTG_QEMU_Action_Plan.md](runtime-cxtg/docs/CXTG_QEMU_Action_Plan.md.md) | Master phased implementation plan |
+| [docs/basis_spec_comparison.md](runtime-cxtg/docs/basis_spec_comparison.md.md) | Historical comparison vs. the SoftCPU SIG basis spec; non-normative |
 | [docs/bugs.md](runtime-cxtg/docs/bugs.md.md) | Known bugs and status |
 | [docs/Composable-Extensions.md](runtime-cxtg/docs/Composable-Extensions.md.md) | CX requirements (symlink → qemu-cxtg) |
 | [docs/flowchart_direct_mode.svg](runtime-cxtg/docs/flowchart_direct_mode.svg.md) | Direct mode state machine diagram |
