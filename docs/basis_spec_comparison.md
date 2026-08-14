@@ -28,7 +28,7 @@ Current spec's `scxstp` §2.2–2.2.3 (pp. 6-8) vs. basis spec's `mcx_selector`/
 | Error reporting | `cx_status` (0x801) — 7 accrued error flags, `fcsr`-like, all privileges | absent — plain illegal-instruction trap per bad access | Accumulator model dropped |
 | Table base pointer | `scx_table` (0xBC1), full address¹ | `scxstp` Indirect mode — S-mode, PPN, shares the mode register | ¹M-mode (although name suggests S) |
 | Table index register | `cx_index` (0x800), all privileges; write **eagerly loads & caches** the entry into `mcx_selector` | `cxsel` used directly as index; no separate register | Basis spec caches on select; current spec (tentatively) re-resolves per dispatch |
-| Table entry format | 32-bit, full selector layout incl. per-entry `cxe` trap bit | 32-bit: `V`[31], `IDX`[15:8], `CXID`[7:0] — single valid bit | No per-entry trap mechanism in current spec |
+| Table entry format | 32-bit, full selector layout incl. per-entry `cxe` trap bit | 32-bit: `V`[31], `IDX`[15:8], `CXID`[7:0] — single valid bit | `V` plausibly serves the same role as `cxe` (see `V`-bit note below) |
 | Table size | 4 KiB, 1024 × 32-bit | 4 KiB, 1024 × 32-bit | Identical, carried forward |
 
 ¹ The basis spec contradicts itself on `scx_table`'s privilege: §1.4.2 intro calls it "the supervisor mode `scx_table` CSR" (p. 6, matching the `s`-prefix), but §2.2.3's formal definition says "read and written in machine level" (p. 16). The address itself indicates M-mode — per standard RISC-V CSR-address encoding, bits `[9:8]` of `0xBC1` (`1011 1100 0001`) decode to `11` = Machine, as does `mcx_selector`.

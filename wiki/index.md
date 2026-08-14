@@ -26,13 +26,17 @@ Live format examples (read schema.md first, use these as references):
 | [README.md](runtime-cxtg/README.md.md) | Project overview, dependencies, build/run instructions |
 | [Makefile](runtime-cxtg/Makefile.md) | Build system: compile test ELFs, run under QEMU |
 | [docs/CXTG_QEMU_Action_Plan.md](runtime-cxtg/docs/CXTG_QEMU_Action_Plan.md.md) | Master phased implementation plan |
+| [docs/20260810_CXTG_status_message.md](runtime-cxtg/docs/20260810_CXTG_status_message.md.md) | Jan Gray's TG status message; per-section done-ness assessment of the draft spec |
 | [docs/basis_spec_comparison.md](runtime-cxtg/docs/basis_spec_comparison.md.md) | Historical comparison vs. the SoftCPU SIG basis spec; non-normative |
 | [docs/bugs.md](runtime-cxtg/docs/bugs.md.md) | Known bugs and status |
+| [docs/CHARTER.md](runtime-cxtg/docs/CHARTER.md.md) | CX TG charter (draft): objectives, acceptance criteria, exclusions |
 | [docs/Composable-Extensions.md](runtime-cxtg/docs/Composable-Extensions.md.md) | CX requirements (symlink → qemu-cxtg) |
 | [docs/flowchart_direct_mode.svg](runtime-cxtg/docs/flowchart_direct_mode.svg.md) | Direct mode state machine diagram |
+| [docs/flowchart_QEMU_automation.svg](runtime-cxtg/docs/flowchart_QEMU_automation.svg.md) | QEMU build automation map: entry points vs. generated outputs vs. manual files (generated) |
 | [docs/phase0_audit.md](runtime-cxtg/docs/phase0_audit.md.md) | Audit notes: DT schema, CSR inventory, cxsetsel status |
 | [docs/progress.md](runtime-cxtg/docs/progress.md.md) | Live block checklist and release notes |
-| [docs/spec.md](runtime-cxtg/docs/spec.md.md) | Zicx implementation spec (symlink → qemu-cxtg) |
+| [docs/Requirements.md](runtime-cxtg/docs/Requirements.md.md) | CX TG requirements (draft): TG intent, tagged proposed / `[discuss]` / `[exclude]` |
+| [docs/spec.md](runtime-cxtg/docs/spec.md.md) | Zcx implementation spec (symlink → qemu-cxtg) |
 | [docs/superpowers/plans/2026-05-19-phase0-block0.1-integrate-audit-build.md](runtime-cxtg/docs/superpowers/plans/2026-05-19-phase0-block0.1-integrate-audit-build.md.md) | Phase 0 Block 0.1 implementation plan |
 | [docs/todo.md](runtime-cxtg/docs/todo.md.md) | Deferred implementation decisions |
 | [include/utils.h](runtime-cxtg/include/utils.h.md) | Inline assembly macros for CX instructions not supported by the standard toolchain assembler |
@@ -51,7 +55,7 @@ Live format examples (read schema.md first, use these as references):
 | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | [qemu-cxtg/CLAUDE.md](runtime-cxtg/qemu-cxtg/CLAUDE.md.md)                                                                 | Claude Code guidance for the QEMU submodule                                    |
 | [qemu-cxtg/Composable-Extensions.md](runtime-cxtg/qemu-cxtg/Composable-Extensions.md.md)                                   | CX extension requirements document                                             |
-| [qemu-cxtg/spec.md](runtime-cxtg/qemu-cxtg/spec.md.md)                                                                     | Zicx implementation spec (author: Artur Lojewski)                              |
+| [qemu-cxtg/spec.md](runtime-cxtg/qemu-cxtg/spec.md.md)                                                                     | Zcx implementation spec (author: Artur Lojewski)                               |
 | [qemu-cxtg/disas/riscv.c](runtime-cxtg/qemu-cxtg/disas/riscv.c.md)                                                         | RISC-V disassembler — instruction decode, CSR name table                       |
 | [qemu-cxtg/hw/core/cpu-common.c](runtime-cxtg/qemu-cxtg/hw/core/cpu-common.c.md)                                           | Common CPU utilities                                                           |
 | [qemu-cxtg/hw/core/qdev-properties.c](runtime-cxtg/qemu-cxtg/hw/core/qdev-properties.c.md)                                 | QEMU device property system                                                    |

@@ -1,0 +1,42 @@
+# CXTG Charter
+
+**Note:** This is a draft as of 2026-08-13. For an up-to-date live copy, see https://riscv.atlassian.net/wiki/spaces/CCEX/pages/45679102/Charter
+
+---
+
+## Composable Custom Extensions Task Group Charter
+
+This document is currently a draft, pending final approval as part of ratification plan milestone review.
+
+### Introduction
+
+Reuse of multiple custom extensions is rare, in part because custom extensions may conflict in use of custom instructions and CSRs, and because there is no common programming model or API for custom extensions. This can lead to disjoint solution silos and ecosystem fragmentation. To help address this gap, the TG will advance interop standards that make it easier to reuse certain kinds of custom extensions, enabling a plug-and-play ecosystem of such extensions.
+
+### Objectives
+
+The TG will define a framework of ISA and non-ISA specifications that together facilitate the decentralized, cooperative reuse of the custom instruction and custom CSR space, enabling practical reuse, within a system, of multiple, independently authored composable custom extensions (CXs), CX libraries, and CX unit (CXU) logic modules, while also remaining backwards compatible with legacy custom extensions.
+
+In particular, the TG will define:
+
+- criteria for a custom extension to be *composable*;
+- ISA extensions that enable multiple composable custom extensions to coexist conflict-free within a system and enable an operating system to uniformly support and secure stateful composable custom extensions;
+- non-ISA *CX API* and *CX ABI* specifications that provide a uniform CX programming model (including naming, discovery, versioning, state management, and error handling) and correct composition of CX libraries;
+- an optional non-ISA *CXU logic interface* specification that enables portable, modular CXU hardware, and automatic composition of CPUs and CXUs into one system.
+
+Overall, these specifications support dependable composition of CXs and CX libraries, decentralization so that a CX may be defined without involving other parties, and stable binaries so that CX libraries compose without adaptation. They apply simple, fast, and frugal mechanisms appropriate across a diversity of RISC-V systems, from FPGA MCUs to datacenter servers. They address security and forward compatibility concerns.
+
+### Acceptance criteria
+
+A Proof-of-Concept will be developed with reference designs for all components that are specified, demonstrating interoperation where deemed necessary.  This will include an implementation of the API and ABI as part of implementing an end-to-end software PoC, including all discovery and configuration components.
+
+The extension package defined herein will be accompanied by corresponding Sail support and ACT tests.
+
+### Exclusions
+
+The CX TG is focused on the minimum set of standards enabling practical composition of extensions, extensions software, and extensions hardware.
+
+### Collaborations
+
+The CX TG governing committee is Privileged IC.
+
+The CX TG may interact with: Unified Discovery TG, Platform Runtime Services TG, SoftCPU SIG, Toolchains & Runtimes SIG, psABI.

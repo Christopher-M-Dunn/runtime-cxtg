@@ -15,6 +15,8 @@ Every word of code and every programatic structure must be 100% understood by th
 | `qemu-cxtg/` | QEMU fork implementing the Zcx/ZcxMulti hardware model (git submodule) |
 | `linux-cxtg/` | Kernel for S-mode testing — future work (git submodule) |
 | `docs/` | Project documentation, action plan, progress tracking, and audit notes |
+| `docs/CHARTER.md` | CX TG charter (draft, offline copy) — objectives, acceptance criteria, exclusions; check new scope against it |
+| `docs/Requirements.md` | CX TG requirements (draft, offline copy) — what the TG *wants to achieve*, tagged proposed / `[discuss]` / `[exclude]`. Direction the spec is likely heading, not settled requirements: the technical discussions about whether an item is practical or even possible have not happened yet. Contrast `Composable-Extensions.md`, which silos the two — its `## Requirements` sections carry only what the draft spec literally states, while `## Discussion` carries this project's working assumptions, including guidance derived from `Requirements.md` and other sources |
 | `LOCALFILES/` | Local reference files; not committed; don't look here unless directed to. |
 
 For QEMU-specific guidance (build system, code style, CSR patterns, extension registration), see `qemu-cxtg/CLAUDE.md`.
