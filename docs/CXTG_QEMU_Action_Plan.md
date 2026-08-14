@@ -57,7 +57,7 @@ Per-block workflow:
 6. At phase milestone (all blocks in phase green): merge `cxtg-dev` → `cxtg` and tag (e.g. `cxtg-v0.phase2`).
 7. After tagging `qemu-cxtg`: in `runtime-cxtg`, commit the updated submodule pointer on `cxtg-dev`, merge `cxtg-dev` → `cxtg`, and apply the same tag.
 
-**Rule:** never commit directly to `cxtg` or `cxtg-dev` in `qemu-cxtg`. All code changes come through a `feat/` branch. Exception: documentation-only changes in `runtime-cxtg` go directly to `cxtg-dev`.
+**Rule:** never commit directly to `cxtg` or `cxtg-dev` in `qemu-cxtg`. All code changes come through a `feat/` branch. Exception: documentation-only changes — in either repo, including `qemu-cxtg`'s `Composable-Extensions.md`, `spec.md`, and `CLAUDE.md` — go directly to `cxtg-dev`.
 
 ---
 
