@@ -66,12 +66,29 @@ static RISCVException scxstp_pred(CPURISCVState *env, int csrno)
 value into some other invalid value that cxsel is capable of holding." May implementations clamp invalid values to valid values? Does that defeat this line in the spec?: "The all 1s value may be used by software to aid in debugging uninitialized variables." No. uninitialized values can be detected but spec gives no guaranteed way of checking if a selector is valid just given its value. I guess this is okay-- I believe runtime will have mechanisms for doing this.
 - review the TG message chain on this topic, and add an open question to the bottom of Composable-Extensions.md
 - logical implementation may be one of the following:
-  - all invalid selectors are illegal except ~0, and all illegal values get clamped to ~0. easy debugging (bne ~0). technically maximizes the number of available selector values, but i'm not sure if that would be useful. 
-  - [TENATIVELY USING THIS MODEL] all valid selectors have MSB = 0. invalid selectors are clamped to ~0. easiest debugging (blt x0).
+  - **[DECIDED MODEL — 2026-08-14, awaiting integration]** all invalid selectors are illegal except `~0`; every illegal write clamps to `~0`. Maximizes the number of available selector values, since no bit pattern is reserved just to mark validity. Spec-compliant today — WARL already permits clamping to any invalid value — and matches the `~0` half of the WARL simplification proposal below, so it has no dependency on that proposal.
+  - all valid selectors have MSB = 0; invalid selectors clamped to `~0`. Restricts the valid-selector space beyond what spec requires — not adopted, superseded by the model above.
   - same as above, but invalid selectors are ORed with MSB, flipping the sign bit.
   - all invalid selectors are clamped to some negative value from a list of sentinels that could each convey some sort of metadata (e.g. offline, absent, busy, etc.). more granular debugging, more complicated logic
   - some sort of customized clamping of certain values to certain other values, either valid or not. unclear if this is even allowed in the spec, but if so, it is probably out of scope for this project.
   - all invalid selectors are legal, no clamping. limits debugging: you can only know a selector is invalid by attempting to execute a custom instruction 
+- caveat on debugging via `cxsel` readback: spec guarantees `~0` is always invalid and that *some* invalid value must be legal/storable, but not that `~0` specifically is that value — so comparing `cxsel`'s readback against `~0` (e.g. `bne`) is reliable only because it's *this project's own* WARL choice, not a portable spec guarantee. Any test relying on it gets a `// not portable, project-specific WARL choice` comment, removable if the proposal below is adopted (which would make `~0` legal and required everywhere).
+
+**Proposed WARL simplification from the 2026-08-14 TG meeting — strong agreement from attendees present, but Darius was not there and has previously advocated for the current spec wording on this exact point. Do not implement until either it is confirmed with Darius that he is on-board or the TG records a vote.**
+ 
+Direct and Indirect mode, both:
+- `~0` (reads XLEN-wide all-ones, regardless of how many bits `cxsel` actually implements) stays as reserved invalid selector, however now it is *always legal*.
+- `~0` becomes *required* to be implemented, on the same footing as the built-in selector `0`.
+- `~0` becomes the *only* selector that is both *legal* **and** *invalid*.
+- *All* invalid values *must* read as `~0` via WARL — a hard tightening of the current spec's "may be converted to some other invalid value `cxsel` is capable of holding." The project's decided model above already matches this; if adopted TG-wide, nothing changes here, and the readback-portability caveat above no longer applies.
+
+Indirect mode only:
+- *All* table indices become valid *and* legal selectors regardless of entry contents — including `V = 0`, stale, and uninitialized entries.* This would separate "is `cxsel` a legal selector value" from "does the indicated entry currently authorize dispatch," and may resolve the Indirect mode `cxsel` bounds Discussion item outright for in-range indices.
+- Table size may become implementation-variable instead of the spec's fixed 1024 entries — This needs further discussion to sus out any unforseen ramications; smaller tables attractive, larger tables a nice-to-have.
+
+Direct mode only (briefly discussed, may need more consideration):
+- All selectors not corresponding to real hardware become invalid and illegal.
+- Open question: what determines "corresponds to real hardware" — a simple CXID range bound, CXID alone, CXID+context-index, or something that must also account for a hot-swappable PCI-like CXU slot, wherein the slot itself is present but the CXU is disabled/removed/powered down? A simple range bound is the only method guaranteed to be inexpensive, and all rest could be done inexpensively if carefully designed. Leaning toward a simple range bound, or some other simple check against runtime-immutable config
 
 ---
 
@@ -96,6 +113,8 @@ value into some other invalid value that cxsel is capable of holding." May imple
 - for each existing Discussion item, check whether `Requirements.md` constrains it; cite it in that item rather than opening a duplicate
 - `[exclude]` items that close off options currently under consideration — dynamic state context resizing, dynamic context count, performance monitors, debug/trace — record as bounded so they are not reopened
 - `[discuss]` items that overlap existing open questions: more than one state context per hart; whether context count may differ from hart count; more than one selected CX at a time (cf. the tabled multiple-`cxsel` item)
+  - the context-count-vs-hart-count overlap already has a start: a "Hart↔context cardinality" Discussion item was added out of band on 2026-08-14 (merging TG meeting results), taking a project stance favoring the flexible option. Build on/verify that item rather than opening a duplicate.
+  - that same 2026-08-14 pass also touched the Indirect mode `cxsel` bounds, `V` bit, `cx_status`, and `scx_invalidate` items with meeting-derived content — skim the current Discussion section before assuming any of the items below are still in their original state
 - unmarked (settled) requirements with no current coverage — add one Discussion item each:
   - RV32 and RV64 supported without preference for either; note that `scxxs`/`scxNxs` register pairing differs by XLEN, so RV32 exercises logic RV64 never does
   - machine-mode-only and machine+user-only systems must be supported (all present phases assume S-mode)
