@@ -84,7 +84,7 @@ Direct and Indirect mode, both:
 
 Indirect mode only:
 - *All* table indices become valid *and* legal selectors regardless of entry contents — including `V = 0`, stale, and uninitialized entries.* This would separate "is `cxsel` a legal selector value" from "does the indicated entry currently authorize dispatch," and may resolve the Indirect mode `cxsel` bounds Discussion item outright for in-range indices.
-- Table size may become implementation-variable instead of the spec's fixed 1024 entries — This needs further discussion to sus out any unforseen ramications; smaller tables attractive, larger tables a nice-to-have.
+- Table size may become implementation-variable instead of the spec's fixed 1024 entries — This needs further discussion to sus out any unforeseen ramifications; smaller tables attractive, larger tables a nice-to-have.
 
 Direct mode only (briefly discussed, may need more consideration):
 - All selectors not corresponding to real hardware become invalid and illegal.
@@ -106,6 +106,7 @@ Direct mode only (briefly discussed, may need more consideration):
 
 ## incorporate Requirements.md into Composable-Extensions.md's `## Discussion`
 
+**NOTE (2026-08-19)** — changed choice of `cxsidx` WARL implementation model. See `Composable-Extensions.md`.
 **DONE (2026-08-18)** — `Requirements.md` cited into 10 existing Discussion items and folded into 5 new items appended at the bottom (RV32/RV64 parity, machine-mode-only/M+U-mode-only support, state context size bound, 255-CXs-vs-64-status-slots, performance-monitor/debug-trace excludes). Two outcomes below diverge from what this item originally sketched, left here for the record rather than edited: the `cxsidx` WARL clamp project assumption changed mid-work to Option 1 (`CX[cxsel] STATE_NUM_WORDS-1`, a per-CX bound), with code structured to also support Option 2 (`MAX()` across all CXs), rather than the flat 131071/65535 clamp the "state contexts from zero to at least 512 KiB" bullet below describes; and the "Hart↔context cardinality" item's stance flipped from favoring the flexible (many-to-many) option to starting from a rigid identical-topology-per-hart requirement. Also surfaced along the way: `CXTG_QEMU_Action_Plan.md`'s §4 "Note on S-mode" claim that M-mode-only requires a different machine/CPU definition is stale — `-cpu rv64,s=false,h=false,zcx=on` boots the same `virt` machine M-mode-only and passes `block1_1_csr_stubs.elf`; recorded in the machine-mode-only Discussion item, Action Plan note not yet corrected.
 
 `docs/Requirements.md` (offline copy of the TG's requirements page, draft 2026-08-13) is not yet reflected anywhere in `Composable-Extensions.md`. It records what the TG *wants to achieve*, not what the spec literally states, so none of it belongs in the requirement sections — it goes in `## Discussion` only, cited as TG intent, siloed the same way basis-spec material is.
@@ -151,3 +152,17 @@ The stale `scxstp.mode=2` line in `CXTG_QEMU_Action_Plan.md`'s Block 6.3 notes w
 ## sync README.md
 
 Ensure `README.md` is current, and gives useful and relevant info, especially regarding orientation around the structure of the repo, all documentation and images with their use and scope, how to approach the wiki, (explain its function, how pages are generated, index.md, best viewed in obsidian with the root vault view being the root repo (runtime-cxtg/, not wiki/, so that links to source files work)). **make sure to stay concise**
+
+---
+
+## documentation prep for Action Plan update
+
+- read all this todo, then use superpowers brainstorming before starting
+- do this work on `todo/doc-rework` cut from cxtg-dev
+- create `qemu-cxtg/Implementation_Choices.md` (aka "Choices"). All non-normative implementation choices will be documented here in a numbered list, as well as any change that requires an update to the Action Plan. Make a note at the top that if a choice changes meaningfully, it should be moved to a new number at the bottom and the entry at the old number should change to "Deprecated. See #X. [strike-through of old text]", where X is the new item number. The new entry should start with a reference to the entry it supersedes.  Explain about how the document is divided by a divider where everything below the divider is not yet incorporated into `docs/CXTG_QEMU_Action_Plan.md`. Put a divider just below the introductory notes.  
+- `docs/todo.md`
+  - Go through each item that is not marked as done and determine if it actually is already done (if so, mark it as done).
+  - Go one at a time extracting any project assumptions or decisions (anything that could affect the Action Plan), and create new entries in Choices. determine if the item can be removed from `todo.md`. Unless another todo item is referencing it, it's not clear what other circumstance would prevent it from being removed.
+- `qemu-cxtg/Composable-Extensions.md` Go through the Discussion section to improve conciseness: identify superfluous or duplicate info, and move references out to footnotes. Everything remaining should be concisely identifying gaps the spec doesn't cover, resolution, implementation (e.g. Implementation: I29) Move all implementation decisions to Choices and replace the text with a reference. read the whole document first, then apply small edits one at a time so they can be reviewed. Add a References section. For references format, use anchor links to LetterNumber e.g. #R2, where the letter represents a particular source type or document, and the number is the reference index. so if the reference is `#R2`, the reference is to the 2nd item under `Requirements.md` group in the References section; `#M1` would be the first item in the `Meetings` group (include the meeting date in the item); `I29` would be entry #29 in`Implementation_Choices.md`
+- create the wiki for Choices
+- reassess item `todo.md:130` for stale info based on the changes made since it was created (9250385738fae0e6934f75c65ed9215a865be062). Rewrite it as necessary. it will need to know about Choices to know what to change, but should also add entries as additional decisions are gleaned during the rewrite.
