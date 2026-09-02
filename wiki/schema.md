@@ -227,7 +227,7 @@ Used for configuration files, documentation files, or anything whose content is 
 - Show function or struct signatures as context in code snippets.
 
 **Never:**
-- Phase or Block annotations (`**Phase 0:** ...`, `**Block 1.1:** ...`). History belongs in release notes.
+- Phase or Block annotations (`**Phase 0:** ...`, `**Block 1.1:** ...`). History belongs in `docs/CHANGELOG.md`, not the wiki.
 - Line number references (`(line 183)`, `line 5567`). Line numbers break as upstream evolves. Use function names.
 - History prose ("this was changed from X to Y", "previously called zicx"). Show current state only.
 - Comments as code context (`/* in CPURISCVState */`). Show the actual struct or function signature.

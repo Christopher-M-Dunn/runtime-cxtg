@@ -72,20 +72,27 @@ The master implementation plan. Every block contains: objective, prerequisites, 
 
 ### `docs/progress.md`
 
-Live block-by-block checklist and release notes. The primary status document.
+Live block-by-block checklist. The primary status document.
 
 - **Read:** at the start of any session to orient yourself
-- **Sections:** Phase checklists (top) one per phase; `## Release Notes` (bottom) filled backwards as milestones land
+- **Sections:** Phase checklists, one per phase
 
 **Checklist updates:**
 - Check off block items as they complete
 - Mark `implementation plan written` at the top of a phase when the plan is done
 
-**Release notes — when to write:** incrementally, as each block merges to `cxtg-dev`. Write the entries for a block immediately after its merge, while the diff is fresh. At phase milestone time, run `git diff --stat <prev-tag>..<new-tag>` in each repo and compare the file list against the notes and wiki entries to catch anything missed — do a full diff only for files that appear in the stat but not in the notes.
+---
 
-**Release notes — what to include, and how:**
+### `docs/CHANGELOG.md`
 
-Each `### v0.phaseN` entry must contain enough information to answer "what exactly changed and where?" via a text search alone. The format is:
+Prepend-only change log (formerly kept as `progress.md`'s `## Release Notes` section).
+
+- **Read:** to answer "what exactly changed and where?" for a past phase or block
+- **Update:** incrementally, as each block merges to `cxtg-dev`. Write the entries for a block immediately after its merge, while the diff is fresh. At phase milestone time, run `git diff --stat <prev-tag>..<new-tag>` in each repo and compare the file list against the notes and wiki entries to catch anything missed — do a full diff only for files that appear in the stat but not in the notes.
+
+**What to include, and how:**
+
+Each `## v0.phaseN` entry must contain enough information to answer "what exactly changed and where?" via a text search alone. The format is:
 
 1. **`qemu-cxtg` changes** — for each file touched by the block, write one bullet per discrete action in past tense. Each bullet must name the function, symbol, struct field, or constant that was touched — not just a description of intent. Examples of good vs. bad:
    - Good: `modified: target/riscv/cpu.c — registered zcx as ISA extension (ISA_EXT_DATA_ENTRY, MULTI_EXT_CFG_BOOL, default off)`
@@ -94,7 +101,7 @@ Each `### v0.phaseN` entry must contain enough information to answer "what exact
 
 2. **`runtime-cxtg` changes** — same format, for any docs or source files changed in this repo. Omit if nothing changed beyond the submodule pointer.
 
-3. **New deferred items** — any new entries added to `docs/todo.md` during this phase, nested under `- created/modified: docs/todo.md`, one line each in the same format as the existing deferred items in `### v0.phase0`.
+3. **New deferred items** — any new entries added to `docs/todo.md` during this phase, nested under `- created/modified: docs/todo.md`, one line each in the same format as the existing deferred items in `## v0.phase0`.
 
 4. **Bugs** — any bugs opened or closed during the phase, one line each referencing the entry in `docs/bugs.md`.
 

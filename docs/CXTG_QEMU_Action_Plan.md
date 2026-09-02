@@ -16,7 +16,8 @@ End-state: one repo that builds correctly with any reasonable combination of Zcx
 
 | File | Purpose |
 | --- | --- |
-| [`progress.md`](progress.md) | Block-by-block checklist and release notes |
+| [`progress.md`](progress.md) | Block-by-block checklist |
+| [`CHANGELOG.md`](CHANGELOG.md) | Change log (formerly `progress.md`'s Release Notes section) |
 | [`bugs.md`](bugs.md) | Known bugs and their status |
 | [`todo.md`](todo.md) | Deferred implementation decisions: hardcoded addresses, TBD values |
 

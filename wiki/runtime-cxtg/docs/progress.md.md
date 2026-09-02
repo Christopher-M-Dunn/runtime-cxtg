@@ -6,12 +6,13 @@ format: D
 
 # docs/progress.md
 
-Live block-by-block checklist and release notes. Primary status document.
+Live block-by-block checklist. Primary status document.
 
 ## Structure
 
-- Phase checklists (one per phase, top of file)
-- `## Release Notes` section (filled backwards as milestones land)
+- Phase checklists, one per phase
+
+See [docs/CHANGELOG.md](CHANGELOG.md.md) for the change log (formerly this file's `## Release Notes` section).
 
 ## Completed phases
 
