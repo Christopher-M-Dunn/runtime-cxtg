@@ -32,6 +32,7 @@ Live format examples (read schema.md first, use these as references):
 | [docs/CHANGELOG.md](runtime-cxtg/docs/CHANGELOG.md.md) | Prepend-only change log, per phase |
 | [docs/CHARTER.md](runtime-cxtg/docs/CHARTER.md.md) | CX TG charter (draft): objectives, acceptance criteria, exclusions |
 | [docs/Composable-Extensions.md](runtime-cxtg/docs/Composable-Extensions.md.md) | CX requirements (symlink → qemu-cxtg) |
+| [docs/flowchart_adr_life_cycle.drawio.svg](runtime-cxtg/docs/flowchart_adr_life_cycle.drawio.svg.md) | ADR lifecycle state machine diagram (editable in draw.io) |
 | [docs/flowchart_direct_mode.svg](runtime-cxtg/docs/flowchart_direct_mode.svg.md) | Direct mode state machine diagram |
 | [docs/flowchart_QEMU_automation.svg](runtime-cxtg/docs/flowchart_QEMU_automation.svg.md) | QEMU build automation map: entry points vs. generated outputs vs. manual files (generated) |
 | [docs/phase0_audit.md](runtime-cxtg/docs/phase0_audit.md.md) | Audit notes: DT schema, CSR inventory, cxsetsel status |
