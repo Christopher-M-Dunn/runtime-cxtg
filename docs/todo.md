@@ -174,3 +174,9 @@ Original plan (superseded, kept for context — do not action):
   - Go one at a time extracting any project assumptions or decisions (anything that could affect the Action Plan), and create new entries in `ADR_log.md`. determine if the item can be removed from `todo.md`. Unless another todo item is referencing it, it's not clear what other circumstance would prevent it from being removed.
 - `qemu-cxtg/Composable-Extensions.md` Go through the Discussion section to improve conciseness: identify superfluous or duplicate info, and move references out to footnotes. Everything remaining should be concisely identifying gaps the spec doesn't cover, resolution, implementation (e.g. Implementation: ADR-029) Move all implementation decisions to `ADR_log.md` and replace the text with a reference. read the whole document first, then apply small edits one at a time so they can be reviewed. Add a References section. For references format, use anchor links to LetterNumber e.g. #R2, where the letter represents a particular source type or document, and the number is the reference index. so if the reference is `#R2`, the reference is to the 2nd item under `Requirements.md` group in the References section; `#M1` would be the first item in the `Meetings` group (include the meeting date in the item); `ADR-029` would be entry #29 in `ADR_log.md`
 - reassess item `todo.md:130` for stale info based on the changes made since it was created (9250385738fae0e6934f75c65ed9215a865be062). Rewrite it as necessary. it will need to know about `ADR_log.md` to know what to change, but should also add entries as additional decisions are gleaned during the rewrite.
+
+---
+
+## wiki lint
+
+- make a procedure to check wiki for consistency

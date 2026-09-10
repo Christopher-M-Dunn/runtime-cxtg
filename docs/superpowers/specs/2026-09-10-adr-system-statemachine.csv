@@ -1,0 +1,83 @@
+from,to,expected likely,transition example,spawn example,Notes
+,draft,,,,always ignore
+NEW,deferred,x,n/a,stub or temp value implemented || step skipped in a phase || open implementation question for future phase,AKA todo; documents a decision that is left open in the action plan or is not tracked either because it was skipped over or was unforseen and newly identified
+deferred,pending,,"decision made, ready to book into AP (skipped or stubbed item is too large for a patch || high level decision )",*,"AP == Action Plan, *== lesser included decision (i.e. a subset) for the same reason as the transition"
+deferred,in progress,,n/a,n/a,"decision folded into current phase spec/plan is two steps (goes to pending first). deferred items are looked at out of band. if you want to do it as part of a phase it would go to pending, otherwise ""deferred until X.X"" means make sure it is done  before starting phase X.X "
+deferred,incorporated,x,patch applied || decision written into AP,*,"patch == a commit directly to dev, outside of phase implementation"
+deferred,superseded,,a better/simpler approach is found before this item is ever scheduled,n/a,
+deferred,bug open,,n/a,bug identified,
+deferred,bug closed,,n/a,n/a,(bug identified and patched is two steps)
+deferred,note active,x,future phase implementation details (implementation question decided),*,"this move can only happen for phases that have not been executed. Notes are looked at at the spec and plan stage. for completion of skipped or stubbed out steps of implemented phases, it sits at deferred until patched."
+deferred,note retired,,n/a,n/a,"(same two-step reasoning as deferred->bug closed: a spawned note starts at note active,  never note retired)"
+pending,deferred,,decision that was made is now an open question again,**,
+NEW,pending,x,n/a,"decision made, ready to put into AP",
+pending,in progress,x,a pending ADR concerns a phase whose (spec || spec and plan) is already written. It gets (incorporated into spec || referenced into the spec and incorporated into plan),*,"normal flow for an ADR that would normally get written into AP, but the phase has already started. "
+pending,incorporated,x,"ADR written into future phase in AP (as a modification, not as a reference)",*,
+pending,superseded,,a better/simpler approach is found before its booked phase starts,*,
+pending,bug open,,n/a,n/a,unlikely transition. action to pending item doesn't involve executing code.
+pending,bug closed,,n/a,n/a,
+pending,note active,,"reviewed and found to be an implementer note, not an AP-level decision",*,
+pending,note retired,,n/a,n/a,
+in progress,deferred,,n/a,**,** == part of the decision breaks off with the same requirements for spawn as if the child were a new ADR
+in progress,pending,,n/a,**,
+NEW,in progress,,n/a,n/a,create as NEW->pending instead; it transitions to in progress once the spec/plan write finishes and includes it
+in progress,incorporated,x,phase implementation completes; ADR referenced in the Action Plan (Deviation -- see ADR-N),*,
+in progress,superseded,,a better/simpler approach is found during phase execution. spec and/or plan updated to reflect this.,*,
+in progress,bug open,,n/a,bug found during implementation of the current phase,
+in progress,bug closed,,n/a,n/a,"(same two-step reasoning as deferred->bug closed: spawn lands on bug open,  then transitions to bug closed separately)"
+in progress,note active,,n/a,**,
+in progress,note retired,,n/a,n/a,
+incorporated,deferred,,n/a,**,
+incorporated,pending,,n/a,**,
+incorporated,in progress,,n/a,n/a,
+NEW,incorporated,x,n/a,documenting/tracking something already implemented and in the Action Plan with no new decision needed,"expected likely at first. once all new decisions are going through ADR system, this should be rare"
+incorporated,superseded,x,a later decision changes the approach; this entry is superseded by a new ADR,*,check pointee for status
+incorporated,bug open,,n/a,bug found in an already-incorporated already-implemented feature,
+incorporated,bug closed,,n/a,n/a,"(same two-step reasoning as deferred->bug closed: spawn lands on bug open,  then transitions to bug closed separately)"
+incorporated,note active,,n/a,*,
+incorporated,note retired,,n/a,n/a,"(same two-step reasoning as deferred->bug closed: a spawned note starts at note active,  never note retired)"
+superseded,deferred,,n/a,n/a,"if something is un-superseded, succesor becomes superseded with a new pointee"
+superseded,pending,,n/a,n/a,
+superseded,in progress,,n/a,n/a,
+superseded,incorporated,,n/a,n/a,
+NEW,superseded,,n/a,documents a prior/deviated approach for historical record; immediately superseded by the current approach,
+superseded,bug open,,n/a,n/a,
+superseded,bug closed,,n/a,n/a,
+superseded,note active,,n/a,n/a,
+superseded,note retired,,n/a,n/a,
+bug open,deferred,x,n/a,the fix requires a patch that changes the buggy design intention as opposed to a buggy implementation;  bug stays open until it is tested and the behavior is confirmed gone,
+bug open,pending,x,n/a,fix requires a high-level design change,
+bug open,in progress,,n/a,n/a,
+bug open,incorporated,,n/a,n/a,
+bug open,superseded,,n/a,n/a,
+NEW,bug open,x,n/a,found during testing or normal use,
+bug open,bug closed,x,bug fixed || unable to replicate,*,
+bug open,note active,x,investigation shows the reported behavior is actually intended; reclassified from bug to an active note documenting the (surprising) intended behavior for future readers,"the bug stays open (behavior still needs fixing or documenting as known), but a note is spawned alongside it for implementers",
+bug open,note retired,,n/a,n/a,
+bug closed,deferred,,n/a,n/a,
+bug closed,pending,,n/a,n/a,
+bug closed,in progress,,n/a,n/a,
+bug closed,incorporated,,n/a,n/a,
+bug closed,superseded,,n/a,n/a,
+bug closed,bug open,,regression: the bug resurfaces; reopened,n/a,
+NEW,bug closed,,n/a,historical documentation of a bug that was fixed,
+bug closed,note active,,n/a,n/a,
+bug closed,note retired,,n/a,n/a,
+note active,deferred,,decision or implementation choice requires reconsideriation,**,
+note active,pending,,n/a,**,
+note active,in progress,,n/a,n/a,
+note active,incorporated,,n/a,n/a,
+note active,superseded,,n/a,n/a,
+note active,bug open,,n/a,bug identified,
+note active,bug closed,,n/a,n/a,
+NEW,note active,x,n/a,an implementation detail hint or convention documented for a future or current-phase implementer,"it's important to include the note details or a reference to the note in the actual plan, as a subagent might lose the context."
+note active,note retired,x,the implementer applies the note and it's no longer needed going forward,n/a,
+note retired,deferred,,n/a,n/a,
+note retired,pending,,n/a,n/a,
+note retired,in progress,,n/a,n/a,
+note retired,incorporated,,n/a,n/a,
+note retired,superseded,,n/a,n/a,
+note retired,bug open,,n/a,n/a,
+note retired,bug closed,,n/a,n/a,
+note retired,note active,,a later phase turns out to need the same guidance again (e.g. the same implementation pitfall resurfaces); the retired note is reactivated rather than duplicated,n/a,
+NEW,note retired,,n/a,documents something already resolved or already-adopted for historical record only; no action needed,

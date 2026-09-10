@@ -6,6 +6,10 @@ This file provides guidance to Claude Code when working in this repository.
 
 Every word of code and every programatic structure must be 100% understood by the user before implementing. This includes not only how something is being done, but why it is being done that way. Always explore multiple ways of doing things. Draw inspiration from and comparisons to existing outside systems and known best practices for similar work.
 
+## Session Behavior
+
+This repo always runs in manual permission mode (`.claude/settings.json`'s `permissions.defaultMode: "default"`) — every tool call is reviewed before it runs. The user frequently edits files directly, mid-session, out of band from any tool call. Because of this, **always re-read a file after writing or editing it in this repo** — do not rely on a Write/Edit result as the file's final state; the user may have changed it since your last read.
+
 ## Repository Structure
 
 `runtime-cxtg` is the umbrella project for the RISC-V Composable Extensions (Zcx/ZcxMulti) implementation.

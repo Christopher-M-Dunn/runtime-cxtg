@@ -43,6 +43,11 @@
 # Obsidian IDE state
 .obsidian/*
 
+# Editor/tooling local config
+.claude/
+.vscode/
+cspell.json
+
 utils/busybox
 utils/initramfs
 utils/riscv
