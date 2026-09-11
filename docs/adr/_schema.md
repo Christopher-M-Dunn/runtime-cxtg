@@ -19,11 +19,23 @@ row's Notes column, citing the other entry), not as a status value; a
 formal `supersede` transition is reserved for architectural,
 Action-Plan-level Decisions.
 
+`draft` is a special status any category may carry, outside its normal
+progression: it marks a standing entry that never transitions (e.g. a
+scratchpad). Entries with status `draft` are always skipped by the
+archival sweep, regardless of category or age.
+
 ## ID assignment and citation format
 
 - **Next ID** = highest existing filename in `docs/adr/` + 1: `ls docs/adr | sort -n | tail -1`.
 - **Citation:** always a link to the detail page, `[ADR-029](029.md)` from within `docs/adr/`, `[ADR-029](adr/029.md)` from `docs/ADR_log.md`. Never a bare `ADR-029` string.
 - **`ADR_log.md` row format:** `| [ADR-029](adr/029.md) | <status> | <phase(s)> | <Title, plain text> |` — the ID column carries the link; the Title column does not.
+
+## Writing style
+
+Follows this project's documentation voice (`CLAUDE.md` § Documentation
+Voice): state what was proposed, decided, or found, at the confidence
+level actually warranted — no invented motivation, no invented certainty
+or uncertainty, no decorative filler.
 
 ## Entry template (`docs/adr/NNN.md`)
 

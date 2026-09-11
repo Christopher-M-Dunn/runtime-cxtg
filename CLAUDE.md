@@ -6,6 +6,16 @@ This file provides guidance to Claude Code when working in this repository.
 
 Every word of code and every programatic structure must be 100% understood by the user before implementing. This includes not only how something is being done, but why it is being done that way. Always explore multiple ways of doing things. Draw inspiration from and comparisons to existing outside systems and known best practices for similar work.
 
+## Documentation Voice
+
+Applies to all documentation in this project — ADRs, `docs/*.md`, and the wiki:
+
+- State only what is actually known, at the confidence level actually warranted. Never narrate someone's unstated motivation or thought process as fact ("evidently he...", "this carried over into how he thought") — cite the source and let it stand.
+- Don't invent certainty: hedge honestly when something is genuinely uncertain. When writing anything shared with the spec TG, frame apparent spec issues as possible misreadings ("appears to be", "clarification would be welcome"), never as asserted fault ("typo", "error", "spec should") — see `Composable-Extensions.md`'s own voice notes for the full rule.
+- Don't invent uncertainty either: state facts you actually know plainly ("Per TG discussion, ..."), without over-softening them.
+- Cut decorative or filler language that adds no meaning — but don't confuse this with cutting a hedge that's doing real work per the point above.
+- The wiki additionally writes in present tense only, as a live manual with no history — see `wiki/schema.md`'s Content rules.
+
 ## Session Behavior
 
 This repo always runs in manual permission mode (`.claude/settings.json`'s `permissions.defaultMode: "default"`) — every tool call is reviewed before it runs. The user frequently edits files directly, mid-session, out of band from any tool call. Because of this, **always re-read a file after writing or editing it in this repo** — do not rely on a Write/Edit result as the file's final state; the user may have changed it since your last read.

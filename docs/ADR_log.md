@@ -19,6 +19,7 @@ sweep is therefore done on `cxtg-dev` directly, consistent with docs-only
 commits). On each sweep, review every terminal-status entry not yet
 archived and propose moving it, in this order:
 
+0. Status `draft` → never propose archiving it; skip entirely.
 1. Title starts with `KEEP` → never propose archiving it.
 2. Has an un-archived child → propose archiving only once every child is archived; otherwise keep, regardless of category.
 3. Bug, `closed`, title starts with `FIXED` → propose archiving. A bug closed any other way (e.g. "unable to reproduce") only leaves by hand.
@@ -38,6 +39,7 @@ future sweeps stop proposing it.
 | [ADR-004](adr/004.md) | pending | 6.3 | `scxstp.mode=2` (Indirect) when ZcxMulti is absent |
 | [ADR-005](adr/005.md) | pending | 2.3 | `cxsel` invalid-selector handling — the `~0` clamp model |
 | [ADR-007](adr/007.md) | deferred | ? | Proposed WARL simplification for `~0` and table validity |
+| [ADR-016](adr/016.md) | pending | all | `<cxid, sid>` naming for `cxsel`'s context-index field, departing from spec's `IDX` |
 
 ## Bugs
 
@@ -48,6 +50,7 @@ future sweeps stop proposing it.
 
 | ID | Status | Block(s) | Title |
 |---|---|---|---|
+| [ADR-000](adr/000.md) | draft | all | SCRATCHPAD |
 | [ADR-003](adr/003.md) | active | all | Mark provisional CSR/encoding values wherever used in code |
 | [ADR-006](adr/006.md) | active | all | Comment the `cxsel`-vs-`~0` readback shortcut wherever used |
 | [ADR-008](adr/008.md) | retired | all | Revisit `Composable-Extensions.md` against the current draft spec |

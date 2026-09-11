@@ -221,6 +221,9 @@ Used for configuration files, documentation files, or anything whose content is 
 
 ## Content rules (apply to all formats)
 
+Also follows this project's documentation voice (`CLAUDE.md` § Documentation
+Voice) — the rules below are wiki-specific on top of that.
+
 **Always:**
 - Use current symbol names. If a symbol was renamed, use the current name.
 - Write in present tense. The wiki is a live manual, not a changelog.
