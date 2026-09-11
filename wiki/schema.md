@@ -233,6 +233,9 @@ Used for configuration files, documentation files, or anything whose content is 
 - Comments as code context (`/* in CPURISCVState */`). Show the actual struct or function signature.
 - Stale symbol names from earlier in the project (e.g. `ext_zicx`, `cxidx`, `cxdata` after the rename pass) — in text, sub-page filenames, and bullet link paths.
 
+**Exempt:**
+- `docs/adr/**` — exempt from wiki pages entirely, per `docs/superpowers/specs/2026-09-10-adr-system-design.md` §7.2.
+
 ---
 
 ## `wiki/index.md` entry format

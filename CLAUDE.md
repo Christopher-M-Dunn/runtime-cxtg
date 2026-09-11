@@ -139,7 +139,7 @@ A navigable reference wiki for every file touched by the project. All pages live
 
 **New files:** if the file has no wiki page yet, add it to `wiki/index.md` and create its page at `wiki/runtime-cxtg/<path-to-file>.md` before moving on.
 
-This rule applies to all files in both `runtime-cxtg/` and `qemu-cxtg/`.
+This rule applies to all files in both `runtime-cxtg/` and `qemu-cxtg/`. Exception: `docs/adr/**` is exempt from wiki pages (see `wiki/schema.md`).
 
 ---
 

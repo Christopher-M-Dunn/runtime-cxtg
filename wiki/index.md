@@ -27,6 +27,7 @@ Live format examples (read schema.md first, use these as references):
 | [Makefile](runtime-cxtg/Makefile.md) | Build system: compile test ELFs, run under QEMU |
 | [docs/CXTG_QEMU_Action_Plan.md](runtime-cxtg/docs/CXTG_QEMU_Action_Plan.md.md) | Master phased implementation plan |
 | [docs/20260810_CXTG_status_message.md](runtime-cxtg/docs/20260810_CXTG_status_message.md.md) | Jan Gray's TG status message; per-section done-ness assessment of the draft spec |
+| [docs/ADR_log.md](runtime-cxtg/docs/ADR_log.md.md) | Single index of every Decision, Bug, and Note — replaces `todo.md`/`bugs.md`/`Implementation_Choices.md` |
 | [docs/basis_spec_comparison.md](runtime-cxtg/docs/basis_spec_comparison.md.md) | Historical comparison vs. the SoftCPU SIG basis spec; non-normative |
 | [docs/bugs.md](runtime-cxtg/docs/bugs.md.md) | Known bugs and status |
 | [docs/CHANGELOG.md](runtime-cxtg/docs/CHANGELOG.md.md) | Prepend-only change log, per phase |
