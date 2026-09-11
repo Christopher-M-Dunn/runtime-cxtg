@@ -33,6 +33,8 @@ future sweeps stop proposing it.
 
 | ID | Status | Phase(s) | Title |
 |---|---|---|---|
+| [ADR-001](adr/001.md) | incorporated | all | Build flag architecture — `ext_zcx` / `ext_zcxmulti` |
+| [ADR-002](adr/002.md) | deferred | all | CSR addresses, instruction encodings, and extension names |
 
 ## Bugs
 
@@ -43,6 +45,7 @@ future sweeps stop proposing it.
 
 | ID | Status | Phase(s) | Title |
 |---|---|---|---|
+| [ADR-003](adr/003.md) | active | all | Mark provisional CSR/encoding values wherever used in code |
 
 ## Archive
 

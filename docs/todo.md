@@ -4,54 +4,6 @@
 
 ---
 
-## Build Flag Architecture (Phase 0 decision — 2026-05-19)
-
-**Only two new runtime extension flags are needed: `ext_zcx` and `ext_zcxmulti`.**
-
-No Kconfig compile-time CONFIG_* flags are required. All behavior gating is done at runtime via predicate functions and handler checks against already-present QEMU extension flags. This is the standard QEMU RISC-V extension pattern.
-
-**Runtime flags to add** (follow Artur's `ext_zicx` pattern):
-- `ext_zcx` — enables the base Zcx extension; user sets `-cpu rv64,zcx=on`
-- `ext_zcxmulti` — enables ZcxMulti; requires both `zcx=on` AND `sscsrind=on` per spec; predicate enforces both
-
-**Behavior conditioning at runtime** (no new flags, check existing QEMU state):
-- S-mode features (scxstp, scxxs): predicate checks `riscv_has_ext(env, RVS)`
-- Smstateen gating: check `riscv_cpu_cfg(env)->ext_smstateen`
-- Sscsrind for scxNxs: check `riscv_cpu_cfg(env)->ext_sscsrind`
-- Hypervisor (hstateen): check `riscv_has_ext(env, RVH)`
-
-**Pattern:**
-```c
-static RISCVException scxstp_pred(CPURISCVState *env, int csrno)
-{
-    if (!riscv_cpu_cfg(env)->ext_zcx || !riscv_has_ext(env, RVS)) {
-        return RISCV_EXCP_ILLEGAL_INST;
-    }
-    return RISCV_EXCP_NONE;
-}
-```
-
-**Block 8.1 build matrix** is a test matrix of `-cpu` flag combinations against a single binary — no recompilation needed.
-
----
-
-## CSR Addresses, instruction encodings, and extension names
-
-- This item, and therefore this TODO, is permanent and not to be removed until end of project: Final addresses and extension name or names will need to be assigned by RISCV org
-
-- CXSETSEL insn current encoding: SYSTEM major opcode (0x73), funct3 = 100, funct7=0
-
-- CXDISCARD - TBD, likely SYSTEM 100,1 in this implementation
-
-| Symbol | File | Current Value | Pending |
-|--------|------|---------------|---------|
-| `CSR_CXSEL` | `qemu-cxtg/target/riscv/cpu_bits.h` | `0xCA0` | Final address pending RISC-V org assignment |
-| `CSR_CXSIDX` | `qemu-cxtg/target/riscv/cpu_bits.h` | `0x018` | Final address pending RISC-V org assignment |
-| `CSR_CXSDATA` | `qemu-cxtg/target/riscv/cpu_bits.h` | `0x019` | Final address pending RISC-V org assignment |
-| `MATCH_CXSETSEL` | `qemu-cxtg/target/riscv/cpu_bits.h` | `0x00004073` (SYSTEM, funct3=4, funct7=0) | Final encoding pending RISC-V org assignment |
-
----
-
 ## scxstp.mode=2 (Indirect) when ZcxMulti absent (Block 6.3)
 
 **RESOLVED (2026-07-20)** — see `Composable-Extensions.md` Discussion, "`scxstp.mode = 2` when `Zcxmulti` is absent": `scxstp` is WARL, so writing mode=2 with `ext_zcxmulti` disabled is legalized on write, not deferred to a trap on use.
