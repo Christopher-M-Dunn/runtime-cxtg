@@ -35,6 +35,9 @@ future sweeps stop proposing it.
 |---|---|---|---|
 | [ADR-001](adr/001.md) | incorporated | all | Build flag architecture — `ext_zcx` / `ext_zcxmulti` |
 | [ADR-002](adr/002.md) | deferred | all | CSR addresses, instruction encodings, and extension names |
+| [ADR-004](adr/004.md) | pending | 6.3 | `scxstp.mode=2` (Indirect) when ZcxMulti is absent |
+| [ADR-005](adr/005.md) | pending | 2.3 | `cxsel` invalid-selector handling — the `~0` clamp model |
+| [ADR-007](adr/007.md) | deferred | ? | Proposed WARL simplification for `~0` and table validity |
 
 ## Bugs
 
@@ -46,6 +49,11 @@ future sweeps stop proposing it.
 | ID | Status | Phase(s) | Title |
 |---|---|---|---|
 | [ADR-003](adr/003.md) | active | all | Mark provisional CSR/encoding values wherever used in code |
+| [ADR-006](adr/006.md) | active | all | Comment the `cxsel`-vs-`~0` readback shortcut wherever used |
+| [ADR-008](adr/008.md) | retired | all | Revisit `Composable-Extensions.md` against the current draft spec |
+| [ADR-009](adr/009.md) | active | all | Sync `CXTG_QEMU_Action_Plan.md` with recent `todo.md` / `Composable-Extensions.md` edits |
+| [ADR-010](adr/010.md) | retired | all | Incorporate `Requirements.md` into `Composable-Extensions.md`'s `## Discussion` |
+| [ADR-011](adr/011.md) | active | all | Sync `README.md` |
 
 ## Archive
 
