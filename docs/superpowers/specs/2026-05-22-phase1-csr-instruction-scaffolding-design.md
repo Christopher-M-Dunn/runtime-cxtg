@@ -1,5 +1,7 @@
 # Phase 1 Design — Unpriv CSR and Instruction Scaffolding
 
+**Note:** feat/1.2 and beyond is superseded. see their own block-specific specs/plans
+
 **Date:** 2026-05-22
 **Phase:** 1 — Unpriv CSR and Instruction Scaffolding
 **Blocks:** 1.1, 1.2, 1.3 + test-infra

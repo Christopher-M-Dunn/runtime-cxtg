@@ -29,7 +29,7 @@ For QEMU-specific guidance (build system, code style, CSR patterns, extension re
 
 This project follows a phased implementation plan defined in `docs/CXTG_QEMU_Action_Plan.md`.
 
-**At the start of any session:** read `docs/progress.md` to see which phase is active, which blocks are complete, history of every major acttion committed, and what is deferred in `docs/todo.md`.
+**At the start of any session:** read `docs/progress.md` to see which phase is active, which blocks are complete, history of every major action committed, and what is deferred, pending, open, or active in `docs/ADR_log.md`.
 
 ## Git Commits
 
@@ -54,13 +54,19 @@ When a phase is complete:
 2. In `runtime-cxtg/cxtg-dev`: commit the updated `qemu-cxtg` submodule pointer and any documentation updates.
 3. `runtime-cxtg`: merge `cxtg-dev` → `cxtg`; apply the same tag.
 
-## Starting a New Phase
+## Starting a New Block
 
-1. Read `docs/CXTG_QEMU_Action_Plan.md` — the relevant phase section for block objectives, files, and definitions of done.
-2. Read `docs/todo.md` — resolve or confirm any open items not explicitly labelled for a later phase.
-3. Use `superpowers:brainstorming` to work through each block, nail down all specifics, and revisit open todos.
-4. Use `superpowers:writing-plans` to produce the phase implementation plan before touching any code.
-5. Mark `implementation plan written` in `docs/progress.md` for the phase.
+Each block gets its own spec/plan (a shared per-phase plan was tried and dropped — too easy for later changes to invalidate earlier parts while execution kept following it verbatim).
+
+1. Read `docs/CXTG_QEMU_Action_Plan.md` — this block's objectives, files, and definitions of done.
+2. Read `docs/ADR_log.md` — for every entry whose Block(s) is this block, its parent phase, `?`, or `all`, assess before proceeding: `deferred` → resolve to `active`/`pending` or defer further; `pending` → abort, incorporate into the Action Plan first; `active` (Note) → incorporate into this block's spec (and later plan) before retiring; `?`/`all` → assess relevance, then apply the above.
+3. Use `superpowers:brainstorming` to work through this block and revisit open ADRs.
+4. Use `superpowers:writing-plans` to produce this block's implementation plan before touching any code.
+5. Mark `spec/plan written` in `docs/progress.md` under this block.
+
+## Mid-Block ADR Changes
+
+A `pending` ADR surfacing after a block has started: incorporate it into the spec (and the plan too, if already written), reference it there, and set its status to `in progress`.
 
 ## Documentation Files
 
@@ -69,7 +75,7 @@ When a phase is complete:
 The master implementation plan. Every block contains: objective, prerequisites, repos/files, implementation notes, tests, definition of done, and merge action.
 
 - **Read:** at the start of every phase and every block
-- **Update:** when a block scope changes due to audit findings; when a todo item resolves a planning decision that affects block notes
+- **Update:** when a block scope changes due to audit findings; when an ADR resolves a planning decision that affects block notes
 - **Navigate:** each phase and block is a named heading — jump directly to the relevant section
 
 ---
@@ -83,7 +89,7 @@ Live block-by-block checklist. The primary status document.
 
 **Checklist updates:**
 - Check off block items as they complete
-- Mark `implementation plan written` at the top of a phase when the plan is done
+- Mark `spec/plan written` under a block when its plan is done
 
 ---
 
@@ -105,18 +111,16 @@ Each `## v0.phaseN` entry must contain enough information to answer "what exactl
 
 2. **`runtime-cxtg` changes** — same format, for any docs or source files changed in this repo. Omit if nothing changed beyond the submodule pointer.
 
-3. **New deferred items** — any new entries added to `docs/todo.md` during this phase, nested under `- created/modified: docs/todo.md`, one line each in the same format as the existing deferred items in `## v0.phase0`.
-
-4. **Bugs** — any bugs opened or closed during the phase, one line each referencing the entry in `docs/bugs.md`.
+3. **New or changed ADR entries** — any Decision, Bug, or Note in `docs/ADR_log.md` created or transitioned during this phase, one line each citing its ID (`ADR-NNN`) and new status.
 
 ---
 
-### `docs/bugs.md`
+### `docs/ADR_log.md`
 
-Known bugs and their status.
+Single index of every Decision, Bug, and Note for the project — one global sequential ID across all three categories, each with its own status lifecycle. Every entry has a detail page at `docs/adr/NNN.md`; the format and status vocabulary for both are in `docs/adr/_schema.md`.
 
-- **Read:** before starting a block that touches affected code
-- **Update:** add a bug when found; mark resolved when fixed
+- **Read:** at the start of any session, to see what is deferred/pending/open; before starting a new block, to check for any `deferred`/`pending`/`?`-block(s) entries affecting it or a parent phase (see "Starting a New Block" above)
+- **Update:** add an entry for any new decision, bug, or note as it's identified; transition an entry's status (and its `docs/adr/NNN.md` Transitions table) as work on it progresses; run the archival sweep immediately after a `feat/<block>` branch merges into `cxtg-dev`
 
 ---
 

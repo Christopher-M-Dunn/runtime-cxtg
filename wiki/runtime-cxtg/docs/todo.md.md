@@ -6,4 +6,4 @@ format: D
 
 # docs/todo.md
 
-Deferred implementation decisions regarding *how* the project implements the spec's requirements, as distinct from *what* the spec requires (tracked in `Composable-Extensions.md`'s Discussion section). Each entry is a decision that was explicitly deferred to a later block or is awaiting external input (spec owners, TG clarification). See the file for current TODOs.
+Superseded stub — all deferred decisions, bugs, and process notes moved to [`docs/ADR_log.md`](ADR_log.md.md).

@@ -29,7 +29,6 @@ Live format examples (read schema.md first, use these as references):
 | [docs/20260810_CXTG_status_message.md](runtime-cxtg/docs/20260810_CXTG_status_message.md.md) | Jan Gray's TG status message; per-section done-ness assessment of the draft spec |
 | [docs/ADR_log.md](runtime-cxtg/docs/ADR_log.md.md) | Single index of every Decision, Bug, and Note — replaces `todo.md`/`bugs.md`/`Implementation_Choices.md` |
 | [docs/basis_spec_comparison.md](runtime-cxtg/docs/basis_spec_comparison.md.md) | Historical comparison vs. the SoftCPU SIG basis spec; non-normative |
-| [docs/bugs.md](runtime-cxtg/docs/bugs.md.md) | Known bugs and status |
 | [docs/CHANGELOG.md](runtime-cxtg/docs/CHANGELOG.md.md) | Prepend-only change log, per phase |
 | [docs/CHARTER.md](runtime-cxtg/docs/CHARTER.md.md) | CX TG charter (draft): objectives, acceptance criteria, exclusions |
 | [docs/Composable-Extensions.md](runtime-cxtg/docs/Composable-Extensions.md.md) | CX requirements (symlink → qemu-cxtg) |

@@ -1,7 +1,7 @@
 # CXTG QEMU Implementation — Progress
 
 See [`CXTG_QEMU_Action_Plan.md`](CXTG_QEMU_Action_Plan.md) for full block specs.
-See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses and deferred implementation decisions | [`CHANGELOG.md`](CHANGELOG.md) for the change log (previously referred to as release notes).
+See [`ADR_log.md`](ADR_log.md) for known bugs, deferred implementation decisions, and process notes | [`CHANGELOG.md`](CHANGELOG.md) for the change log (previously referred to as release notes).
 
 ---
 
@@ -32,11 +32,12 @@ See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses
 
 ## Phase 2 — Direct Mode Semantics
 
-- [ ] implementation plan written
-
 - [ ] **2.1** — scxstp CSR stub
+  - [ ] spec/plan written
 - [ ] **2.2** — scxstp.mode=0 (Disabled) enforcement
+  - [ ] spec/plan written
 - [ ] **2.3** — Direct mode: cxsel=0 builtin / invalid trap / unregistered trap
+  - [ ] spec/plan written
 
 **Phase 2 milestone:** merge `cxtg-dev` → `cxtg`, tag `v0.phase2`
 
@@ -44,13 +45,14 @@ See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses
 
 ## Phase 3 — Context Status (scxxs0-3)
 
-- [ ] implementation plan written
-
 - [ ] **3.1** — scxxs0-3 CSR stubs
+  - [ ] spec/plan written
   - [ ] `docs/flowchart_xs_states.svg` committed
 - [ ] **3.2** — scxxs Off-state enforcement
+  - [ ] spec/plan written
   - [ ] `docs/flowchart_os_context_switch.svg` committed
 - [ ] **3.3** — scxxs dirty tracking
+  - [ ] spec/plan written
 
 **Phase 3 milestone:** merge `cxtg-dev` → `cxtg`, tag `v0.phase3`
 
@@ -58,11 +60,12 @@ See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses
 
 ## Phase 4 — CX State Access: First CX and cxsidx/cxsdata
 
-- [ ] implementation plan written
-
 - [ ] **4.1** — Hardcode first CX (mulacc) in QEMU
+  - [ ] spec/plan written
 - [ ] **4.2** — cxsidx + cxsdata wired to CX state
+  - [ ] spec/plan written
 - [ ] **4.3** — cxdiscard and scxdiscard
+  - [ ] spec/plan written
 
 **Phase 4 milestone:** merge `cxtg-dev` → `cxtg`, tag `v0.phase4`
 
@@ -70,14 +73,17 @@ See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses
 
 ## Phase 5 — Runtime, API, and Device Tree
 
-- [ ] implementation plan written
-
 - [ ] **5.1** — New Zcx runtime API stubs
+  - [ ] spec/plan written
 - [ ] **5.2** — End-to-end smoke test program
+  - [ ] spec/plan written
 - [ ] **5.3** — Device tree CX registration
+  - [ ] spec/plan written
 - [ ] **5.4** — Runtime cx_open DT query (UUID → CXID)
+  - [ ] spec/plan written
   - [ ] `docs/flowchart_cx_open.svg` committed
 - [ ] **5.5** — YAML-driven DT and CX auto-registration *(LOW PRIORITY / NICE-TO-HAVE)*
+  - [ ] spec/plan written
 
 **Phase 5 milestone:** merge `cxtg-dev` → `cxtg`, tag `v0.phase5`
 
@@ -85,13 +91,15 @@ See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses
 
 ## Phase 6 — ZcxMulti: Per-context Status and Indirect Mode
 
-- [ ] implementation plan written
-
 - [ ] **6.1** — scxNxs0/1 CSR stubs (N=1–63)
+  - [ ] spec/plan written
 - [ ] **6.2** — Per-context dirty tracking via scxNxs
+  - [ ] spec/plan written
 - [ ] **6.3** — Indirect mode (scxstp.mode=2)
+  - [ ] spec/plan written
   - [ ] `docs/flowchart_indirect_mode.svg` committed
 - [ ] **6.4** — Sscsrind for scxNxs
+  - [ ] spec/plan written
 
 **Phase 6 milestone:** merge `cxtg-dev` → `cxtg`, tag `v0.phase6`
 
@@ -99,10 +107,10 @@ See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses
 
 ## Phase 7 — Stateen Integration
 
-- [ ] implementation plan written
-
 - [ ] **7.1** — mstateen0.C bit
+  - [ ] spec/plan written
 - [ ] **7.2** — sstateen0.C and hstateen0.C
+  - [ ] spec/plan written
 
 **Phase 7 milestone:** merge `cxtg-dev` → `cxtg`, tag `v0.phase7`
 
@@ -110,10 +118,10 @@ See [`bugs.md`](bugs.md) for known bugs | [`todo.md`](todo.md) for TBD addresses
 
 ## Phase 8 — Build Matrix and Full Integration
 
-- [ ] implementation plan written
-
 - [ ] **8.1** — Feature flag build matrix
+  - [ ] spec/plan written
 - [ ] **8.2** — Full integration test suite
+  - [ ] spec/plan written
 
 **Phase 8 milestone:** merge `cxtg-dev` → `cxtg`, tag `v1.0`
 

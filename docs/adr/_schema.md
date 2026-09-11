@@ -30,7 +30,7 @@ Action-Plan-level Decisions.
 ```
 # ADR-NNN: <Title>
 
-**Phase(s):** <phase/block id(s), `all`, or `?`>
+**Block(s):** <phase/block id(s), `all`, or `?`>
 **Parent(s):** [ADR-XXX](XXX.md), ... (omit if none)
 **Children:** [ADR-YYY](YYY.md), ... (omit if none)
 

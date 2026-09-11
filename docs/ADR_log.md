@@ -31,7 +31,7 @@ future sweeps stop proposing it.
 
 ## Decisions
 
-| ID | Status | Phase(s) | Title |
+| ID | Status | Block(s) | Title |
 |---|---|---|---|
 | [ADR-001](adr/001.md) | incorporated | all | Build flag architecture — `ext_zcx` / `ext_zcxmulti` |
 | [ADR-002](adr/002.md) | deferred | all | CSR addresses, instruction encodings, and extension names |
@@ -41,12 +41,12 @@ future sweeps stop proposing it.
 
 ## Bugs
 
-| ID | Status | Phase(s) | Title |
+| ID | Status | Block(s) | Title |
 |---|---|---|---|
 
 ## Notes
 
-| ID | Status | Phase(s) | Title |
+| ID | Status | Block(s) | Title |
 |---|---|---|---|
 | [ADR-003](adr/003.md) | active | all | Mark provisional CSR/encoding values wherever used in code |
 | [ADR-006](adr/006.md) | active | all | Comment the `cxsel`-vs-`~0` readback shortcut wherever used |
@@ -54,8 +54,12 @@ future sweeps stop proposing it.
 | [ADR-009](adr/009.md) | active | all | Sync `CXTG_QEMU_Action_Plan.md` with recent `todo.md` / `Composable-Extensions.md` edits |
 | [ADR-010](adr/010.md) | retired | all | Incorporate `Requirements.md` into `Composable-Extensions.md`'s `## Discussion` |
 | [ADR-011](adr/011.md) | active | all | Sync `README.md` |
+| [ADR-012](adr/012.md) | retired | all | Documentation prep for Action Plan update — pivot to the ADR system |
+| [ADR-013](adr/013.md) | active | all | Rework `Composable-Extensions.md`'s Discussion section for conciseness and ADR references |
+| [ADR-014](adr/014.md) | active | all | Wiki lint procedure |
+| [ADR-015](adr/015.md) | active | all | Phase/block-level gate-check flow is undocumented beyond one sentence |
 
 ## Archive
 
-| ID | Status | Phase(s) | Title |
+| ID | Status | Block(s) | Title |
 |---|---|---|---|
